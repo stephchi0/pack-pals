@@ -1,4 +1,4 @@
-package com.example.packpals.pages.expenses
+package com.example.packpals.models
 
 data class Expense(
     val id: Int,

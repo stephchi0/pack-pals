@@ -1,15 +1,18 @@
-package com.example.packpals.pages.expenses
+package com.example.packpals.activities
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.example.packpals.R
+import com.example.packpals.viewmodels.ExpensesPageViewModel
 
 class ExpensesPageActivity : AppCompatActivity() {
-    private val viewModel: ExpensePageViewModel by viewModels()
+    private val viewModel: ExpensesPageViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,6 +33,12 @@ class ExpensesPageActivity : AppCompatActivity() {
 
                 linearLayout.addView(expenseView)
             }
+        }
+
+        val addNewExpenseButton = findViewById<Button>(R.id.addNewExpenseButton)
+        addNewExpenseButton.setOnClickListener {
+            val intent = Intent(this, NewExpensePageActivity::class.java)
+            startActivity(intent)
         }
     }
 }
