@@ -7,3 +7,7 @@
 |2       |2      |2    |2       |3    |2    |06/01/2023|Worked on project proposal document and mockups|
 |        |5      |     |        |4    |     |06/02/2023|Worked on mockups and finalized project proposal document|
 |        |1      |     |        |     |     |06/05/2023|Created new android studio project|
+|2       |2      |2    |2       |2    |2    |06/13/2023|Worked on deliverable 2|
+|        |2      |     |        |     |     |06/20/2023|Reorganized and cleaned up project files|
+|        |5      |     |        |     |     |06/21/2023|Created expenses page activity UI|
+|        |4      |     |        |     |     |06/22/2023|Created new expense page activity UI|
