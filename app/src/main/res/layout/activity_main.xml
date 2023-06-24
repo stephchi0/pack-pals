@@ -9,7 +9,7 @@
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="52dp"
         android:layout_marginStart="115dp"
         android:layout_marginTop="262dp"
@@ -26,7 +26,7 @@
 
     <Button
         android:id="@+id/start_button"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="115dp"
         android:layout_marginEnd="115dp"

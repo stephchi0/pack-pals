@@ -1,4 +1,4 @@
-package com.example.packpals.activities
+package com.example.packpals.views.login
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity

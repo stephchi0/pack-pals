@@ -27,7 +27,10 @@
             android:name=".views.expenses.ExpensesPageActivity"
             android:exported="false" />
         <activity
-            android:name=".activities.LoginPageActivity"
+            android:name=".views.login.LoginPageActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ItineraryPageActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"

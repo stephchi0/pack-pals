@@ -41,7 +41,9 @@ class NewExpenseFragment : Fragment() {
                     // style selected paying pals differently
                 }
                 addPalView.setOnClickListener {
-                    viewModel.addRemovePayingPal(pal.id)
+                    if (pal.id != null) {
+                        viewModel.addRemovePayingPal(pal.id)
+                    }
                 }
 
                 linearLayout.addView(addPalView)
