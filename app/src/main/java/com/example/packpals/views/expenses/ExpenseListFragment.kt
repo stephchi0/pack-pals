@@ -9,6 +9,7 @@ import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.example.packpals.R
 import com.example.packpals.viewmodels.ExpensesPageViewModel
 import java.text.SimpleDateFormat
@@ -51,9 +52,7 @@ class ExpenseListFragment : Fragment() {
 
         val addNewExpenseButton = requireView().findViewById<Button>(R.id.addNewExpenseButton)
         addNewExpenseButton.setOnClickListener {
-            val transaction = parentFragmentManager.beginTransaction()
-            transaction.replace(R.id.expensesFragmentContainerView, NewExpenseFragment())
-            transaction.commit()
+            findNavController().navigate(R.id.action_expensesFragment_to_newExpenseFragment)
         }
     }
 

@@ -12,5 +12,18 @@
     <fragment
         android:id="@+id/expensesFragment"
         android:name="com.example.packpals.views.expenses.ExpenseListFragment"
-        android:label="@string/Expenses" />
+        android:label="@string/Expenses" >
+        <action
+            android:id="@+id/action_expensesFragment_to_newExpenseFragment"
+            app:destination="@id/newExpenseFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/newExpenseFragment"
+        android:name="com.example.packpals.views.expenses.NewExpenseFragment"
+        android:label="fragment_new_expense"
+        tools:layout="@layout/fragment_new_expense" >
+        <action
+            android:id="@+id/action_newExpenseFragment_to_expensesFragment"
+            app:destination="@id/expensesFragment" />
+    </fragment>
 </navigation>
