@@ -1,121 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/light_blue"
-    tools:context=".activities.LoginPageActivity">
+    tools:context=".views.login.LoginPageActivity">
 
-    <Button
-        android:id="@+id/forgotPassword"
-        android:layout_width="166dp"
-        android:layout_height="43dp"
-        android:layout_marginStart="124dp"
-        android:layout_marginTop="2dp"
-        android:layout_marginEnd="121dp"
-        android:layout_marginBottom="120dp"
-        android:backgroundTint="#9AA2B1"
-        android:text="Forgot Password"
-        android:textColor="#FFFFFF"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/login" />
-
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="0dp"
-        android:layout_height="52dp"
-        android:layout_marginStart="38dp"
-        android:layout_marginTop="30dp"
-        android:fontFamily="sans-serif"
-        android:text="Password"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextEmailAddress" />
-
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar2"
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/loginFragmentContainerView"
+        android:name="com.example.packpals.views.login.LoginFragment"
         android:layout_width="match_parent"
-        android:layout_height="73dp"
-        android:background="@color/dark_blue"
-        android:minHeight="?attr/actionBarSize"
-        android:theme="?attr/actionBarTheme"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:title="Pack Pals"
-        app:titleTextAppearance="@style/TextAppearance.AppCompat.Large"
-        app:titleTextColor="@color/white" />
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="0dp"
-        android:layout_height="52dp"
-        android:layout_marginStart="38dp"
-        android:layout_marginTop="87dp"
-        android:fontFamily="sans-serif"
-        android:text="Username/Email"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar2" />
-
-    <EditText
-        android:id="@+id/editTextTextPassword"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="38dp"
-        android:ems="10"
-        android:inputType="textPassword"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3" />
-
-    <EditText
-        android:id="@+id/editTextTextEmailAddress"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="38dp"
-        android:ems="10"
-        android:inputType="textEmailAddress"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
-
-    <Button
-        android:id="@+id/login"
-        android:layout_width="166dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="124dp"
-        android:layout_marginEnd="121dp"
-        android:layout_marginBottom="170dp"
-        android:backgroundTint="#8B9CBC"
-        android:text="Login"
-        android:textColor="#FFFFFF"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="38dp"
-        android:text="Don't have an account?"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPassword" />
-
-    <TextView
-        android:id="@+id/textView5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="9dp"
-        android:text="Sign up now."
-        android:textColor="#2196F3"
-        app:layout_constraintStart_toEndOf="@+id/textView4"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPassword" />
+        android:layout_height="match_parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

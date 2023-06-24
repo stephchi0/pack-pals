@@ -17,10 +17,10 @@ class ExpensesPageViewModel : ViewModel() {
 
     val palsList: MutableLiveData<List<Pal>> = MutableLiveData(
         listOf(
-            Pal("id1", "username123", "stooge", ""),
-            Pal("id2", "mooge246", "mooge", ""),
-            Pal("id3", "test998", "looge", ""),
-            Pal("id4", "bruh999", "jooge", "")
+            Pal("id1", "stooge"),
+            Pal("id2", "mooge"),
+            Pal("id3", "looge"),
+            Pal("id4", "jooge")
         )
     )
 
