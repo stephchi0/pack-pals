@@ -13,10 +13,7 @@
         android:theme="@style/Theme.PackPals"
         tools:targetApi="31">
         <activity
-            android:name=".activities.NewExpensePageActivity"
-            android:exported="false" />
-        <activity
-            android:name=".activities.ExpensesPageActivity"
+            android:name=".views.expenses.ExpensesPageActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"

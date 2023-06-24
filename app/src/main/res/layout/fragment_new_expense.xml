@@ -2,10 +2,11 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/newExpenseFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/light_blue"
-    tools:context=".activities.NewExpensePageActivity">
+    tools:context=".views.expenses.NewExpenseFragment">
 
     <Button
         android:id="@+id/createExpenseButton"
@@ -36,7 +37,7 @@
     <EditText
         android:id="@+id/expenseNameInput"
         android:layout_width="340dp"
-        android:layout_height="32dp"
+        android:layout_height="40dp"
         android:layout_marginTop="4dp"
         android:ems="10"
         android:inputType="text"
@@ -48,7 +49,7 @@
     <EditText
         android:id="@+id/totalCostInput"
         android:layout_width="340dp"
-        android:layout_height="32dp"
+        android:layout_height="40dp"
         android:layout_marginTop="4dp"
         android:ems="10"
         android:inputType="text"
@@ -95,7 +96,7 @@
 
     <ScrollView
         android:layout_width="362dp"
-        android:layout_height="349dp"
+        android:layout_height="330dp"
         app:layout_constraintBottom_toTopOf="@+id/createExpenseButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.507"

@@ -11,3 +11,4 @@
 |        |2      |     |        |     |     |06/20/2023|Reorganized and cleaned up project files|
 |        |5      |     |        |     |     |06/21/2023|Created expenses page activity UI|
 |        |4      |     |        |     |     |06/22/2023|Created new expense page activity UI|
+|        |7      |     |        |     |     |06/23/2023|Connected firebase, added expense page functionality, refactored code|
