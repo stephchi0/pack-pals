@@ -15,11 +15,5 @@ class LoginPageActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.login_page)
 
-        val addLoginButton = findViewById<Button>(R.id.login)
-
-        addLoginButton.setOnClickListener {
-            val intent = Intent(this, NavigationDrawerViewActivity::class.java)
-            startActivity(intent)
-        }
     }
 }

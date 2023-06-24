@@ -10,8 +10,7 @@
         android:label="@string/Map"
         tools:layout="@layout/fragment_maps" />
     <fragment
-        android:id="@+id/expensesActivity"
-        android:name="com.example.packpals.views.expenses.NewExpenseFragment"
-        android:label="@string/Expenses"
-        tools:layout="@layout/fragment_new_expense" />
+        android:id="@+id/expensesFragment"
+        android:name="com.example.packpals.views.expenses.ExpenseListFragment"
+        android:label="@string/Expenses" />
 </navigation>

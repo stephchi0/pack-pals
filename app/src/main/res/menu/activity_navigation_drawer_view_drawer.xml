@@ -8,7 +8,7 @@
             android:id="@+id/mapFragment"
             android:title="@string/Map" />
         <item
-            android:id="@+id/expensesActivity"
+            android:id="@+id/expensesFragment"
             android:title="@string/Expenses" />
     </group>
 </menu>
