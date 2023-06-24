@@ -14,3 +14,4 @@
 |        |7      |     |        |     |     |06/23/2023|Connected firebase, added expense page functionality, refactored code|
 |        |4      |     |        |     |     |06/24/2023|Created register page, added login and register authentication functionality|
 |        |       |     |7       |     |     |06/24/2023|Created profile page and profile edit page UI|
+|        |       |     |        |     |5    |06/24/2023|Worked on Maps, Hamburger Navigation and refactored some code|
