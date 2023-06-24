@@ -10,5 +10,8 @@
         <item
             android:id="@+id/expensesFragment"
             android:title="@string/Expenses" />
+        <item
+            android:id="@+id/profilePageFragment"
+            android:title="@string/Profile" />
     </group>
 </menu>

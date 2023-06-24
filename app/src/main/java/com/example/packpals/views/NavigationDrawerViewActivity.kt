@@ -1,4 +1,4 @@
-package com.example.packpals.activities
+package com.example.packpals.views
 
 import android.os.Bundle
 import android.view.Menu

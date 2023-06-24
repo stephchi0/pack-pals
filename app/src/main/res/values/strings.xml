@@ -9,6 +9,7 @@
     <string name="Expenses">Expenses</string>
     <string name="PackingList">Packing List</string>
     <string name="GroupChat">Group Chat</string>
+    <string name="Profile">Profile</string>
     <string name="title_activity_navigation_drawer_view">NavigationDrawerView</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>

@@ -1,4 +1,4 @@
-package com.example.packpals.activities
+package com.example.packpals.views.map
 
 import androidx.fragment.app.Fragment
 

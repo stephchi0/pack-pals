@@ -1,8 +1,9 @@
-package com.example.packpals
+package com.example.packpals.views.itinerary
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.packpals.R
 import com.example.packpals.models.Itinerary_Item
 import com.example.packpals.viewmodels.ItineraryItemAdapter
 import kotlinx.android.synthetic.main.activity_itinerary_page.rvItineraryItems

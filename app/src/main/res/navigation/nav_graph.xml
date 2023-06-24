@@ -6,7 +6,7 @@
     app:startDestination="@id/mapFragment">
     <fragment
         android:id="@+id/mapFragment"
-        android:name="com.example.packpals.activities.MapsFragment"
+        android:name="com.example.packpals.views.map.MapsFragment"
         android:label="@string/Map"
         tools:layout="@layout/fragment_maps" />
     <fragment
@@ -20,10 +20,28 @@
     <fragment
         android:id="@+id/newExpenseFragment"
         android:name="com.example.packpals.views.expenses.NewExpenseFragment"
-        android:label="fragment_new_expense"
+        android:label="New Expense"
         tools:layout="@layout/fragment_new_expense" >
         <action
             android:id="@+id/action_newExpenseFragment_to_expensesFragment"
             app:destination="@id/expensesFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/profilePageFragment"
+        android:name="com.example.packpals.views.profile.ProfilePageFragment"
+        android:label="My Profile"
+        tools:layout="@layout/fragment_profile_page" >
+        <action
+            android:id="@+id/action_profilePageFragment_to_profileEditFragment"
+            app:destination="@id/profileEditFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/profileEditFragment"
+        android:name="com.example.packpals.views.profile.ProfileEditFragment"
+        android:label="Edit Profile"
+        tools:layout="@layout/fragment_profile_edit" >
+        <action
+            android:id="@+id/action_profileEditFragment_to_profilePageFragment"
+            app:destination="@id/profilePageFragment" />
     </fragment>
 </navigation>

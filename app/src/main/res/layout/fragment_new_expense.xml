@@ -21,19 +21,6 @@
         app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="73dp"
-        android:background="@color/dark_blue"
-        android:minHeight="?attr/actionBarSize"
-        android:theme="?attr/actionBarTheme"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:title="New Expense"
-        app:titleTextColor="@color/white" />
-
     <EditText
         android:id="@+id/expenseNameInput"
         android:layout_width="340dp"
@@ -62,13 +49,13 @@
         android:id="@+id/expenseNameLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="32dp"
         android:text="Expense name"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.089"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/totalCostLabel"
@@ -95,8 +82,8 @@
         app:layout_constraintTop_toBottomOf="@+id/totalCostInput" />
 
     <ScrollView
-        android:layout_width="362dp"
-        android:layout_height="330dp"
+        android:layout_width="361dp"
+        android:layout_height="367dp"
         app:layout_constraintBottom_toTopOf="@+id/createExpenseButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.507"
