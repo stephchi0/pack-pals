@@ -1,7 +1,9 @@
-package com.example.packpals.activities
+package com.example.packpals.views.login
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Button
+import android.widget.EditText
 import androidx.activity.viewModels
 import com.example.packpals.R
 import com.example.packpals.viewmodels.LoginPageViewModel
