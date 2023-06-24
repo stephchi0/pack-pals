@@ -1,4 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <style name="Theme.PackPals" parent="Theme.AppCompat.Light.NoActionBar" />
+
+    <style name="Theme.PackPals.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="Theme.PackPals.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="Theme.PackPals.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>

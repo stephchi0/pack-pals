@@ -9,7 +9,6 @@ import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.activity.viewModels
 import com.example.packpals.R
-import com.example.packpals.activities.ExpensesPageActivity
 import com.example.packpals.activities.LoginPageActivity
 import com.example.packpals.viewmodels.ExpensesPageViewModel
 
@@ -26,6 +25,4 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
     }
-
-
 }

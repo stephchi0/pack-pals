@@ -1,3 +1,22 @@
 <resources>
     <string name="app_name">Pack Pals</string>
+    <string name="nav_header_title">Navigation</string>
+    <string name="Map">Map</string>
+    <string name="Itinerary">Itinerary</string>
+    <string name="Photos">Photos</string>
+    <string name="Pals">Pals</string>
+    <string name="Playlist">Playlist</string>
+    <string name="Expenses">Expenses</string>
+    <string name="PackingList">Packing List</string>
+    <string name="GroupChat">Group Chat</string>
+    <string name="title_activity_navigation_drawer_view">NavigationDrawerView</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="menu_home">Home</string>
+    <string name="menu_gallery">Gallery</string>
+    <string name="menu_slideshow">Slideshow</string>
+    <string name="nav_header_desc">Navigation Header</string>
+    <string name="nav_header_subtitle">Pack it up</string>
 </resources>
