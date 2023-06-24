@@ -16,6 +16,9 @@
             android:name=".views.expenses.ExpensesPageActivity"
             android:exported="false" />
         <activity
+            android:name=".activities.LoginPageActivity"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
