@@ -10,6 +10,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.example.packpals.R
 import com.example.packpals.viewmodels.ExpensesPageViewModel
+import java.text.SimpleDateFormat
 
 class ExpensesPageActivity : AppCompatActivity() {
     private val viewModel: ExpensesPageViewModel by viewModels()
@@ -24,11 +25,11 @@ class ExpensesPageActivity : AppCompatActivity() {
                 val expenseView = LayoutInflater.from(this).inflate(R.layout.view_expense, linearLayout, false)
 
                 expenseView.findViewById<TextView>(R.id.expenseTitle).text = expense.title
-                expenseView.findViewById<TextView>(R.id.expenseDate).text = expense.date
-                expenseView.findViewById<TextView>(R.id.expenseAmountOwed).text = String.format("You owe $%.2f", expense.amountOwed)
+                expenseView.findViewById<TextView>(R.id.expenseDate).text = SimpleDateFormat("MM/dd/yyyy").format(expense.date)
+                expenseView.findViewById<TextView>(R.id.expenseAmountOwed).text = String.format("You owe $%.2f", expense.amountPaid)
 
                 expenseView.setOnClickListener {
-                    println(expense.title)
+                    // fill in later with expense details
                 }
 
                 linearLayout.addView(expenseView)
