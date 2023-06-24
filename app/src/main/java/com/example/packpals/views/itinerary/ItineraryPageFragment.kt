@@ -5,13 +5,15 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.packpals.R
 import com.example.packpals.models.Itinerary_Item
-import com.example.packpals.viewmodels.ItineraryItemAdapter
+import com.example.packpals.viewmodels.ItineraryPageViewModel
 
 class ItineraryPageFragment : Fragment() {
+    private val viewModel: ItineraryPageViewModel by viewModels()
     private lateinit var itineraryItemAdapter: ItineraryItemAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,15 +31,12 @@ class ItineraryPageFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        itineraryItemAdapter = ItineraryItemAdapter(mutableListOf(
-            Itinerary_Item("Fenugs Chasm", " May 1st, 2023 12:30pm-2pm", "Forecast: Rainy, 19 degrees Celsius"),
-            Itinerary_Item("Anzac Hill of Chi", "May 2nd, 2023 2pm-5pm", "Forecast: Partly Cloudy, 19 degrees Celsius"),
-            Itinerary_Item("Mount Spooder", "May 3rd, 2023 2pm-5pm", "Forecast: Sunny, 19 degrees Celsius")
-        ))
-
-        val rvItineraryItems = requireView().findViewById<RecyclerView>(R.id.rvItineraryItems)
-        rvItineraryItems.adapter = itineraryItemAdapter
-        rvItineraryItems.layoutManager = LinearLayoutManager(context)
+        viewModel.itineraryItemsList.observe(viewLifecycleOwner) { itineraryItems ->
+            itineraryItemAdapter = ItineraryItemAdapter(itineraryItems)
+            val rvItineraryItems = requireView().findViewById<RecyclerView>(R.id.rvItineraryItems)
+            rvItineraryItems.adapter = itineraryItemAdapter
+            rvItineraryItems.layoutManager = LinearLayoutManager(context)
+        }
     }
 
     companion object {
