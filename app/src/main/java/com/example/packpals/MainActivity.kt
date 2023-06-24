@@ -4,15 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
-import android.widget.LinearLayout
-import android.widget.TextView
-import androidx.activity.viewModels
-import androidx.activity.viewModels
-import com.example.packpals.R
-import com.example.packpals.activities.LoginPageActivity
-import com.example.packpals.activities.ProfilePageActivity
-import com.example.packpals.viewmodels.ExpensesPageViewModel
-
+import com.example.packpals.views.login.LoginPageActivity
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,8 +17,6 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, LoginPageActivity::class.java)
             startActivity(intent)
         }
-        val intent = Intent(this, ProfilePageActivity::class.java)
-        startActivity(intent)
     }
 
 
