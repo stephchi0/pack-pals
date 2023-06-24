@@ -12,3 +12,4 @@
 |        |5      |     |        |     |     |06/21/2023|Created expenses page activity UI|
 |        |4      |     |        |     |     |06/22/2023|Created new expense page activity UI|
 |        |7      |     |        |     |     |06/23/2023|Connected firebase, added expense page functionality, refactored code|
+|        |       |     |7       |     |     |06/24/2023|Created profile page and profile edit page UI|
