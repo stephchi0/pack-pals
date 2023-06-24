@@ -11,10 +11,8 @@ import android.widget.EditText
 import android.widget.TextView
 import androidx.fragment.app.viewModels
 import com.example.packpals.R
-import com.example.packpals.activities.MapsFragment
-import com.example.packpals.activities.NavigationDrawerViewActivity
+import com.example.packpals.views.NavigationDrawerViewActivity
 import com.example.packpals.viewmodels.LoginPageViewModel
-import com.example.packpals.views.expenses.ExpenseListFragment
 
 class LoginFragment : Fragment() {
     private val viewModel: LoginPageViewModel by viewModels()
@@ -58,7 +56,7 @@ class LoginFragment : Fragment() {
 
     companion object {
         @JvmStatic
-        fun newInstance(param1: String, param2: String) =
+        fun newInstance() =
             LoginFragment().apply {
 
             }

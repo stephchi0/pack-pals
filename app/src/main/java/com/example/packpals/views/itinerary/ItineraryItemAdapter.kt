@@ -1,4 +1,4 @@
-package com.example.packpals.viewmodels
+package com.example.packpals.views.itinerary
 
 import android.view.LayoutInflater
 import android.view.View
@@ -12,7 +12,7 @@ import kotlinx.android.synthetic.main.view_itenerary_item.view.tvforecast
 import kotlinx.android.synthetic.main.view_itenerary_item.view.tvlocation
 
 class ItineraryItemAdapter (
-    private val items: MutableList<Itinerary_Item>
+    private val items: List<Itinerary_Item>
     ) : RecyclerView.Adapter<ItineraryItemAdapter.ItemViewHolder>(){
 
     class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
@@ -26,13 +26,6 @@ class ItineraryItemAdapter (
             )
         )
     }
-
-    fun addItem(item:Itinerary_Item){
-        items.add(item)
-        notifyItemInserted(items.size - 1)
-    }
-
-//    TODO: remove item
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
         val curItem = items[position]
