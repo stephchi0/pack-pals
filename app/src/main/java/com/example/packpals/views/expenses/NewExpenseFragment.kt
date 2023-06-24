@@ -9,6 +9,7 @@ import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.example.packpals.R
 import com.example.packpals.viewmodels.ExpensesPageViewModel
 import java.util.Date
@@ -57,9 +58,7 @@ class NewExpenseFragment : Fragment() {
                 viewModel.createExpense(txtExpenseName, Date(), txtTotalCost)
             }
 
-            val transaction = parentFragmentManager.beginTransaction()
-            transaction.replace(R.id.expensesFragmentContainerView, ExpenseListFragment())
-            transaction.commit()
+            findNavController().navigate(R.id.action_newExpenseFragment_to_expensesFragment)
         }
     }
 

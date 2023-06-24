@@ -1,5 +1,6 @@
 package com.example.packpals.views.login
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -10,6 +11,8 @@ import android.widget.EditText
 import android.widget.TextView
 import androidx.fragment.app.viewModels
 import com.example.packpals.R
+import com.example.packpals.activities.MapsFragment
+import com.example.packpals.activities.NavigationDrawerViewActivity
 import com.example.packpals.viewmodels.LoginPageViewModel
 import com.example.packpals.views.expenses.ExpenseListFragment
 
@@ -47,9 +50,8 @@ class LoginFragment : Fragment() {
 
         viewModel.loginSuccess.observe(viewLifecycleOwner) {
             if (it == true) {
-                val transaction = parentFragmentManager.beginTransaction()
-                transaction.replace(R.id.loginFragmentContainerView, ExpenseListFragment()) // replace this with trips page when it's created
-                transaction.commit()
+                val intent = Intent(requireActivity(), NavigationDrawerViewActivity::class.java)
+                startActivity(intent)
             }
         }
     }
