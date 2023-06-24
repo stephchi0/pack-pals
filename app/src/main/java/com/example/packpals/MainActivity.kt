@@ -13,15 +13,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_itinerary_page)
-
-        itineraryItemAdapter = ItineraryItemAdapter(mutableListOf(
-            Itinerary_Item("Standley Chasm", " May 1st, 2023 12:30pm-2pm", "Forecast: Rainy, 19 degrees Celsius"),
-            Itinerary_Item("Anzac Hill", "May 2nd, 2023 2pm-5pm", "Forecast: Partly Cloudy, 19 degrees Celsius"),
-            Itinerary_Item("Mount Spooder", "May 3rd, 2023 2pm-5pm", "Forecast: Sunny, 19 degrees Celsius")
-        ))
-
-        rvItineraryItems.adapter = itineraryItemAdapter
-        rvItineraryItems.layoutManager = LinearLayoutManager(this)
+        setContentView(R.layout.activity_main)
     }
 }

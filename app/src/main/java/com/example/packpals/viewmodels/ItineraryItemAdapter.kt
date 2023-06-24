@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.packpals.R
 import com.example.packpals.models.Itinerary_Item
+import kotlinx.android.synthetic.main.view_itenerary_item.view.image
 import kotlinx.android.synthetic.main.view_itenerary_item.view.tvdate
 import kotlinx.android.synthetic.main.view_itenerary_item.view.tvforecast
 import kotlinx.android.synthetic.main.view_itenerary_item.view.tvlocation
@@ -39,6 +40,7 @@ class ItineraryItemAdapter (
             tvlocation.text = curItem.location
             tvdate.text = curItem.date
             tvforecast.text = curItem.forecast
+            image.setImageResource(R.mipmap.fenugs)
         }
     }
 

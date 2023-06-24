@@ -44,7 +44,7 @@
         app:layout_constraintVertical_bias="0.526" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/viewMapButton"
         android:layout_width="295dp"
         android:layout_height="51dp"
         android:text="View Map"
@@ -53,6 +53,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/rvItineraryItems"
         app:layout_constraintVertical_bias="0.899" />
+
+    <Button
+        android:id="@+id/addItemButton"
+        android:layout_width="295dp"
+        android:layout_height="51dp"
+        android:layout_marginTop="40dp"
+        android:text="Add Item"
+        app:layout_constraintBottom_toTopOf="@+id/viewMapButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rvItineraryItems"
+        app:layout_constraintVertical_bias="0.187" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvItineraryItems"

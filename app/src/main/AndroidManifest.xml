@@ -19,6 +19,9 @@
             android:name=".activities.ExpensesPageActivity"
             android:exported="false" />
         <activity
+            android:name=".ItineraryPageActivity"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
