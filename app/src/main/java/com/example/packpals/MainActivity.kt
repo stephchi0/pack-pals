@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.widget.Button
 import com.example.packpals.views.login.LoginPageActivity
 
-
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
