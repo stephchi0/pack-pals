@@ -11,7 +11,7 @@ import android.widget.EditText
 import android.widget.TextView
 import androidx.fragment.app.viewModels
 import com.example.packpals.R
-import com.example.packpals.views.NavigationDrawerViewActivity
+import com.example.packpals.views.trips.TripsPageActivity
 import com.example.packpals.viewmodels.LoginPageViewModel
 
 class LoginFragment : Fragment() {
@@ -48,9 +48,9 @@ class LoginFragment : Fragment() {
 
         viewModel.loginSuccess.observe(viewLifecycleOwner) {
             if (it == true) {
-                val intent = Intent(requireActivity(), NavigationDrawerViewActivity::class.java)
+                val intent = Intent(requireActivity(), TripsPageActivity::class.java)
                 startActivity(intent)
-            }
+           }
         }
     }
 
