@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.packpals.R
@@ -34,12 +35,13 @@ class NewExpenseFragment : Fragment() {
 
         val linearLayout = requireView().findViewById<LinearLayout>(R.id.newExpenseLinearLayout)
         viewModel.payingPalIds.observe(viewLifecycleOwner) { payingPalIds ->
+            linearLayout.removeAllViews()
             for (pal in viewModel.palsList.value!!) {
                 val addPalView = LayoutInflater.from(context).inflate(R.layout.view_add_pal, linearLayout, false)
 
                 addPalView.findViewById<TextView>(R.id.palName).text = pal.name
                 if (pal.id in payingPalIds) {
-                    // style selected paying pals differently
+                    addPalView.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.darker_blue))
                 }
                 addPalView.setOnClickListener {
                     if (pal.id != null) {
