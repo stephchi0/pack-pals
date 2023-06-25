@@ -12,7 +12,6 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.packpals.R
 import com.example.packpals.viewmodels.ExpensesPageViewModel
-import java.text.SimpleDateFormat
 
 class ExpenseListFragment : Fragment() {
     private val viewModel: ExpensesPageViewModel by viewModels()
@@ -33,14 +32,14 @@ class ExpenseListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val linearLayout = requireView().findViewById<LinearLayout>(R.id.expensesLinearLayout)
-        viewModel.expensesList.observe(viewLifecycleOwner) { expensesList ->
-            for (expense in expensesList) {
+        viewModel.expenseCardInfoList.observe(viewLifecycleOwner) { expenseCardInfoList ->
+            linearLayout.removeAllViews()
+            for ((title, date, amount) in expenseCardInfoList) {
                 val expenseView = LayoutInflater.from(context).inflate(R.layout.view_expense, linearLayout, false)
 
-                expenseView.findViewById<TextView>(R.id.expenseTitle).text = expense.title
-                expenseView.findViewById<TextView>(R.id.expenseDate).text = SimpleDateFormat("MM/dd/yyyy").format(expense.date)
-                // add some logic here for a different message if user id matches payer id
-                expenseView.findViewById<TextView>(R.id.expenseAmountOwed).text = String.format("You owe $%.2f", expense.amountPaid)
+                expenseView.findViewById<TextView>(R.id.expenseTitle).text = title
+                expenseView.findViewById<TextView>(R.id.expenseDate).text = date
+                expenseView.findViewById<TextView>(R.id.expenseAmountOwed).text = amount
 
                 expenseView.setOnClickListener {
                     // fill in later with expense details
@@ -54,6 +53,11 @@ class ExpenseListFragment : Fragment() {
         addNewExpenseButton.setOnClickListener {
             findNavController().navigate(R.id.action_expensesFragment_to_newExpenseFragment)
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.fetchExpenses()
     }
 
     companion object {
