@@ -24,6 +24,9 @@
             android:theme="@style/Theme.PackPals.NoActionBar">
         </activity>
         <activity
+            android:name=".views.trips.TripsPageActivity"
+            android:exported="false"/>
+        <activity
             android:name=".views.login.LoginPageActivity"
             android:exported="false" />
         <activity
