@@ -8,7 +8,13 @@
             android:id="@+id/mapFragment"
             android:title="@string/Map" />
         <item
+            android:id="@+id/itineraryPageFragment"
+            android:title="@string/Itinerary" />
+        <item
             android:id="@+id/expensesFragment"
             android:title="@string/Expenses" />
+        <item
+            android:id="@+id/profilePageFragment"
+            android:title="@string/Profile" />
     </group>
 </menu>
