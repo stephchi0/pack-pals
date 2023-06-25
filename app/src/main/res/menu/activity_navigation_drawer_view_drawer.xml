@@ -16,5 +16,8 @@
         <item
             android:id="@+id/profilePageFragment"
             android:title="@string/Profile" />
+        <item
+            android:id="@+id/findAPalFragment"
+            android:title="@string/FindAPal" />
     </group>
 </menu>

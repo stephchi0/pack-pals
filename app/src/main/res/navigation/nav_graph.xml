@@ -77,4 +77,9 @@
             android:id="@+id/action_tripListFragment_to_newTripFragment"
             app:destination="@id/newTripFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/findAPalFragment"
+        android:name="com.example.packpals.views.findapal.FindAPalFragment"
+        android:label="fragment_find_a_pal"
+        tools:layout="@layout/fragment_find_a_pal" />
 </navigation>

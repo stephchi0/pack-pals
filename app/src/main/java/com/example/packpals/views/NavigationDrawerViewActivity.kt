@@ -31,8 +31,8 @@ class NavigationDrawerViewActivity : AppCompatActivity() {
         val navController = findNavController(R.id.nav_host_fragment_content_navigation_drawer_view)
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
-        appBarConfiguration = AppBarConfiguration(setOf(
-            R.id.mapFragment, R.id.expensesFragment, R.id.profilePageFragment, R.id.itineraryPageFragment), drawerLayout)
+        appBarConfiguration = AppBarConfiguration(setOf( R.id.mapFragment, R.id.expensesFragment,
+            R.id.profilePageFragment, R.id.itineraryPageFragment, R.id.findAPalFragment), drawerLayout)
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
     }
