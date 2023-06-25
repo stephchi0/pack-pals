@@ -18,4 +18,4 @@
 |3        |       |     |       |     |     |06/24/2023|Created add new trip functionality and UI|
 |        |9      |     |        |     |     |06/24/2023|Created register page, added login and register authentication functionality, changed activities to fragments for navigation, added user id functionality to expenses|
 |        |       |     |7       |     |     |06/24/2023|Created profile page and profile edit page UI|
-|        |       |     |        |     |5    |06/24/2023|Worked on Maps, Hamburger Navigation and refactored some code|
+|        |       |     |        |     |1    |06/24/2023|Worked on Maps, Hamburger Navigation and refactored some code|
