@@ -71,6 +71,6 @@
     <fragment
         android:id="@+id/findAPalFragment"
         android:name="com.example.packpals.views.findapal.FindAPalFragment"
-        android:label="fragment_find_a_pal"
+        android:label="@string/FindAPal"
         tools:layout="@layout/fragment_find_a_pal" />
 </navigation>
