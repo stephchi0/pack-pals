@@ -30,20 +30,6 @@
 
     </androidx.appcompat.widget.Toolbar>
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="368dp"
-        android:layout_height="32dp"
-        android:background="@color/gray"
-        android:text="@string/Itinerary"
-        android:textColor="@color/black"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/rvItineraryItems"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar"
-        app:layout_constraintVertical_bias="0.526" />
-
     <Button
         android:id="@+id/viewMapButton"
         android:layout_width="295dp"
@@ -65,18 +51,18 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/rvItineraryItems"
-        app:layout_constraintVertical_bias="0.187" />
+        app:layout_constraintVertical_bias="0.083" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvItineraryItems"
-        android:layout_width="410dp"
-        android:layout_height="417dp"
+        android:layout_width="414dp"
+        android:layout_height="470dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar"
-        app:layout_constraintVertical_bias="0.275" />
+        app:layout_constraintVertical_bias="0.0" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

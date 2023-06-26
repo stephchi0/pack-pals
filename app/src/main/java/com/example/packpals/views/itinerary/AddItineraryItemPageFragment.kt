@@ -5,18 +5,18 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.packpals.R
-import com.example.packpals.viewmodels.ItineraryItemAdapter
+import com.example.packpals.viewmodels.AddItineraryItemPageViewModel
 import com.example.packpals.viewmodels.ItineraryPageViewModel
 
-class ItineraryPageFragment : Fragment() {
-    private val viewModel: ItineraryPageViewModel by viewModels()
-    private lateinit var itineraryItemAdapter: ItineraryItemAdapter
+class AddItineraryPageFragment : Fragment() {
+//    private val viewModel: AddItineraryItemPageViewModel by viewModels()
+    private val viewModel : ItineraryPageViewModel by viewModels()
+
+    private lateinit var itineraryItemAdapter: AddItineraryItemAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,29 +27,34 @@ class ItineraryPageFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_itinerary_page, container, false)
+        return inflater.inflate(R.layout.fragment_add_itinerary_item, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.itineraryItemsList.observe(viewLifecycleOwner) { itineraryItems ->
-            itineraryItemAdapter = ItineraryItemAdapter(itineraryItems)
+        viewModel.reccItineraryItemsList.observe(viewLifecycleOwner) { itineraryItems ->
+            itineraryItemAdapter = AddItineraryItemAdapter(itineraryItems, viewModel.itineraryItemsList.value!! )
+            itineraryItemAdapter.updateLists(itineraryItems, viewModel.itineraryItemsList.value!!)
             val rvItineraryItems = requireView().findViewById<RecyclerView>(R.id.rvItineraryItems)
             rvItineraryItems.adapter = itineraryItemAdapter
             rvItineraryItems.layoutManager = LinearLayoutManager(context)
+
         }
 
-        val addNewItemButton = requireView().findViewById<Button>(R.id.addItemButton)
-        addNewItemButton.setOnClickListener {
-            findNavController().navigate(R.id.action_itineraryFragment_to_addItineraryItemFragment)
+        viewModel.itineraryItemsList.observe(viewLifecycleOwner) { itineraryItems ->
+            itineraryItemAdapter = AddItineraryItemAdapter(itineraryItems, viewModel.reccItineraryItemsList.value!! )
+            itineraryItemAdapter.updateLists(itineraryItems, viewModel.itineraryItemsList.value!!)
+            val rvItineraryItems = requireView().findViewById<RecyclerView>(R.id.rvItineraryItems)
+            rvItineraryItems.adapter = itineraryItemAdapter
+            rvItineraryItems.layoutManager = LinearLayoutManager(context)
         }
     }
 
     companion object {
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
-            ItineraryPageFragment().apply {
+            AddItineraryPageFragment().apply {
                 arguments = Bundle().apply {
 
                 }
