@@ -31,6 +31,15 @@
         android:name="com.example.packpals.views.itinerary.ItineraryPageFragment"
         android:label="@string/Itinerary"
         tools:layout="@layout/fragment_itinerary_page" >
+        <action
+            android:id="@+id/action_itineraryFragment_to_addItineraryItemFragment"
+            app:destination="@id/addItineraryItemPageFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addItineraryItemPageFragment"
+        android:name="com.example.packpals.views.itinerary.AddItineraryPageFragment"
+        android:label="AddItineraryItem"
+        tools:layout="@layout/fragment_add_itinerary_item" >
     </fragment>
     <fragment
         android:id="@+id/profilePageFragment"

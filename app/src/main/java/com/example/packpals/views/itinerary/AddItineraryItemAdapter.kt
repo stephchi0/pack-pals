@@ -1,21 +1,21 @@
-package com.example.packpals.viewmodels
+package com.example.packpals.views.itinerary
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.packpals.R
 import com.example.packpals.models.Itinerary_Item
+import com.example.packpals.viewmodels.ItineraryPageViewModel
 import kotlinx.android.synthetic.main.view_itenerary_item.view.image
 import kotlinx.android.synthetic.main.view_itenerary_item.view.tvdate
 import kotlinx.android.synthetic.main.view_itenerary_item.view.tvforecast
 import kotlinx.android.synthetic.main.view_itenerary_item.view.tvlocation
 
-class ItineraryItemAdapter (
-    private val items: MutableList<Itinerary_Item>
-) : RecyclerView.Adapter<ItineraryItemAdapter.ItemViewHolder>(){
+class AddItineraryItemAdapter(
+    private var reccItems: MutableList<Itinerary_Item>,
+    private var items: MutableList<Itinerary_Item>
+) : RecyclerView.Adapter<AddItineraryItemAdapter.ItemViewHolder>(){
 
     class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 
@@ -34,19 +34,29 @@ class ItineraryItemAdapter (
         notifyItemInserted(items.size - 1)
     }
 
-//    TODO: remove item
+    fun updateLists(newList1: MutableList<Itinerary_Item>, newList2: MutableList<Itinerary_Item>) {
+        reccItems = newList1
+        items = newList2
+        notifyDataSetChanged()
+    }
+
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
-        val curItem = items[position]
+        val curItem = reccItems[position]
+
         holder.itemView.apply{
             tvlocation.text = curItem.location
             tvdate.text = curItem.date
             tvforecast.text = curItem.forecast
             image.setImageResource(R.mipmap.fenugs)
+
+            setOnClickListener {
+                addItem(curItem)
+            }
         }
     }
 
     override fun getItemCount(): Int {
-        return items.size
+        return reccItems.size
     }
 }
