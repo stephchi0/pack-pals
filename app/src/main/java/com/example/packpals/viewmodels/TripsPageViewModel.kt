@@ -38,6 +38,11 @@ class TripsPageViewModel : ViewModel() {
         _currentTripPalIds.value = newTripPalIds
     }
 
+    init {
+        fetchTrips()
+    }
+
+
     private fun fetchTrips() {
         tripsCollectionRef.get().addOnSuccessListener { result ->
             val newTripsList = mutableListOf<Trip>()
