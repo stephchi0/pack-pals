@@ -1,6 +1,5 @@
 package com.example.packpals.views.trips
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -12,10 +11,6 @@ import android.widget.TextView
 import androidx.fragment.app.viewModels
 import com.example.packpals.R
 import com.example.packpals.viewmodels.TripsPageViewModel
-import androidx.navigation.fragment.findNavController
-import com.example.packpals.views.login.RegisterFragment
-import kotlinx.android.synthetic.main.activity_trips_page.tripFragmentContainerView
-import java.util.Date
 
 class NewTripFragment : Fragment(){
     private val viewModel: TripsPageViewModel by viewModels()
@@ -51,7 +46,7 @@ class NewTripFragment : Fragment(){
         }
         val createTripButton = requireView().findViewById<Button>(R.id.createTripButton)
         createTripButton.setOnClickListener {
-            val tripName = requireView().findViewById<TextView>(R.id.tripNameLabel).text.toString()
+            val tripName = requireView().findViewById<TextView>(R.id.tripNameInput).text.toString()
             if (tripName.isNotEmpty()) {
                 viewModel.createTrip(tripName)
             }
