@@ -27,11 +27,6 @@ class ProfileEditFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        val buttonEdit  = requireView().findViewById<Button>(R.id.button_exit)
-        buttonEdit.setOnClickListener {
-            findNavController().navigate(R.id.action_profileEditFragment_to_profilePageFragment)
-        }
     }
 
     companion object {
