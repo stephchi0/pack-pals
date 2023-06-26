@@ -1,10 +1,11 @@
 <resources>
     <string name="app_name">Pack Pals</string>
-    <string name="nav_header_title">Navigation</string>
+    <string name="nav_header_title">PackPal Trip</string>
     <string name="Map">Map</string>
     <string name="Itinerary">Itinerary</string>
     <string name="Photos">Photos</string>
     <string name="Pals">Pals</string>
+    <string name="FindAPal">Find A Pal</string>
     <string name="Playlist">Playlist</string>
     <string name="Expenses">Expenses</string>
     <string name="NewExpense">New Expense</string>

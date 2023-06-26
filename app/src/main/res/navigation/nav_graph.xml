@@ -59,4 +59,27 @@
             android:id="@+id/action_profileEditFragment_to_profilePageFragment"
             app:destination="@id/profilePageFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/newTripFragment"
+        android:name="com.example.packpals.views.trips.NewTripFragment"
+        android:label="fragment_new_trip"
+        tools:layout="@layout/fragment_new_trip" >
+        <action
+            android:id="@+id/action_newTripFragment_to_tripListFragment"
+            app:destination="@id/tripListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/tripListFragment"
+        android:name="com.example.packpals.views.trips.TripsListFragment"
+        android:label="TripListFragment"
+        tools:layout ="@layout/fragment_trips_list" >
+        <action
+            android:id="@+id/action_tripListFragment_to_newTripFragment"
+            app:destination="@id/newTripFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/findAPalFragment"
+        android:name="com.example.packpals.views.findapal.FindAPalFragment"
+        android:label="@string/FindAPal"
+        tools:layout="@layout/fragment_find_a_pal" />
 </navigation>

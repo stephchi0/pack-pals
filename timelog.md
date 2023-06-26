@@ -12,5 +12,9 @@
 |        |5      |     |        |     |     |06/21/2023|Created expenses page activity UI|
 |        |4      |     |        |     |     |06/22/2023|Created new expense page activity UI|
 |        |7      |     |        |     |     |06/23/2023|Connected firebase, added expense page functionality, refactored code|
-|        |7      |     |        |     |     |06/24/2023|Created register page, added login and register authentication functionality, changed activities to fragments for navigation|
+|        |9      |     |        |     |     |06/24/2023|Created register page, added login and register authentication functionality, changed activities to fragments for navigation, added user id functionality to expenses|
+|5        |       |     |       |     |     |06/24/2023|Created login page and home page UI|
+|7        |       |     |       |     |     |06/24/2023|Created trips page functionality and UI|
+|3        |       |     |       |     |     |06/24/2023|Created add new trip functionality and UI|
 |        |       |     |7       |     |     |06/24/2023|Created profile page and profile edit page UI|
+|        |       |     |        |     |6    |06/24/2023|Worked on Maps, Hamburger Navigation and refactored some code|

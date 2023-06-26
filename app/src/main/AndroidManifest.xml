@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PackPals"
         tools:targetApi="31">
+        <activity
+            android:name=".views.findapal.FindAPalActivity"
+            android:exported="false" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
@@ -23,6 +26,9 @@
             android:label="@string/app_name"
             android:theme="@style/Theme.PackPals.NoActionBar">
         </activity>
+        <activity
+            android:name=".views.trips.TripsPageActivity"
+            android:exported="false"/>
         <activity
             android:name=".views.login.LoginPageActivity"
             android:exported="false" />
