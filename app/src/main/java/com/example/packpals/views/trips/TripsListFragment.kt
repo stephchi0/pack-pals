@@ -13,9 +13,10 @@ import androidx.fragment.app.viewModels
 import com.example.packpals.R
 import com.example.packpals.viewmodels.TripsPageViewModel
 import com.example.packpals.views.NavigationDrawerViewActivity
-import com.example.packpals.views.login.LoginPageActivity
+import dagger.hilt.android.AndroidEntryPoint
 
-class  TripsListFragment : Fragment() {
+@AndroidEntryPoint
+class TripsListFragment : Fragment() {
     private val viewModel: TripsPageViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {

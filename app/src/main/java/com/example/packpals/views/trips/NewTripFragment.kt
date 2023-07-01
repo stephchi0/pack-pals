@@ -11,7 +11,9 @@ import android.widget.TextView
 import androidx.fragment.app.viewModels
 import com.example.packpals.R
 import com.example.packpals.viewmodels.TripsPageViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class NewTripFragment : Fragment(){
     private val viewModel: TripsPageViewModel by viewModels()
 

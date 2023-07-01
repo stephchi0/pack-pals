@@ -3,6 +3,7 @@ package com.example.packpals
 import com.example.packpals.repositories.AuthRepository
 import com.example.packpals.repositories.ExpensesRepository
 import com.example.packpals.repositories.PalsRepository
+import com.example.packpals.repositories.TripsRepository
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import dagger.Module
@@ -36,6 +37,12 @@ object AppModule {
     @Provides
     fun providePalsRepository(db: FirebaseFirestore): PalsRepository {
         return PalsRepository(db.collection("pals"))
+    }
+
+    @Singleton
+    @Provides
+    fun provideTripsRepository(db: FirebaseFirestore): TripsRepository {
+        return TripsRepository(db.collection("trips"))
     }
 
     @Singleton
