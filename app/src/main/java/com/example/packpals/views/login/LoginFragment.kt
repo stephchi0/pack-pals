@@ -13,7 +13,9 @@ import androidx.fragment.app.viewModels
 import com.example.packpals.R
 import com.example.packpals.views.trips.TripsPageActivity
 import com.example.packpals.viewmodels.LoginPageViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class LoginFragment : Fragment() {
     private val viewModel: LoginPageViewModel by viewModels()
 
@@ -50,6 +52,7 @@ class LoginFragment : Fragment() {
             if (it == true) {
                 val intent = Intent(requireActivity(), TripsPageActivity::class.java)
                 startActivity(intent)
+                viewModel.reset()
            }
         }
     }

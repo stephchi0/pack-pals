@@ -4,7 +4,6 @@ import com.example.packpals.models.Expense
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.Filter
 import kotlinx.coroutines.tasks.await
-import java.util.Date
 import javax.inject.Inject
 
 class ExpensesRepository @Inject constructor(private val expensesCollectionRef: CollectionReference) {
@@ -16,11 +15,11 @@ class ExpensesRepository @Inject constructor(private val expensesCollectionRef: 
         return try {
             expensesCollectionRef.where(expensesFilter).get().await().toObjects(Expense::class.java)
         } catch (e: Exception) {
-            emptyList()
+            null
         }
     }
 
-    fun createExpense(expense: Expense) {
-        expensesCollectionRef.add(expense)
+    suspend fun createExpense(expense: Expense) {
+        expensesCollectionRef.add(expense).await()
     }
 }

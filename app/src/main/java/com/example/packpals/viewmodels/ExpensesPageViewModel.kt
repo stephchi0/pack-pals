@@ -6,10 +6,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.packpals.models.Expense
 import com.example.packpals.models.Pal
+import com.example.packpals.repositories.AuthRepository
 import com.example.packpals.repositories.ExpensesRepository
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.Filter
-import com.google.firebase.firestore.FirebaseFirestore
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
@@ -17,7 +15,7 @@ import java.util.Date
 import javax.inject.Inject
 
 @HiltViewModel
-class ExpensesPageViewModel @Inject constructor(private val auth: FirebaseAuth,
+class ExpensesPageViewModel @Inject constructor(private val authRepo: AuthRepository,
                                                 private val expensesRepo: ExpensesRepository) : ViewModel() {
     private val _expensesList: MutableLiveData<List<Expense>> = MutableLiveData(emptyList())
     private val _expenseCardInfoList: MutableLiveData<List<Triple<String, String, String>>> = MutableLiveData(emptyList())
@@ -40,9 +38,15 @@ class ExpensesPageViewModel @Inject constructor(private val auth: FirebaseAuth,
     }
 
     fun fetchExpenses() {
-        viewModelScope.launch {
-            _expensesList.value = expensesRepo.fetchExpenses(auth.currentUser!!.uid)
-            createExpenseCardInfo()
+        val userId = authRepo.getCurrentUID()
+        if (userId != null) {
+            viewModelScope.launch {
+                val result = expensesRepo.fetchExpenses(userId)
+                if (result != null) {
+                    _expensesList.value = result!!
+                    createExpenseCardInfo()
+                }
+            }
         }
     }
 
@@ -52,7 +56,7 @@ class ExpensesPageViewModel @Inject constructor(private val auth: FirebaseAuth,
             val expenseCardTitle = expense.title!!
             val expenseCardDate = SimpleDateFormat("MM/dd/yyyy").format(expense.date)
             var expenseCardAmountMessage = ""
-            if (expense.payerId == auth.currentUser?.uid) {
+            if (expense.payerId == authRepo.getCurrentUID()) {
                 val amount = expense.amountPaid!! * expense.debtorIds!!.size / (expense.debtorIds!!.size + 1)
                 expenseCardAmountMessage = String.format("You are owed $%.2f", amount)
             }
@@ -78,7 +82,13 @@ class ExpensesPageViewModel @Inject constructor(private val auth: FirebaseAuth,
     }
 
     fun createExpense(title: String, date: Date, amountPaid: Double) {
-        val newExpense = Expense(title, date, amountPaid, auth.currentUser!!.uid, _payingPalIds.value!!.toList())
-        expensesRepo.createExpense(newExpense)
+        val userId = authRepo.getCurrentUID()
+        val debtorIdsSet = _payingPalIds.value
+        if (userId != null && debtorIdsSet != null) {
+            viewModelScope.launch {
+                val newExpense = Expense(title, date, amountPaid, userId, debtorIdsSet.toList())
+                expensesRepo.createExpense(newExpense)
+            }
+        }
     }
 }
