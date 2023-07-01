@@ -21,4 +21,4 @@
 |        |       |4    |        |       |     |06/24/2023|Created Find A Pal page UI|
 |        |       |     |   13   |       |     |06/24/2023|Worked on itinerary page and add itinerary item page|
 |1       |1      |1    |1       |1      |1    |06/29/2023|Worked on prototype document|
-|        |7      |     |        |       |     |06/30/2023|Connected firebase to packpals email, added hilt, added repository for auth, pals, and expenses, refactored login/register and expenses pages to use repository|
+|        |7      |     |        |       |     |06/30/2023|Connected firebase to packpals email, added hilt, added repository for auth, pals, trips, and expenses, refactored login/register, trips, and expenses pages to use repository|
