@@ -1,5 +1,6 @@
 package com.example.packpals.views.login
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -10,7 +11,10 @@ import android.widget.EditText
 import androidx.fragment.app.viewModels
 import com.example.packpals.R
 import com.example.packpals.viewmodels.LoginPageViewModel
+import com.example.packpals.views.trips.TripsPageActivity
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class RegisterFragment : Fragment() {
     private val viewModel: LoginPageViewModel by viewModels()
 
@@ -36,10 +40,15 @@ class RegisterFragment : Fragment() {
             val txtPassword = requireView().findViewById<EditText>(R.id.editTextRegisterPassword).text.toString()
 
             viewModel.register(txtName, txtEmail, txtPassword)
+        }
 
-            val transaction = parentFragmentManager.beginTransaction()
-            transaction.replace(R.id.loginFragmentContainerView, LoginFragment())
-            transaction.commit()
+        viewModel.registrationSuccess.observe(viewLifecycleOwner) {
+            if (it == true) {
+                val transaction = parentFragmentManager.beginTransaction()
+                transaction.replace(R.id.loginFragmentContainerView, LoginFragment())
+                transaction.commit()
+                viewModel.reset()
+            }
         }
     }
 
