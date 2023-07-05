@@ -21,7 +21,6 @@ class StorageRepository @Inject constructor (private val storage: FirebaseStorag
             val result = ref.putFile(fileUri).await()
             result.metadata?.reference?.downloadUrl?.await()
         } catch (e: Exception) {
-            println(e)
             null
         }
     }

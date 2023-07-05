@@ -1,26 +1,35 @@
 package com.example.packpals.viewmodels
 
+import android.net.Uri
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.packpals.repositories.AuthRepository
 import com.example.packpals.repositories.PalsRepository
+import com.example.packpals.repositories.StorageRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class LoginPageViewModel @Inject constructor(private val authRepo: AuthRepository,
-                                             private val palsRepo: PalsRepository) : ViewModel() {
+                                             private val palsRepo: PalsRepository,
+                                             private val storageRepo: StorageRepository) : ViewModel() {
     private val _loginSuccess = MutableLiveData(false)
     val loginSuccess: LiveData<Boolean> get() = _loginSuccess
     private val _registrationSuccess = MutableLiveData(false)
     val registrationSuccess: LiveData<Boolean> get() = _registrationSuccess
+    private var _profilePictureUri: Uri = Uri.EMPTY
 
     fun reset() {
         _loginSuccess.value = false
         _registrationSuccess.value = false
+        _profilePictureUri = Uri.EMPTY
+    }
+
+    fun setProfilePictureUri(uri: Uri) {
+        _profilePictureUri = uri
     }
     
     fun login(email: String, password: String) {
@@ -35,8 +44,14 @@ class LoginPageViewModel @Inject constructor(private val authRepo: AuthRepositor
             viewModelScope.launch {
                 val newUserId = authRepo.register(email, password)
                 if (newUserId != null) {
-                    _registrationSuccess.value = true
                     palsRepo.createPal(newUserId, name)
+
+                    val uri = _profilePictureUri
+                    if (uri != Uri.EMPTY) {
+                        storageRepo.uploadProfilePicture(newUserId, uri)
+                    }
+
+                    _registrationSuccess.value = true
                 }
             }
         }
