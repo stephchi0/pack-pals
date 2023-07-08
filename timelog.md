@@ -24,3 +24,4 @@
 |        |7      |     |        |       |     |06/30/2023|Connected firebase to packpals email, added hilt, added repository for auth, pals, trips, and expenses, refactored login/register, trips, and expenses pages to use repository|
 |        |5      |     |        |       |     |07/04/2023|Connected firebase cloud storage, created storage and trip photos repositories, added profile picture upload to register page|
 |        |5      |     |        |       |     |07/07/2023|Added more customizability to expense splitting|
+|9       |       |     |        |       |9    |07/07/2023|Redesign app UI in Figma|
