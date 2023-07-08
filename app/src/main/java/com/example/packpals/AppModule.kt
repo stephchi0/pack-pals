@@ -3,9 +3,16 @@ package com.example.packpals
 import com.example.packpals.repositories.AuthRepository
 import com.example.packpals.repositories.ExpensesRepository
 import com.example.packpals.repositories.PalsRepository
+import com.example.packpals.repositories.StorageRepository
+import com.example.packpals.repositories.TripPhotosRepository
 import com.example.packpals.repositories.TripsRepository
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.ktx.storage
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -18,19 +25,31 @@ object AppModule {
     @Singleton
     @Provides
     fun provideFirebaseFirestore(): FirebaseFirestore {
-        return FirebaseFirestore.getInstance()
+        return Firebase.firestore
     }
 
     @Singleton
     @Provides
     fun provideFirebaseAuth(): FirebaseAuth {
-        return FirebaseAuth.getInstance()
+        return Firebase.auth
+    }
+
+    @Singleton
+    @Provides
+    fun provideFirebaseStorage(): FirebaseStorage {
+        return Firebase.storage
     }
 
     @Singleton
     @Provides
     fun provideAuthRepository(auth: FirebaseAuth): AuthRepository {
         return AuthRepository(auth)
+    }
+
+    @Singleton
+    @Provides
+    fun provideStorageRepository(storage: FirebaseStorage): StorageRepository {
+        return StorageRepository(storage)
     }
 
     @Singleton
@@ -43,6 +62,12 @@ object AppModule {
     @Provides
     fun provideTripsRepository(db: FirebaseFirestore): TripsRepository {
         return TripsRepository(db.collection("trips"))
+    }
+
+    @Singleton
+    @Provides
+    fun provideTripPhotosRepository(db: FirebaseFirestore): TripPhotosRepository {
+        return TripPhotosRepository(db.collection("trip_photos"))
     }
 
     @Singleton
