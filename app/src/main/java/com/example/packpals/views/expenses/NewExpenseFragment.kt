@@ -1,11 +1,15 @@
 package com.example.packpals.views.expenses
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
 import android.widget.Button
+import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.content.ContextCompat
@@ -35,34 +39,70 @@ class NewExpenseFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val linearLayout = requireView().findViewById<LinearLayout>(R.id.newExpenseLinearLayout)
-        viewModel.payingPalIds.observe(viewLifecycleOwner) { payingPalIds ->
-            linearLayout.removeAllViews()
-            for (pal in viewModel.palsList.value!!) {
-                val addPalView = LayoutInflater.from(context).inflate(R.layout.view_add_pal, linearLayout, false)
-
-                addPalView.findViewById<TextView>(R.id.palName).text = pal.name
-                if (pal.id in payingPalIds) {
-                    addPalView.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.darker_blue))
+        val totalCostEditText = requireView().findViewById<EditText>(R.id.totalCostInput)
+        totalCostEditText.addTextChangedListener(object: TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+                val newTotalCost = s.toString().toDoubleOrNull()
+                if (newTotalCost != null) {
+                    viewModel.setTotalCost(newTotalCost)
                 }
+            }
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+        })
+
+        val linearLayout = requireView().findViewById<LinearLayout>(R.id.newExpenseLinearLayout)
+        viewModel.palsList.observe(viewLifecycleOwner) { palsList ->
+            linearLayout.removeAllViews()
+            for (pal in palsList) {
+                val addPalView = LayoutInflater.from(context).inflate(R.layout.view_new_expense_add_pal, linearLayout, false)
+                addPalView.findViewById<TextView>(R.id.palName).text = pal.name
                 addPalView.setOnClickListener {
                     if (pal.id != null) {
                         viewModel.addRemovePayingPal(pal.id)
                     }
                 }
 
+                addPalView.findViewById<EditText>(R.id.amountOwedExpenseEditText).addTextChangedListener(object: TextWatcher {
+                    override fun afterTextChanged(s: Editable?) {
+                        val newAmountOwed = s.toString().toDoubleOrNull()
+                        if (newAmountOwed != null && pal.id != null) {
+                            viewModel.setAmountOwed(pal.id, newAmountOwed)
+                        }
+                    }
+                    override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+                    override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+                })
+
                 linearLayout.addView(addPalView)
             }
         }
+        viewModel.debtorIdsSet.observe(viewLifecycleOwner) { debtorIds ->
+            for (i in 0 until linearLayout.childCount) {
+                val addPalView = linearLayout.getChildAt(i)
+
+                val palId = viewModel.palsList.value?.get(i)?.id
+                if (debtorIds.contains(palId)) {
+                    addPalView.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.darker_blue))
+                    addPalView.findViewById<LinearLayout>(R.id.amountOwedExpenseLinearLayout).visibility = View.VISIBLE
+
+                    val amountOwedEditText = addPalView.findViewById<EditText>(R.id.amountOwedExpenseEditText)
+                    amountOwedEditText.setText(String.format("%.2f", viewModel.amountsOwedMap.value!![palId]))
+                }
+                else {
+                    addPalView.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.dark_blue))
+                    addPalView.findViewById<LinearLayout>(R.id.amountOwedExpenseLinearLayout).visibility = View.GONE
+                }
+            }
+        }
+
         val createExpenseButton = requireView().findViewById<Button>(R.id.createExpenseButton)
         createExpenseButton.setOnClickListener {
             val txtExpenseName = requireView().findViewById<TextView>(R.id.expenseNameInput).text.toString()
-            val txtTotalCost = requireView().findViewById<TextView>(R.id.totalCostInput).text.toString().toDoubleOrNull()
-            if (txtExpenseName.isNotEmpty() && txtTotalCost != null) {
-                viewModel.createExpense(txtExpenseName, Date(), txtTotalCost)
+            if (txtExpenseName.isNotEmpty()) {
+                viewModel.createExpense(txtExpenseName, Date())
+                findNavController().navigate(R.id.action_newExpenseFragment_to_expensesFragment)
             }
-
-            findNavController().navigate(R.id.action_newExpenseFragment_to_expensesFragment)
         }
     }
 
