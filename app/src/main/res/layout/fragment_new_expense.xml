@@ -39,7 +39,7 @@
         android:layout_height="40dp"
         android:layout_marginTop="4dp"
         android:ems="10"
-        android:inputType="text"
+        android:inputType="number|numberDecimal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.352"
         app:layout_constraintStart_toStartOf="parent"
