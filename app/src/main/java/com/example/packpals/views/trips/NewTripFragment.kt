@@ -35,7 +35,7 @@ class NewTripFragment : Fragment(){
         val linearLayout = requireView().findViewById<LinearLayout>(R.id.tripPalsLinearLayout)
         viewModel.currentTripPalIds.observe(viewLifecycleOwner) { currentTripPalIds ->
             for (pal in viewModel.palsList.value!!) {
-                val addPalView = LayoutInflater.from(context).inflate(R.layout.view_add_pal, linearLayout, false)
+                val addPalView = LayoutInflater.from(context).inflate(R.layout.view_new_expense_add_pal, linearLayout, false) // probably need to change this view, currently has expense specific UI
 
                 addPalView.findViewById<TextView>(R.id.palName).text = pal.name
                 addPalView.setOnClickListener {

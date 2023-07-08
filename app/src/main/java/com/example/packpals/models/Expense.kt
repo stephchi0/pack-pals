@@ -7,5 +7,6 @@ data class Expense(
     val date: Date? = null,
     val amountPaid: Double? = null,
     val payerId: String? = null,
-    val debtorIds: List<String>? = null
+    val debtorIds: List<String>? = null,
+    val amountsOwed: Map<String, Double>? = null // debtor user id -> amount owed
 )

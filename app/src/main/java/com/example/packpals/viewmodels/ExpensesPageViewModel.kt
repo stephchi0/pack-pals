@@ -13,15 +13,18 @@ import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.Date
 import javax.inject.Inject
+import kotlin.math.round
 
 @HiltViewModel
 class ExpensesPageViewModel @Inject constructor(private val authRepo: AuthRepository,
                                                 private val expensesRepo: ExpensesRepository) : ViewModel() {
+
     private val _expensesList: MutableLiveData<List<Expense>> = MutableLiveData(emptyList())
+
     private val _expenseCardInfoList: MutableLiveData<List<Triple<String, String, String>>> = MutableLiveData(emptyList())
     val expenseCardInfoList: LiveData<List<Triple<String, String, String>>> = _expenseCardInfoList // (title, date, amount)
 
-    val palsList: MutableLiveData<List<Pal>> = MutableLiveData(
+    val palsList: LiveData<List<Pal>> = MutableLiveData(
         listOf(
             Pal("id1", "stooge"),
             Pal("id2", "mooge"),
@@ -30,8 +33,14 @@ class ExpensesPageViewModel @Inject constructor(private val authRepo: AuthReposi
         )
     )
 
-    private val _payingPalIds: MutableLiveData<Set<String>> = MutableLiveData(emptySet())
-    val payingPalIds: LiveData<Set<String>> get() = _payingPalIds
+    private val _totalCost: MutableLiveData<Double> = MutableLiveData(0.0)
+    val totalCost: LiveData<Double> get() = _totalCost
+
+    private val _debtorIdsSet: MutableLiveData<Set<String>> = MutableLiveData(emptySet())
+    val debtorIdsSet: LiveData<Set<String>> get() = _debtorIdsSet
+
+    private val _amountsOwedMap: MutableLiveData<Map<String, Double>> = MutableLiveData(emptyMap())
+    val amountsOwedMap: LiveData<Map<String, Double>> get() = _amountsOwedMap
 
     init {
         fetchExpenses()
@@ -57,11 +66,12 @@ class ExpensesPageViewModel @Inject constructor(private val authRepo: AuthReposi
             val expenseCardDate = SimpleDateFormat("MM/dd/yyyy").format(expense.date)
             var expenseCardAmountMessage = ""
             if (expense.payerId == authRepo.getCurrentUID()) {
-                val amount = expense.amountPaid!! * expense.debtorIds!!.size / (expense.debtorIds!!.size + 1)
+                val amount = expense.amountsOwed!!.values.sum()
                 expenseCardAmountMessage = String.format("You are owed $%.2f", amount)
             }
             else {
-                val amount = expense.amountPaid!! / (expense.debtorIds!!.size + 1)
+                val userId = authRepo.getCurrentUID()
+                val amount = expense.amountsOwed!![userId]
                 expenseCardAmountMessage = String.format("You owe $%.2f", amount)
             }
             newExpenseCardInfoList.add(Triple(expenseCardTitle, expenseCardDate, expenseCardAmountMessage))
@@ -69,26 +79,49 @@ class ExpensesPageViewModel @Inject constructor(private val authRepo: AuthReposi
         _expenseCardInfoList.value = newExpenseCardInfoList
     }
 
-    fun addRemovePayingPal(palId: String) {
-        val newPayingPalIds = _payingPalIds.value!!.toMutableSet()
-        if (palId in newPayingPalIds) {
-            newPayingPalIds.remove(palId)
+    fun setTotalCost(cost: Double) {
+        val oldTotalCost = _totalCost.value
+        _totalCost.value = round(cost * 100) / 100
+        if (_totalCost.value != oldTotalCost) {
+            updateAmountsOwedEvenly()
         }
-        else {
-            newPayingPalIds.add(palId)
-        }
-
-        _payingPalIds.value = newPayingPalIds
     }
 
-    fun createExpense(title: String, date: Date, amountPaid: Double) {
-        val userId = authRepo.getCurrentUID()
-        val debtorIdsSet = _payingPalIds.value
-        if (userId != null && debtorIdsSet != null) {
-            viewModelScope.launch {
-                val newExpense = Expense(title, date, amountPaid, userId, debtorIdsSet.toList())
-                expensesRepo.createExpense(newExpense)
-            }
+    fun addRemovePayingPal(palId: String) {
+        if (_amountsOwedMap.value!!.containsKey(palId)) {
+            _amountsOwedMap.value = _amountsOwedMap.value!!.minus(palId)
+            updateAmountsOwedEvenly()
+            _debtorIdsSet.value = _debtorIdsSet.value!!.minus(palId)
+        }
+        else {
+            _amountsOwedMap.value = _amountsOwedMap.value!!.plus(Pair(palId, 0.0))
+            updateAmountsOwedEvenly()
+            _debtorIdsSet.value = _debtorIdsSet.value!!.plus(palId)
+        }
+    }
+
+    private fun updateAmountsOwedEvenly() {
+        val newAmountsOwed = _amountsOwedMap.value!!.toMutableMap()
+        newAmountsOwed.replaceAll { _, _ -> round(_totalCost.value!!/(newAmountsOwed.size + 1) * 100) / 100 }
+        _amountsOwedMap.value = newAmountsOwed
+    }
+
+    fun setAmountOwed(palId: String, amount: Double) {
+        val newAmountsOwed = _amountsOwedMap.value!!.toMutableMap()
+        newAmountsOwed[palId] = round(amount * 100) / 100
+        _amountsOwedMap.value = newAmountsOwed
+    }
+
+    fun createExpense(title: String, date: Date) {
+        viewModelScope.launch {
+            val userId = authRepo.getCurrentUID()
+            val amountPaid = _totalCost.value
+            val debtorIds = _amountsOwedMap.value?.keys?.toList()
+            val amountsOwed = _amountsOwedMap.value
+            // TODO: add some validations, like sum of amountsOwed <= amountPaid
+
+            val newExpense = Expense(title, date, amountPaid, userId, debtorIds, amountsOwed)
+            expensesRepo.createExpense(newExpense)
         }
     }
 }
