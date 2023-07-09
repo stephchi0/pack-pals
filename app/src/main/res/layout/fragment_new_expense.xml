@@ -5,97 +5,123 @@
     android:id="@+id/newExpenseFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/light_blue"
+    android:background="@color/white"
     tools:context=".views.expenses.NewExpenseFragment">
 
-    <Button
-        android:id="@+id/createExpenseButton"
-        android:layout_width="361dp"
-        android:layout_height="54dp"
-        android:layout_marginBottom="24dp"
-        android:background="@color/dark_blue"
-        android:text="Create Expense"
-        android:textColor="@color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/expenseNameInputLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="24dp"
+        android:background="@drawable/round_light_blue_background"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.494"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <EditText
-        android:id="@+id/expenseNameInput"
-        android:layout_width="340dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="4dp"
-        android:ems="10"
-        android:inputType="text"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.352"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/expenseNameLabel" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <EditText
-        android:id="@+id/totalCostInput"
-        android:layout_width="340dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="4dp"
-        android:ems="10"
-        android:inputType="number|numberDecimal"
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/expenseNameInput"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:hint="Expense Name" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/expenseTotalInputLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="24dp"
+        android:background="@drawable/round_light_blue_background"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.352"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/totalCostLabel" />
+        app:layout_constraintTop_toBottomOf="@+id/expenseNameInputLayout">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/expenseTotalInput"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:hint="Expense Total" />
+    </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
-        android:id="@+id/expenseNameLabel"
+        android:id="@+id/splitByLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:text="Expense name"
+        android:layout_marginStart="24dp"
+        android:text="Split by:"
+        android:textColor="@color/black"
         android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.089"
+        app:layout_constraintBottom_toBottomOf="@+id/spinnerRelativeLayout"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@+id/spinnerRelativeLayout" />
 
-    <TextView
-        android:id="@+id/totalCostLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="Total cost"
-        android:textSize="20sp"
+    <RelativeLayout
+        android:id="@+id/spinnerRelativeLayout"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="24dp"
+        android:background="@drawable/round_light_blue_background"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.077"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/expenseNameInput" />
+        app:layout_constraintStart_toEndOf="@+id/splitByLabel"
+        app:layout_constraintTop_toBottomOf="@+id/expenseTotalInputLayout">
+
+        <Spinner
+            android:id="@+id/splitBySpinner"
+            android:layout_width="match_parent"
+            android:layout_height="50dp" />
+    </RelativeLayout>
 
     <TextView
         android:id="@+id/membersLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="16dp"
         android:text="Members to split with"
+        android:textColor="@color/black"
         android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.115"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/totalCostInput" />
+        app:layout_constraintTop_toBottomOf="@+id/spinnerRelativeLayout" />
 
     <ScrollView
-        android:layout_width="361dp"
-        android:layout_height="367dp"
-        app:layout_constraintBottom_toTopOf="@+id/createExpenseButton"
+        android:id="@+id/membersToSplitScrollview"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/round_light_blue_background"
+        app:layout_constraintBottom_toTopOf="@+id/saveExpenseButton"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.507"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/membersLabel"
-        app:layout_constraintVertical_bias="0.0">
+        app:layout_constraintTop_toBottomOf="@+id/membersLabel">
 
         <LinearLayout
-            android:id="@+id/newExpenseLinearLayout"
+            android:id="@+id/membersToSplitLinearLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical" />
     </ScrollView>
+
+    <Button
+        android:id="@+id/saveExpenseButton"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        android:background="@drawable/round_red_background"
+        android:text="Save expense"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

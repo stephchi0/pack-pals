@@ -7,7 +7,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.EditorInfo
 import android.widget.Button
 import android.widget.EditText
 import android.widget.LinearLayout
@@ -17,6 +16,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.packpals.R
 import com.example.packpals.viewmodels.ExpensesPageViewModel
+import com.google.android.material.textfield.TextInputEditText
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.Date
 
@@ -39,7 +39,7 @@ class NewExpenseFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val totalCostEditText = requireView().findViewById<EditText>(R.id.totalCostInput)
+        val totalCostEditText = requireView().findViewById<TextInputEditText>(R.id.expenseTotalInput)
         totalCostEditText.addTextChangedListener(object: TextWatcher {
             override fun afterTextChanged(s: Editable?) {
                 val newTotalCost = s.toString().toDoubleOrNull()
@@ -51,7 +51,7 @@ class NewExpenseFragment : Fragment() {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
         })
 
-        val linearLayout = requireView().findViewById<LinearLayout>(R.id.newExpenseLinearLayout)
+        val linearLayout = requireView().findViewById<LinearLayout>(R.id.membersToSplitLinearLayout)
         viewModel.palsList.observe(viewLifecycleOwner) { palsList ->
             linearLayout.removeAllViews()
             for (pal in palsList) {
@@ -96,9 +96,9 @@ class NewExpenseFragment : Fragment() {
             }
         }
 
-        val createExpenseButton = requireView().findViewById<Button>(R.id.createExpenseButton)
+        val createExpenseButton = requireView().findViewById<Button>(R.id.saveExpenseButton)
         createExpenseButton.setOnClickListener {
-            val txtExpenseName = requireView().findViewById<TextView>(R.id.expenseNameInput).text.toString()
+            val txtExpenseName = requireView().findViewById<TextInputEditText>(R.id.expenseNameInput).text.toString()
             if (txtExpenseName.isNotEmpty()) {
                 viewModel.createExpense(txtExpenseName, Date())
                 findNavController().navigate(R.id.action_newExpenseFragment_to_expensesFragment)
