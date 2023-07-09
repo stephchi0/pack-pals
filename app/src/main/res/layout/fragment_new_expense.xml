@@ -16,6 +16,10 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="24dp"
         android:background="@drawable/round_light_blue_background"
+        android:paddingStart="8dp"
+        android:paddingTop="4dp"
+        android:paddingRight="8dp"
+        app:boxBackgroundMode="none"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -24,6 +28,7 @@
             android:id="@+id/expenseNameInput"
             android:layout_width="match_parent"
             android:layout_height="50dp"
+            android:background="@drawable/round_light_blue_background"
             android:hint="Expense Name" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -35,6 +40,10 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="24dp"
         android:background="@drawable/round_light_blue_background"
+        android:paddingLeft="8dp"
+        android:paddingTop="4dp"
+        android:paddingRight="8dp"
+        app:boxBackgroundMode="none"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/expenseNameInputLayout">
@@ -43,6 +52,7 @@
             android:id="@+id/expenseTotalInput"
             android:layout_width="match_parent"
             android:layout_height="50dp"
+            android:background="@null"
             android:hint="Expense Total" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -120,6 +130,7 @@
         android:textAllCaps="false"
         android:textColor="@color/white"
         android:textSize="20sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

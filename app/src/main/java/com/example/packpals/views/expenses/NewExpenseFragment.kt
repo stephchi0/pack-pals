@@ -7,11 +7,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.LinearLayout
+import android.widget.Spinner
 import android.widget.TextView
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.packpals.R
@@ -51,6 +53,16 @@ class NewExpenseFragment : Fragment() {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
         })
 
+        val splitBySpinner = requireView().findViewById<Spinner>(R.id.splitBySpinner)
+        if (splitBySpinner != null) {
+            val spinnerAdapter = ArrayAdapter.createFromResource(
+                requireContext(),
+                R.array.split_by_spinner_values,
+                android.R.layout.simple_spinner_dropdown_item
+            )
+            splitBySpinner.adapter = spinnerAdapter
+        }
+
         val linearLayout = requireView().findViewById<LinearLayout>(R.id.membersToSplitLinearLayout)
         viewModel.palsList.observe(viewLifecycleOwner) { palsList ->
             linearLayout.removeAllViews()
@@ -80,18 +92,18 @@ class NewExpenseFragment : Fragment() {
         viewModel.debtorIdsSet.observe(viewLifecycleOwner) { debtorIds ->
             for (i in 0 until linearLayout.childCount) {
                 val addPalView = linearLayout.getChildAt(i)
+                val amountOwedEditText = addPalView.findViewById<EditText>(R.id.amountOwedExpenseEditText)
+                val checkmarkImageView = addPalView.findViewById<ImageView>(R.id.checkmarkIcon)
 
                 val palId = viewModel.palsList.value?.get(i)?.id
                 if (debtorIds.contains(palId)) {
-                    addPalView.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.darker_blue))
-                    addPalView.findViewById<LinearLayout>(R.id.amountOwedExpenseLinearLayout).visibility = View.VISIBLE
-
-                    val amountOwedEditText = addPalView.findViewById<EditText>(R.id.amountOwedExpenseEditText)
-                    amountOwedEditText.setText(String.format("%.2f", viewModel.amountsOwedMap.value!![palId]))
+                    checkmarkImageView.setImageResource(R.drawable.ic_checked)
+                    amountOwedEditText.visibility = View.VISIBLE
+                    amountOwedEditText.setText("") // TODO
                 }
                 else {
-                    addPalView.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.dark_blue))
-                    addPalView.findViewById<LinearLayout>(R.id.amountOwedExpenseLinearLayout).visibility = View.GONE
+                    checkmarkImageView.setImageResource(R.drawable.ic_unchecked)
+                    amountOwedEditText.visibility = View.GONE
                 }
             }
         }
