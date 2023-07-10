@@ -80,12 +80,12 @@ class ExpensesPageViewModel @Inject constructor(private val authRepo: AuthReposi
             var expenseCardAmountMessage = ""
             if (expense.payerId == authRepo.getCurrentUID()) {
                 val amount = expense.amountsOwed!!.values.sum()
-                expenseCardAmountMessage = String.format("You are owed $%.2f", amount)
+                expenseCardAmountMessage = String.format("You are owed: $%.2f", amount)
             }
             else {
                 val userId = authRepo.getCurrentUID()
                 val amount = expense.amountsOwed!![userId]
-                expenseCardAmountMessage = String.format("You owe $%.2f", amount)
+                expenseCardAmountMessage = String.format("You owe: $%.2f", amount)
             }
             newExpenseCardInfoList.add(Triple(expenseCardTitle, expenseCardDate, expenseCardAmountMessage))
         }
