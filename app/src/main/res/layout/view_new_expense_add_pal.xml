@@ -36,6 +36,16 @@
                 android:textColor="@color/black"
                 android:textSize="20sp" />
 
+            <TextView
+                android:id="@+id/percentSignText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0"
+                android:text="%"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:visibility="gone" />
+
             <EditText
                 android:id="@+id/amountOwedExpenseEditText"
                 android:layout_width="70dp"

@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.EditText
@@ -14,6 +15,7 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.Spinner
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.packpals.R
@@ -26,10 +28,6 @@ import java.util.Date
 class NewExpenseFragment : Fragment() {
     private val viewModel: ExpensesPageViewModel by viewModels()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -40,6 +38,13 @@ class NewExpenseFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        viewModel.toastMessage.observe(viewLifecycleOwner) { message ->
+            if (message.isNotEmpty()) {
+                Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+                viewModel.clearToastMessage()
+            }
+        }
 
         val totalCostEditText = requireView().findViewById<TextInputEditText>(R.id.expenseTotalInput)
         totalCostEditText.addTextChangedListener(object: TextWatcher {
@@ -58,9 +63,16 @@ class NewExpenseFragment : Fragment() {
             val spinnerAdapter = ArrayAdapter.createFromResource(
                 requireContext(),
                 R.array.split_by_spinner_values,
-                android.R.layout.simple_spinner_dropdown_item
+                android.R.layout.simple_spinner_dropdown_item // TODO: create custom layout for spinner dropdown item
             )
             splitBySpinner.adapter = spinnerAdapter
+            splitBySpinner.onItemSelectedListener = object: AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                    val newSplitMethod = ExpensesPageViewModel.ExpenseSplittingMethod.values()[position]
+                    viewModel.setSplitMethod(newSplitMethod)
+                }
+                override fun onNothingSelected(parent: AdapterView<*>?) {}
+            }
         }
 
         val linearLayout = requireView().findViewById<LinearLayout>(R.id.membersToSplitLinearLayout)
@@ -89,40 +101,62 @@ class NewExpenseFragment : Fragment() {
                 linearLayout.addView(addPalView)
             }
         }
-        viewModel.debtorIdsSet.observe(viewLifecycleOwner) { debtorIds ->
-            for (i in 0 until linearLayout.childCount) {
-                val addPalView = linearLayout.getChildAt(i)
-                val amountOwedEditText = addPalView.findViewById<EditText>(R.id.amountOwedExpenseEditText)
-                val checkmarkImageView = addPalView.findViewById<ImageView>(R.id.checkmarkIcon)
-
-                val palId = viewModel.palsList.value?.get(i)?.id
-                if (debtorIds.contains(palId)) {
-                    checkmarkImageView.setImageResource(R.drawable.ic_checked)
-                    amountOwedEditText.visibility = View.VISIBLE
-                    amountOwedEditText.setText("") // TODO
-                }
-                else {
-                    checkmarkImageView.setImageResource(R.drawable.ic_unchecked)
-                    amountOwedEditText.visibility = View.GONE
-                }
-            }
+        viewModel.debtorIdsSet.observe(viewLifecycleOwner) {
+            updateAddPalCards()
+        }
+        viewModel.splitMethod.observe(viewLifecycleOwner) {
+            updateAddPalCards()
         }
 
         val createExpenseButton = requireView().findViewById<Button>(R.id.saveExpenseButton)
         createExpenseButton.setOnClickListener {
             val txtExpenseName = requireView().findViewById<TextInputEditText>(R.id.expenseNameInput).text.toString()
-            if (txtExpenseName.isNotEmpty()) {
-                viewModel.createExpense(txtExpenseName, Date())
+            viewModel.createExpense(txtExpenseName, Date())
+        }
+
+        viewModel.createExpenseSuccess.observe(viewLifecycleOwner) { success ->
+            if (success) {
                 findNavController().navigate(R.id.action_newExpenseFragment_to_expensesFragment)
             }
         }
     }
 
-    companion object {
-        @JvmStatic
-        fun newInstance() =
-            NewExpenseFragment().apply {
+    private fun updateAddPalCards() {
+        val linearLayout = requireView().findViewById<LinearLayout>(R.id.membersToSplitLinearLayout)
+        for (i in 0 until linearLayout.childCount) {
+            val addPalView = linearLayout.getChildAt(i)
+            val percentSignText = addPalView.findViewById<TextView>(R.id.percentSignText)
+            val amountOwedEditText = addPalView.findViewById<EditText>(R.id.amountOwedExpenseEditText)
+            val checkmarkImageView = addPalView.findViewById<ImageView>(R.id.checkmarkIcon)
 
+            val palId = viewModel.palsList.value?.get(i)?.id
+            if (viewModel.debtorIdsSet.value?.contains(palId) == true) {
+                checkmarkImageView.setImageResource(R.drawable.ic_checked)
+
+                when (viewModel.splitMethod.value) {
+                    ExpensesPageViewModel.ExpenseSplittingMethod.PERCENTAGE -> {
+                        amountOwedEditText.visibility = View.VISIBLE
+                        percentSignText.visibility = View.VISIBLE
+                        amountOwedEditText.setText(viewModel.amountsOwedMap.value!![palId].toString())
+                    }
+                    ExpensesPageViewModel.ExpenseSplittingMethod.EXACT -> {
+                        amountOwedEditText.visibility = View.VISIBLE
+                        percentSignText.visibility = View.GONE
+                        amountOwedEditText.setText(String.format("%.2f",
+                            viewModel.amountsOwedMap.value!![palId]
+                        ))
+                    }
+                    else -> {
+                        amountOwedEditText.visibility = View.GONE
+                        percentSignText.visibility = View.GONE
+                    }
+                }
             }
+            else {
+                checkmarkImageView.setImageResource(R.drawable.ic_unchecked)
+                amountOwedEditText.visibility = View.GONE
+                percentSignText.visibility = View.GONE
+            }
+        }
     }
 }
