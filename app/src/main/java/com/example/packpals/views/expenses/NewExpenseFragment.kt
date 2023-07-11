@@ -16,17 +16,16 @@ import android.widget.LinearLayout
 import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.packpals.R
 import com.example.packpals.viewmodels.ExpensesPageViewModel
 import com.google.android.material.textfield.TextInputEditText
 import dagger.hilt.android.AndroidEntryPoint
-import java.util.Date
 
 @AndroidEntryPoint
 class NewExpenseFragment : Fragment() {
-    private val viewModel: ExpensesPageViewModel by viewModels()
+    private val viewModel: ExpensesPageViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -108,15 +107,33 @@ class NewExpenseFragment : Fragment() {
             updateAddPalCards()
         }
 
+        val expenseNameEditText = requireView().findViewById<EditText>(R.id.expenseNameInput)
         val createExpenseButton = requireView().findViewById<Button>(R.id.saveExpenseButton)
         createExpenseButton.setOnClickListener {
-            val txtExpenseName = requireView().findViewById<TextInputEditText>(R.id.expenseNameInput).text.toString()
-            viewModel.createExpense(txtExpenseName, Date())
+            val txtExpenseName = expenseNameEditText.text.toString()
+            viewModel.saveExpense(txtExpenseName)
         }
 
         viewModel.createExpenseSuccess.observe(viewLifecycleOwner) { success ->
             if (success) {
                 findNavController().navigate(R.id.action_newExpenseFragment_to_expensesFragment)
+            }
+        }
+
+        viewModel.updateNewExpenseInputs.observe(viewLifecycleOwner) { update ->
+            if (update) {
+                expenseNameEditText.setText(viewModel.expenseTitle.value)
+                totalCostEditText.setText(
+                    if ((viewModel.totalCost.value ?: 0.0) <= 0) ""
+                    else viewModel.totalCost.value.toString()
+                )
+                when (viewModel.splitMethod.value) {
+                    ExpensesPageViewModel.ExpenseSplittingMethod.PERCENTAGE -> splitBySpinner.setSelection(1)
+                    ExpensesPageViewModel.ExpenseSplittingMethod.EXACT -> splitBySpinner.setSelection(2)
+                    else -> splitBySpinner.setSelection(0)
+                }
+                updateAddPalCards()
+                viewModel.resetUpdateFlag()
             }
         }
     }

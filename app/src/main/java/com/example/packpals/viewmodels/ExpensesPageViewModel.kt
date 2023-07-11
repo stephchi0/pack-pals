@@ -1,6 +1,5 @@
 package com.example.packpals.viewmodels
 
-import android.view.View
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -11,7 +10,6 @@ import com.example.packpals.repositories.AuthRepository
 import com.example.packpals.repositories.ExpensesRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import java.text.SimpleDateFormat
 import java.util.Date
 import javax.inject.Inject
 import kotlin.math.round
@@ -21,22 +19,30 @@ class ExpensesPageViewModel @Inject constructor(private val authRepo: AuthReposi
                                                 private val expensesRepo: ExpensesRepository) : ViewModel() {
 
     private val _expensesList: MutableLiveData<List<Expense>> = MutableLiveData(emptyList())
+    val expensesList: LiveData<List<Expense>> get() = _expensesList
 
-    private val _expenseCardInfoList: MutableLiveData<List<Triple<String, String, String>>> = MutableLiveData(emptyList())
-    val expenseCardInfoList: LiveData<List<Triple<String, String, String>>> = _expenseCardInfoList // (title, date, amount)
 
+    // TODO: use better way to handle events instead of boolean livedata
+    private val _updateNewExpenseInputs: MutableLiveData<Boolean> = MutableLiveData(false)
+    val updateNewExpenseInputs: LiveData<Boolean> get() = _updateNewExpenseInputs
 
     private val _createExpenseSuccess: MutableLiveData<Boolean> = MutableLiveData(false)
     val createExpenseSuccess: LiveData<Boolean> get() = _createExpenseSuccess
 
-    private val _totalCost: MutableLiveData<Double> = MutableLiveData(0.0)
+    private val _toastMessage: MutableLiveData<String> = MutableLiveData("")
+    val toastMessage: LiveData<String> get() = _toastMessage
+
 
     enum class ExpenseSplittingMethod {
         EQUAL, PERCENTAGE, EXACT
     }
+    private var _editExpenseId: String = ""
+    private val _expenseTitle: MutableLiveData<String> = MutableLiveData("")
+    val expenseTitle: LiveData<String> get() = _expenseTitle
+    private val _totalCost: MutableLiveData<Double> = MutableLiveData(0.0)
+    val totalCost: LiveData<Double> get() = _totalCost
     private val _splitMethod: MutableLiveData<ExpenseSplittingMethod> = MutableLiveData(ExpenseSplittingMethod.EQUAL)
     val splitMethod: LiveData<ExpenseSplittingMethod> get() = _splitMethod
-
     val palsList: LiveData<List<Pal>> = MutableLiveData( // TODO: retrieve trip pals when trip functionality is finished
         listOf(
             Pal("id1", "stooge"),
@@ -45,18 +51,17 @@ class ExpensesPageViewModel @Inject constructor(private val authRepo: AuthReposi
             Pal("id4", "jooge")
         )
     )
-
     private val _debtorIdsSet: MutableLiveData<Set<String>> = MutableLiveData(emptySet())
     val debtorIdsSet: LiveData<Set<String>> get() = _debtorIdsSet
-
     private val _amountsOwedMap: MutableLiveData<Map<String, Double>> = MutableLiveData(emptyMap())
     val amountsOwedMap: LiveData<Map<String, Double>> get() = _amountsOwedMap
 
-    private val _toastMessage: MutableLiveData<String> = MutableLiveData("")
-    val toastMessage: LiveData<String> get() = _toastMessage
-
     init {
         fetchExpenses()
+    }
+
+    fun getUserId(): String {
+        return authRepo.getCurrentUID() ?: ""
     }
 
     fun fetchExpenses() {
@@ -66,30 +71,52 @@ class ExpensesPageViewModel @Inject constructor(private val authRepo: AuthReposi
                 val result = expensesRepo.fetchExpenses(userId)
                 if (result != null) {
                     _expensesList.value = result!!
-                    createExpenseCardInfo()
                 }
             }
         }
     }
 
-    private fun createExpenseCardInfo() {
-        val newExpenseCardInfoList = mutableListOf<Triple<String, String, String>>()
-        for (expense in _expensesList.value!!) {
-            val expenseCardTitle = expense.title!!
-            val expenseCardDate = SimpleDateFormat("MM/dd/yyyy").format(expense.date)
-            var expenseCardAmountMessage = ""
-            if (expense.payerId == authRepo.getCurrentUID()) {
-                val amount = expense.amountsOwed!!.values.sum()
-                expenseCardAmountMessage = String.format("You are owed: $%.2f", amount)
+    fun settleExpense(expense: Expense) {
+        val expenseId = expense.expenseId
+        if (expenseId != null) {
+            val updatedExpense = Expense(
+                expense.title,
+                expense.date,
+                expense.amountPaid,
+                expense.payerId,
+                expense.debtorIds,
+                expense.amountsOwed,
+                !(expense.settled ?: false)
+            )
+            viewModelScope.launch {
+                expensesRepo.updateExpense(expenseId, updatedExpense)
+                fetchExpenses()
             }
-            else {
-                val userId = authRepo.getCurrentUID()
-                val amount = expense.amountsOwed!![userId]
-                expenseCardAmountMessage = String.format("You owe: $%.2f", amount)
-            }
-            newExpenseCardInfoList.add(Triple(expenseCardTitle, expenseCardDate, expenseCardAmountMessage))
         }
-        _expenseCardInfoList.value = newExpenseCardInfoList
+    }
+
+    fun clearNewExpenseForm() {
+        _expenseTitle.value = ""
+        setTotalCost(0.0)
+        setSplitMethod(ExpenseSplittingMethod.EQUAL)
+        _debtorIdsSet.value = emptySet()
+        _amountsOwedMap.value = emptyMap()
+
+        _editExpenseId = ""
+        _createExpenseSuccess.value = false
+        _updateNewExpenseInputs.value = true
+    }
+
+    fun editExpense(expense: Expense) {
+        _expenseTitle.value = expense.title ?: ""
+        setTotalCost(expense.amountPaid!!)
+        setSplitMethod(ExpenseSplittingMethod.EXACT)
+        _amountsOwedMap.value = expense.amountsOwed!!
+        _debtorIdsSet.value = expense.debtorIds!!.toSet()
+
+        _editExpenseId = expense.expenseId ?: ""
+        _createExpenseSuccess.value = false
+        _updateNewExpenseInputs.value = true
     }
 
     fun setTotalCost(cost: Double) {
@@ -97,9 +124,6 @@ class ExpensesPageViewModel @Inject constructor(private val authRepo: AuthReposi
     }
 
     fun setSplitMethod(method: ExpenseSplittingMethod) {
-        val newAmountsOwedMap = _amountsOwedMap.value?.toMutableMap()
-        newAmountsOwedMap?.replaceAll { _, _ -> 0.0 }
-
         _splitMethod.value = method
     }
 
@@ -125,19 +149,27 @@ class ExpensesPageViewModel @Inject constructor(private val authRepo: AuthReposi
         _amountsOwedMap.value = newAmountsOwed
     }
 
-    fun createExpense(title: String, date: Date) {
+    fun saveExpense(title: String) {
         viewModelScope.launch {
             val newExpense = Expense(
                 title,
-                date,
+                Date(),
                 _totalCost.value,
                 authRepo.getCurrentUID(),
                 _debtorIdsSet.value?.toList(),
-                splitExpense(_totalCost.value!!, _amountsOwedMap.value!!.toMutableMap(), _splitMethod.value!!)
+                splitExpense(_totalCost.value!!, _amountsOwedMap.value!!.toMutableMap(), _splitMethod.value!!),
+                false
             )
 
             if (validateExpense(newExpense)) {
-                expensesRepo.createExpense(newExpense)
+                if (_editExpenseId.isNullOrEmpty()) {
+                    expensesRepo.createExpense(newExpense)
+                }
+                else {
+                    expensesRepo.updateExpense(_editExpenseId, newExpense)
+                }
+
+                _editExpenseId = ""
                 _toastMessage.value = "Successfully created expense"
                 _createExpenseSuccess.value = true
             }
@@ -173,6 +205,7 @@ class ExpensesPageViewModel @Inject constructor(private val authRepo: AuthReposi
         if (expense.payerId.isNullOrEmpty()) return false
         if (expense.debtorIds == null) return false
         if (expense.amountsOwed == null) return false
+        if (expense.settled == null) return false
 
         if (expense.amountsOwed.size != expense.debtorIds.size || expense.amountsOwed.values.sum() > expense.amountPaid) {
             _toastMessage.value = "Total of amounts owed cannot exceed expense total"
@@ -180,6 +213,10 @@ class ExpensesPageViewModel @Inject constructor(private val authRepo: AuthReposi
         }
 
         return true
+    }
+
+    fun resetUpdateFlag() {
+        _updateNewExpenseInputs.value = false
     }
 
     fun clearToastMessage() {

@@ -59,6 +59,7 @@
             android:layout_height="match_parent"
             android:layout_gravity="center_vertical"
             android:layout_margin="4dp"
+            android:visibility="gone"
             app:srcCompat="@drawable/ic_edit" />
 
         <ImageView
@@ -67,6 +68,7 @@
             android:layout_height="match_parent"
             android:layout_gravity="center_vertical"
             android:layout_margin="16dp"
+            android:visibility="gone"
             app:srcCompat="@drawable/ic_unchecked" />
     </LinearLayout>
 
