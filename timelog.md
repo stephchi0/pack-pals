@@ -25,3 +25,4 @@
 |        |5      |     |        |       |     |07/04/2023|Connected firebase cloud storage, created storage and trip photos repositories, added profile picture upload to register page|
 |        |5      |     |        |       |     |07/07/2023|Added more customizability to expense splitting|
 |9       |       |     |        |       |9    |07/07/2023|Redesign app UI in Figma|
+|        |11     |     |        |       |     |07/10/2023|Update expense list and new expense page UI, added more expense splitting options, expense settling, and expense editing|
