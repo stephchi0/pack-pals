@@ -7,26 +7,25 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.EditorInfo
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.LinearLayout
+import android.widget.Spinner
 import android.widget.TextView
-import androidx.core.content.ContextCompat
-import androidx.fragment.app.viewModels
+import android.widget.Toast
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.packpals.R
 import com.example.packpals.viewmodels.ExpensesPageViewModel
+import com.google.android.material.textfield.TextInputEditText
 import dagger.hilt.android.AndroidEntryPoint
-import java.util.Date
 
 @AndroidEntryPoint
 class NewExpenseFragment : Fragment() {
-    private val viewModel: ExpensesPageViewModel by viewModels()
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
+    private val viewModel: ExpensesPageViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,7 +38,14 @@ class NewExpenseFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val totalCostEditText = requireView().findViewById<EditText>(R.id.totalCostInput)
+        viewModel.toastMessage.observe(viewLifecycleOwner) { message ->
+            if (message.isNotEmpty()) {
+                Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+                viewModel.clearToastMessage()
+            }
+        }
+
+        val totalCostEditText = requireView().findViewById<TextInputEditText>(R.id.expenseTotalInput)
         totalCostEditText.addTextChangedListener(object: TextWatcher {
             override fun afterTextChanged(s: Editable?) {
                 val newTotalCost = s.toString().toDoubleOrNull()
@@ -51,7 +57,24 @@ class NewExpenseFragment : Fragment() {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
         })
 
-        val linearLayout = requireView().findViewById<LinearLayout>(R.id.newExpenseLinearLayout)
+        val splitBySpinner = requireView().findViewById<Spinner>(R.id.splitBySpinner)
+        if (splitBySpinner != null) {
+            val spinnerAdapter = ArrayAdapter.createFromResource(
+                requireContext(),
+                R.array.split_by_spinner_values,
+                android.R.layout.simple_spinner_dropdown_item // TODO: create custom layout for spinner dropdown item
+            )
+            splitBySpinner.adapter = spinnerAdapter
+            splitBySpinner.onItemSelectedListener = object: AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                    val newSplitMethod = ExpensesPageViewModel.ExpenseSplittingMethod.values()[position]
+                    viewModel.setSplitMethod(newSplitMethod)
+                }
+                override fun onNothingSelected(parent: AdapterView<*>?) {}
+            }
+        }
+
+        val linearLayout = requireView().findViewById<LinearLayout>(R.id.membersToSplitLinearLayout)
         viewModel.palsList.observe(viewLifecycleOwner) { palsList ->
             linearLayout.removeAllViews()
             for (pal in palsList) {
@@ -77,40 +100,80 @@ class NewExpenseFragment : Fragment() {
                 linearLayout.addView(addPalView)
             }
         }
-        viewModel.debtorIdsSet.observe(viewLifecycleOwner) { debtorIds ->
-            for (i in 0 until linearLayout.childCount) {
-                val addPalView = linearLayout.getChildAt(i)
+        viewModel.debtorIdsSet.observe(viewLifecycleOwner) {
+            updateAddPalCards()
+        }
+        viewModel.splitMethod.observe(viewLifecycleOwner) {
+            updateAddPalCards()
+        }
 
-                val palId = viewModel.palsList.value?.get(i)?.id
-                if (debtorIds.contains(palId)) {
-                    addPalView.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.darker_blue))
-                    addPalView.findViewById<LinearLayout>(R.id.amountOwedExpenseLinearLayout).visibility = View.VISIBLE
+        val expenseNameEditText = requireView().findViewById<EditText>(R.id.expenseNameInput)
+        val createExpenseButton = requireView().findViewById<Button>(R.id.saveExpenseButton)
+        createExpenseButton.setOnClickListener {
+            val txtExpenseName = expenseNameEditText.text.toString()
+            viewModel.saveExpense(txtExpenseName)
+        }
 
-                    val amountOwedEditText = addPalView.findViewById<EditText>(R.id.amountOwedExpenseEditText)
-                    amountOwedEditText.setText(String.format("%.2f", viewModel.amountsOwedMap.value!![palId]))
-                }
-                else {
-                    addPalView.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.dark_blue))
-                    addPalView.findViewById<LinearLayout>(R.id.amountOwedExpenseLinearLayout).visibility = View.GONE
-                }
+        viewModel.createExpenseSuccess.observe(viewLifecycleOwner) { success ->
+            if (success) {
+                findNavController().navigate(R.id.action_newExpenseFragment_to_expensesFragment)
             }
         }
 
-        val createExpenseButton = requireView().findViewById<Button>(R.id.createExpenseButton)
-        createExpenseButton.setOnClickListener {
-            val txtExpenseName = requireView().findViewById<TextView>(R.id.expenseNameInput).text.toString()
-            if (txtExpenseName.isNotEmpty()) {
-                viewModel.createExpense(txtExpenseName, Date())
-                findNavController().navigate(R.id.action_newExpenseFragment_to_expensesFragment)
+        viewModel.updateNewExpenseInputs.observe(viewLifecycleOwner) { update ->
+            if (update) {
+                expenseNameEditText.setText(viewModel.expenseTitle.value)
+                totalCostEditText.setText(
+                    if ((viewModel.totalCost.value ?: 0.0) <= 0) ""
+                    else viewModel.totalCost.value.toString()
+                )
+                when (viewModel.splitMethod.value) {
+                    ExpensesPageViewModel.ExpenseSplittingMethod.PERCENTAGE -> splitBySpinner.setSelection(1)
+                    ExpensesPageViewModel.ExpenseSplittingMethod.EXACT -> splitBySpinner.setSelection(2)
+                    else -> splitBySpinner.setSelection(0)
+                }
+                updateAddPalCards()
+                viewModel.resetUpdateFlag()
             }
         }
     }
 
-    companion object {
-        @JvmStatic
-        fun newInstance() =
-            NewExpenseFragment().apply {
+    private fun updateAddPalCards() {
+        val linearLayout = requireView().findViewById<LinearLayout>(R.id.membersToSplitLinearLayout)
+        for (i in 0 until linearLayout.childCount) {
+            val addPalView = linearLayout.getChildAt(i)
+            val percentSignText = addPalView.findViewById<TextView>(R.id.percentSignText)
+            val amountOwedEditText = addPalView.findViewById<EditText>(R.id.amountOwedExpenseEditText)
+            val checkmarkImageView = addPalView.findViewById<ImageView>(R.id.checkmarkIcon)
 
+            val palId = viewModel.palsList.value?.get(i)?.id
+            if (viewModel.debtorIdsSet.value?.contains(palId) == true) {
+                checkmarkImageView.setImageResource(R.drawable.ic_checked)
+
+                when (viewModel.splitMethod.value) {
+                    ExpensesPageViewModel.ExpenseSplittingMethod.PERCENTAGE -> {
+                        amountOwedEditText.visibility = View.VISIBLE
+                        percentSignText.visibility = View.VISIBLE
+                        amountOwedEditText.setText(viewModel.amountsOwedMap.value!![palId].toString())
+                    }
+                    ExpensesPageViewModel.ExpenseSplittingMethod.EXACT -> {
+                        amountOwedEditText.visibility = View.VISIBLE
+                        percentSignText.visibility = View.GONE
+                        amountOwedEditText.setText(String.format("%.2f",
+                            viewModel.amountsOwedMap.value!![palId]
+                        ))
+                    }
+                    else -> {
+                        amountOwedEditText.visibility = View.GONE
+                        percentSignText.visibility = View.GONE
+                    }
+                }
             }
+            else {
+                checkmarkImageView.setImageResource(R.drawable.ic_unchecked)
+                amountOwedEditText.visibility = View.GONE
+                percentSignText.visibility = View.GONE
+            }
+        }
     }
 }

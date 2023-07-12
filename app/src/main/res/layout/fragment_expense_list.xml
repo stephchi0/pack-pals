@@ -5,38 +5,58 @@
     android:id="@+id/expenseListFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/light_blue"
+    android:background="@color/white"
     tools:context=".views.expenses.ExpenseListFragment">
 
-    <Button
-        android:id="@+id/addNewExpenseButton"
-        android:layout_width="361dp"
-        android:layout_height="54dp"
+    <LinearLayout
+        android:id="@+id/expenseListLinearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="24dp"
         android:layout_marginBottom="24dp"
-        android:background="@color/dark_blue"
-        android:text="Add New Expense"
-        android:textColor="@color/white"
+        android:background="@drawable/round_light_blue_background"
+        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.494"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <ScrollView
-        android:id="@+id/expensesScrollView"
-        android:layout_width="353dp"
-        android:layout_height="585dp"
-        android:layout_marginBottom="36dp"
-        app:layout_constraintBottom_toTopOf="@+id/addNewExpenseButton"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0">
+        app:layout_constraintTop_toTopOf="parent">
 
-        <LinearLayout
-            android:id="@+id/expensesLinearLayout"
+        <ScrollView
+            android:id="@+id/expensesScrollView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="8dp"
+            android:layout_weight="1">
+
+            <LinearLayout
+                android:id="@+id/expensesLinearLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" />
+        </ScrollView>
+
+        <Button
+            android:id="@+id/addNewExpenseButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" />
-    </ScrollView>
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="24dp"
+            android:background="@drawable/round_dark_blue_background"
+            android:drawableEnd="@drawable/ic_add"
+            android:paddingStart="16sp"
+            android:paddingTop="8sp"
+            android:paddingEnd="8sp"
+            android:paddingBottom="8sp"
+            android:text="Add new expense"
+            android:textAlignment="viewStart"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

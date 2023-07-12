@@ -8,7 +8,7 @@
     <string name="FindAPal">Find A Pal</string>
     <string name="Playlist">Playlist</string>
     <string name="Expenses">Expenses</string>
-    <string name="NewExpense">New Expense</string>
+    <string name="NewExpense">Edit Expense</string>
     <string name="PackingList">Packing List</string>
     <string name="GroupChat">Group Chat</string>
     <string name="Profile">Profile</string>
@@ -23,6 +23,10 @@
     <string name="menu_slideshow">Slideshow</string>
     <string name="nav_header_desc">Navigation Header</string>
     <string name="nav_header_subtitle">Pack it up</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string-array name="split_by_spinner_values">
+        <item>Equally</item>
+        <item>Percent</item>
+        <item>Exact</item>
+    </string-array>
 </resources>

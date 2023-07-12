@@ -13,7 +13,16 @@ class ExpensesRepository @Inject constructor(private val expensesCollectionRef: 
             Filter.arrayContains("debtorIds", userId)
         )
         return try {
-            expensesCollectionRef.where(expensesFilter).get().await().toObjects(Expense::class.java)
+            val snapshot = expensesCollectionRef.where(expensesFilter).get().await()
+            val result = mutableListOf<Expense>()
+            for (document in snapshot.documents) {
+                val expense = document.toObject(Expense::class.java)
+                if (expense != null) {
+                    expense.expenseId = document.id
+                    result.add(expense)
+                }
+            }
+            result.sortedByDescending { it.date }
         } catch (e: Exception) {
             null
         }
@@ -21,5 +30,9 @@ class ExpensesRepository @Inject constructor(private val expensesCollectionRef: 
 
     suspend fun createExpense(expense: Expense) {
         expensesCollectionRef.add(expense).await()
+    }
+
+    suspend fun updateExpense(expenseId: String,  updatedExpense: Expense) {
+        expensesCollectionRef.document(expenseId).set(updatedExpense).await()
     }
 }
