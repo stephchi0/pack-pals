@@ -26,3 +26,4 @@
 |        |5      |     |        |       |     |07/07/2023|Added more customizability to expense splitting|
 |9       |       |     |        |       |9    |07/07/2023|Redesign app UI in Figma|
 |        |11     |     |        |       |     |07/10/2023|Update expense list and new expense page UI, added more expense splitting options, expense settling, and expense editing|
+|1       |       |     |        |       |     |07/13/2023|update UI for trips pages|

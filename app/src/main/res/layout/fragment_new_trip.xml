@@ -5,7 +5,7 @@
     android:id="@+id/newExpenseFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/light_blue"
+    android:background="@color/white"
     tools:context=".views.trips.NewTripFragment">
 
     <androidx.appcompat.widget.Toolbar
@@ -26,37 +26,27 @@
         android:layout_width="361dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="24dp"
-        android:background="@color/dark_blue"
+        android:background="@drawable/round_red_background"
         android:text="Create Trip"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.494"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toMapButton" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
         android:id="@+id/tripNameInput"
         android:layout_width="340dp"
         android:layout_height="40dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/round_light_blue_background"
         android:ems="10"
         android:inputType="text"
+        android:text="Trip Name"
+        android:textAlignment="viewStart"
+        android:textColor="#000000"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.352"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tripNameLabel" />
-
-    <TextView
-        android:id="@+id/tripNameLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="27dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="28dp"
-        android:text="Trip name"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/tripNameInput"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.084"
+        app:layout_constraintHorizontal_bias="0.478"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/newTripToolbar" />
 
@@ -64,20 +54,22 @@
         android:id="@+id/invitePalsLabel"
         android:layout_width="wrap_content"
         android:layout_height="27dp"
-        android:text="Invite Pals"
+        android:layout_marginTop="20dp"
+        android:text="Add Pals to Trip"
         android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/tripPalsScrollView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.084"
+        app:layout_constraintHorizontal_bias="0.126"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tripNameInput"
         app:layout_constraintVertical_bias="0.538" />
 
     <ScrollView
         android:id="@+id/tripPalsScrollView"
-        android:layout_width="359dp"
-        android:layout_height="266dp"
+        android:layout_width="339dp"
+        android:layout_height="400dp"
         android:layout_marginTop="7dp"
+        android:background="@drawable/round_light_blue_background"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/invitePalsLabel">
@@ -89,32 +81,14 @@
             android:orientation="vertical" />
     </ScrollView>
 
-    <Button
-        android:id="@+id/toMapButton"
-        android:layout_width="239dp"
-        android:layout_height="61dp"
-        android:layout_marginStart="76dp"
-        android:layout_marginTop="17dp"
-        android:layout_marginEnd="96dp"
-        android:layout_marginBottom="88dp"
-        android:backgroundTint="@color/dark_blue"
-        android:text="pick destination from map"
-        android:textColor="@color/white"
+    <SearchView
+        android:id="@+id/searchForTripPals"
+        android:layout_width="346dp"
+        android:layout_height="55dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/round_dark_blue_background"
+        android:queryHint="@string/app_name"
         app:layout_constraintBottom_toTopOf="@+id/createTripButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/destinationLabel" />
-
-    <TextView
-        android:id="@+id/destinationLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="27dp"
-        android:text="Destination:"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.088"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tripPalsScrollView" />
+        tools:layout_editor_absoluteX="32dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
