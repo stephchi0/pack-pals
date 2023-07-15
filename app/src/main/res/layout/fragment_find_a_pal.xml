@@ -26,14 +26,14 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"/>
 
-    <Button
-        android:id="@+id/incomingPalRequestsNavButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Incoming Pal Requests"
-        app:layout_constraintTop_toBottomOf="@id/findAPalSubmitButton"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
+<!--    <Button-->
+<!--        android:id="@+id/incomingPalRequestsNavButton"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="Incoming Pal Requests"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/findAPalSubmitButton"-->
+<!--        app:layout_constraintLeft_toLeftOf="parent"-->
+<!--        app:layout_constraintRight_toRightOf="parent" />-->
 
 <!--    <androidx.recyclerview.widget.RecyclerView-->
 <!--        android:id="@+id/findAPalRecyclerView"-->
