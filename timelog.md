@@ -28,3 +28,4 @@
 |        |11     |     |        |       |     |07/10/2023|Update expense list and new expense page UI, added more expense splitting options, expense settling, and expense editing|
 |1       |1      |1    |1       |1      |1    |07/11/2023|Worked on deliverable 4 (architecture style examples)|
 |1       |       |     |        |       |     |07/13/2023|update UI for trips pages|
+|6       |       |     |        |       |     |07/14/2023|implement pop-up menu for individual trips and add archive functionality|
