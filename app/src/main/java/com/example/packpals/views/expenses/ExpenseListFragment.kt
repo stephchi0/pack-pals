@@ -6,17 +6,21 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
-import androidx.fragment.app.viewModels
+import androidx.cardview.widget.CardView
+import androidx.core.content.ContextCompat
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.packpals.R
 import com.example.packpals.viewmodels.ExpensesPageViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import java.text.SimpleDateFormat
 
 @AndroidEntryPoint
 class ExpenseListFragment : Fragment() {
-    private val viewModel: ExpensesPageViewModel by viewModels()
+    private val viewModel: ExpensesPageViewModel by activityViewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,26 +38,58 @@ class ExpenseListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val linearLayout = requireView().findViewById<LinearLayout>(R.id.expensesLinearLayout)
-        viewModel.expenseCardInfoList.observe(viewLifecycleOwner) { expenseCardInfoList ->
+        viewModel.expensesList.observe(viewLifecycleOwner) { expensesList ->
             linearLayout.removeAllViews()
-            for ((title, date, amount) in expenseCardInfoList) {
-                val expenseView = LayoutInflater.from(context).inflate(R.layout.view_expense, linearLayout, false)
+            val userId = viewModel.getUserId()
+            for (expense in expensesList) {
+                val expenseCardView = LayoutInflater.from(context).inflate(R.layout.view_expense, linearLayout, false) as CardView
+                val titleView = expenseCardView.findViewById<TextView>(R.id.expenseTitle)
+                val dateView = expenseCardView.findViewById<TextView>(R.id.expenseDate)
+                val amountOwedView = expenseCardView.findViewById<TextView>(R.id.expenseAmountOwed)
+                val editImageView = expenseCardView.findViewById<ImageView>(R.id.editImageView)
+                val checkmarkImageView = expenseCardView.findViewById<ImageView>(R.id.checkmarkImageView)
 
-                expenseView.findViewById<TextView>(R.id.expenseTitle).text = title
-                expenseView.findViewById<TextView>(R.id.expenseDate).text = date
-                expenseView.findViewById<TextView>(R.id.expenseAmountOwed).text = amount
+                expenseCardView.setCardBackgroundColor(ContextCompat.getColor(requireContext(),
+                    if (expense.settled == true) R.color.gray
+                    else R.color.white
+                ))
+                titleView.text = expense.title
+                dateView.text = SimpleDateFormat("MM/dd/yyyy").format(expense.date)
+                if (expense.payerId == userId) {
+                    amountOwedView.text = String.format("You are owed: $%.2f", expense.amountsOwed!!.values.sum())
+                    editImageView.visibility =
+                        if (expense.settled == true) View.GONE
+                        else View.VISIBLE
+                    checkmarkImageView.visibility = View.VISIBLE
 
-                expenseView.setOnClickListener {
-                    // fill in later with expense details
+                    checkmarkImageView.setImageResource(
+                        if (expense.settled == true) R.drawable.ic_checked
+                        else R.drawable.ic_unchecked
+                    )
+                }
+                else {
+                    amountOwedView.text = String.format("You owe: $%.2f", expense.amountsOwed!![userId]) // TODO: add payer's name
+                    editImageView.visibility = View.INVISIBLE
+                    checkmarkImageView.visibility = View.INVISIBLE
                 }
 
-                linearLayout.addView(expenseView)
+                editImageView.setOnClickListener {
+                    findNavController().navigate(R.id.action_expensesFragment_to_newExpenseFragment)
+                    viewModel.editExpense(expense)
+                }
+
+                checkmarkImageView.setOnClickListener {
+                    viewModel.settleExpense(expense)
+                }
+
+                linearLayout.addView(expenseCardView)
             }
         }
 
         val addNewExpenseButton = requireView().findViewById<Button>(R.id.addNewExpenseButton)
         addNewExpenseButton.setOnClickListener {
             findNavController().navigate(R.id.action_expensesFragment_to_newExpenseFragment)
+            viewModel.clearNewExpenseForm()
         }
     }
 

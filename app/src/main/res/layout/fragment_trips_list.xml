@@ -5,43 +5,45 @@
     android:id="@+id/expenseListFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/light_blue"
+    android:background="@color/white"
     tools:context=".views.trips.TripsPageActivity">
 
     <Button
         android:id="@+id/addNewTripButton"
         android:layout_width="361dp"
         android:layout_height="54dp"
-        android:layout_marginBottom="24dp"
-        android:background="@color/dark_blue"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/round_red_background"
         android:text="Add New Trip"
         android:textColor="@color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/viewCurrentTripButton"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.494"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.54"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/pastTripsScrollView" />
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="73dp"
-        android:layout_marginBottom="28dp"
         android:background="@color/dark_blue"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
-        app:layout_constraintBottom_toTopOf="@+id/viewCurrentTripButton"
+        app:layout_constraintBottom_toTopOf="@+id/textView8"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:title="Trips"
+        app:title="My Trips"
         app:titleTextColor="@color/white" />
 
     <ScrollView
         android:id="@+id/pastTripsScrollView"
-        android:layout_width="364dp"
-        android:layout_height="166dp"
+        android:layout_width="371dp"
+        android:layout_height="211dp"
         android:layout_marginTop="9dp"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/round_light_blue_background"
         app:layout_constraintBottom_toTopOf="@+id/addNewTripButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -59,9 +61,12 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="129dp"
-        android:text="Upcoming Trips"
-        app:layout_constraintBottom_toTopOf="@+id/currentTripsScrollView"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:text="Active Trips"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/activeTripsScrollView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -74,15 +79,18 @@
         android:layout_marginStart="20dp"
         android:layout_marginTop="6dp"
         android:text="Past Trips"
+        android:textColor="@color/black"
+        android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/pastTripsScrollView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/currentTripsScrollView" />
+        app:layout_constraintTop_toBottomOf="@+id/activeTripsScrollView" />
 
     <ScrollView
-        android:id="@+id/currentTripsScrollView"
+        android:id="@+id/activeTripsScrollView"
         android:layout_width="364dp"
         android:layout_height="202dp"
+        android:background="@drawable/round_light_blue_background"
         app:layout_constraintBottom_toTopOf="@+id/textView9"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.51"
@@ -90,7 +98,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView8">
 
         <LinearLayout
-            android:id="@+id/upcomingTripsLinearLayout"
+            android:id="@+id/activeTripsLinearLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical" />
@@ -100,13 +108,15 @@
         android:id="@+id/viewCurrentTripButton"
         android:layout_width="189dp"
         android:layout_height="0dp"
-        android:layout_marginBottom="40dp"
-        android:backgroundTint="@color/dark_blue"
-        android:text="view current trip"
+        android:layout_marginStart="111dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="111dp"
+        android:background="@drawable/round_dark_blue_background"
+        android:text="view map"
         android:textColor="@color/white"
-        app:layout_constraintBottom_toTopOf="@+id/textView8"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+        app:layout_constraintTop_toBottomOf="@+id/addNewTripButton" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
