@@ -7,7 +7,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageButton
 import android.widget.LinearLayout
+import android.widget.PopupMenu
+import android.view.MenuInflater
 import android.widget.TextView
 import androidx.fragment.app.viewModels
 import com.example.packpals.R
@@ -31,18 +34,73 @@ class TripsListFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_trips_list, container, false)
     }
 
+    override fun onResume() {
+        super.onResume()
+        viewModel.fetchTrips()
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val upcomingTripsLayout = requireView().findViewById<LinearLayout>(R.id.upcomingTripsLinearLayout)
+        val upcomingTripsLayout = requireView().findViewById<LinearLayout>(R.id.activeTripsLinearLayout)
         viewModel.tripsList.observe(viewLifecycleOwner) { tripsList ->
+            upcomingTripsLayout.removeAllViews()
             for (trip in tripsList) {
-                print(trip.title)
-                val tripView =
-                    LayoutInflater.from(context).inflate(R.layout.view_trip, upcomingTripsLayout, false)
+                if(trip.active == true){
+                    val tripView = LayoutInflater.from(context).inflate(R.layout.view_trip, upcomingTripsLayout, false)
+                    val activeMenuButton = tripView.findViewById<ImageButton>(R.id.trip_triple_dot_menu)
+                    tripView.findViewById<TextView>(R.id.tripTitle).text = trip.title
 
-                tripView.findViewById<TextView>(R.id.tripTitle).text = trip.title
-                upcomingTripsLayout.addView(tripView)
+                    activeMenuButton.setOnClickListener{
+                        val popup = PopupMenu(context, activeMenuButton)
+                        popup.menuInflater.inflate(R.menu.active_trip_settings, popup.menu)
+                        popup.setOnMenuItemClickListener { menuItem ->
+                            val id = menuItem.itemId
+                            if(id == R.id.active_trip_edit_item){
+                            }
+                            else if (id ==R.id.active_trip_archive_item){
+                                viewModel.editActive(trip)
+                                viewModel.fetchTrips()
+                            }
+
+                            false
+                        }
+                        popup.show()
+                    }
+
+                    upcomingTripsLayout.addView(tripView)
+                }
+            }
+        }
+
+        val pastTripsLayout = requireView().findViewById<LinearLayout>(R.id.pastTripsLinearLayout)
+        viewModel.tripsList.observe(viewLifecycleOwner) { tripsList ->
+            pastTripsLayout.removeAllViews()
+            for (trip in tripsList) {
+                if(trip.active == false){
+                    val tripView = LayoutInflater.from(context).inflate(R.layout.view_trip, pastTripsLayout, false)
+                    val pastMenuButton = tripView.findViewById<ImageButton>(R.id.trip_triple_dot_menu)
+                    tripView.findViewById<TextView>(R.id.tripTitle).text = trip.title
+
+                    pastMenuButton.setOnClickListener{
+                        val popup = PopupMenu(context, pastMenuButton)
+                        popup.menuInflater.inflate(R.menu.past_trip_settings, popup.menu)
+                        popup.setOnMenuItemClickListener { menuItem ->
+                            val id = menuItem.itemId
+                            if(id == R.id.past_trip_edit_item){
+                            }
+                            else if (id ==R.id.past_trip_make_active_item){
+                                viewModel.editActive(trip)
+                                viewModel.fetchTrips()
+                            }
+
+                            false
+                        }
+                        popup.show()
+                    }
+
+                    pastTripsLayout.addView(tripView)
+                }
             }
         }
 
@@ -59,5 +117,7 @@ class TripsListFragment : Fragment() {
             transaction.commit()
         }
     }
+
+
 
 }
