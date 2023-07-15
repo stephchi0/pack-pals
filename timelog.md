@@ -30,3 +30,4 @@
 |6       |       |     |        |       |     |07/14/2023|implement pop-up menu for individual trips and add archive functionality|
 |        |       |12   |        |       |     |07/14/2023|Pal request page, pal request system|
 |2       |       |     |        |       |     |07/15/2023|fix bug in new trip UI and add trip nav to map functionality|
+|3       |       |     |        |       |     |07/15/2023|UI changes to navigation drawer and action bar|
