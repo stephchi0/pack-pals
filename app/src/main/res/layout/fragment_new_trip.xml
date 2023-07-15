@@ -6,16 +6,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
+    android:windowSoftInputMode="adjustNothing"
     tools:context=".views.trips.NewTripFragment">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/newTripToolbar"
         android:layout_width="match_parent"
         android:layout_height="73dp"
+        android:layout_marginBottom="20dp"
         android:background="@color/dark_blue"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
+        app:layout_constraintBottom_toTopOf="@+id/tripNameInput"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:title="Create a New Trip"
@@ -25,26 +29,27 @@
         android:id="@+id/createTripButton"
         android:layout_width="361dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp"
+        android:layout_marginBottom="30dp"
         android:background="@drawable/round_red_background"
         android:text="Create Trip"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.494"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tripPalsScrollView" />
 
     <EditText
         android:id="@+id/tripNameInput"
         android:layout_width="340dp"
         android:layout_height="40dp"
-        android:layout_marginTop="16dp"
         android:background="@drawable/round_light_blue_background"
         android:ems="10"
         android:inputType="text"
         android:text="Trip Name"
-        android:textAlignment="viewStart"
+        android:textAlignment="textStart"
         android:textColor="#000000"
+        app:layout_constraintBottom_toTopOf="@+id/invitePalsLabel"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.478"
         app:layout_constraintStart_toStartOf="parent"
@@ -57,22 +62,24 @@
         android:layout_marginTop="20dp"
         android:text="Add Pals to Trip"
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/tripPalsScrollView"
+        app:layout_constraintBottom_toTopOf="@+id/searchForTripPals"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.126"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tripNameInput"
-        app:layout_constraintVertical_bias="0.538" />
+        app:layout_constraintTop_toBottomOf="@+id/tripNameInput" />
 
     <ScrollView
         android:id="@+id/tripPalsScrollView"
         android:layout_width="339dp"
         android:layout_height="400dp"
-        android:layout_marginTop="7dp"
+        android:layout_marginBottom="20dp"
         android:background="@drawable/round_light_blue_background"
+        android:isScrollContainer="false"
+        app:layout_constraintBottom_toTopOf="@+id/createTripButton"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.541"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/invitePalsLabel">
+        app:layout_constraintTop_toBottomOf="@+id/searchForTripPals">
 
         <LinearLayout
             android:id="@+id/tripPalsLinearLayout"
@@ -85,10 +92,12 @@
         android:id="@+id/searchForTripPals"
         android:layout_width="346dp"
         android:layout_height="55dp"
-        android:layout_marginBottom="20dp"
         android:background="@drawable/round_dark_blue_background"
         android:queryHint="@string/app_name"
-        app:layout_constraintBottom_toTopOf="@+id/createTripButton"
-        tools:layout_editor_absoluteX="32dp" />
+        app:layout_constraintBottom_toTopOf="@+id/tripPalsScrollView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.523"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/invitePalsLabel" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
