@@ -57,7 +57,6 @@ class TripsListFragment : Fragment() {
                         popup.setOnMenuItemClickListener { menuItem ->
                             val id = menuItem.itemId
                             if(id == R.id.active_trip_edit_item){
-                                print("yo")
                             }
                             else if (id ==R.id.active_trip_archive_item){
                                 viewModel.editActive(trip)
@@ -89,7 +88,6 @@ class TripsListFragment : Fragment() {
                         popup.setOnMenuItemClickListener { menuItem ->
                             val id = menuItem.itemId
                             if(id == R.id.past_trip_edit_item){
-                                print("yo")
                             }
                             else if (id ==R.id.past_trip_make_active_item){
                                 viewModel.editActive(trip)
