@@ -65,7 +65,8 @@
         android:layout_marginBottom="10dp"
         android:text="Active Trips"
         android:textColor="@color/black"
-        app:layout_constraintBottom_toTopOf="@+id/currentTripsScrollView"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/activeTripsScrollView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -79,13 +80,14 @@
         android:layout_marginTop="6dp"
         android:text="Past Trips"
         android:textColor="@color/black"
+        android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/pastTripsScrollView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/currentTripsScrollView" />
+        app:layout_constraintTop_toBottomOf="@+id/activeTripsScrollView" />
 
     <ScrollView
-        android:id="@+id/currentTripsScrollView"
+        android:id="@+id/activeTripsScrollView"
         android:layout_width="364dp"
         android:layout_height="202dp"
         android:background="@drawable/round_light_blue_background"
@@ -96,7 +98,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView8">
 
         <LinearLayout
-            android:id="@+id/upcomingTripsLinearLayout"
+            android:id="@+id/activeTripsLinearLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical" />

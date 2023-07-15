@@ -4,5 +4,6 @@ data class Trip(
     val title: String? = null,
     val tripCreatorId: String? = null,
     val tripPalIds: List<String>? = null,
-    val active: Boolean? = true //default to active after creation
+    var active: Boolean? = null,
+    var tripId: String? = null,
 )
