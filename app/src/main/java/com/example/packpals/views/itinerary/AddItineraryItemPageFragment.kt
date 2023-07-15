@@ -36,7 +36,7 @@ class AddItineraryPageFragment : Fragment() {
         viewModel.reccItineraryItemsList.observe(viewLifecycleOwner) { itineraryItems ->
             itineraryItemAdapter = AddItineraryItemAdapter(itineraryItems, viewModel.itineraryItemsList.value!! )
             itineraryItemAdapter.updateLists(itineraryItems, viewModel.itineraryItemsList.value!!)
-            val rvItineraryItems = requireView().findViewById<RecyclerView>(R.id.rvItineraryItems)
+            val rvItineraryItems = requireView().findViewById<RecyclerView>(R.id.lliterinerary)
             rvItineraryItems.adapter = itineraryItemAdapter
             rvItineraryItems.layoutManager = LinearLayoutManager(context)
 
@@ -45,7 +45,7 @@ class AddItineraryPageFragment : Fragment() {
         viewModel.itineraryItemsList.observe(viewLifecycleOwner) { itineraryItems ->
             itineraryItemAdapter = AddItineraryItemAdapter(itineraryItems, viewModel.reccItineraryItemsList.value!! )
             itineraryItemAdapter.updateLists(itineraryItems, viewModel.itineraryItemsList.value!!)
-            val rvItineraryItems = requireView().findViewById<RecyclerView>(R.id.rvItineraryItems)
+            val rvItineraryItems = requireView().findViewById<RecyclerView>(R.id.lliterinerary)
             rvItineraryItems.adapter = itineraryItemAdapter
             rvItineraryItems.layoutManager = LinearLayoutManager(context)
         }

@@ -6,17 +6,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageView
+import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.packpals.R
-import com.example.packpals.viewmodels.ItineraryItemAdapter
 import com.example.packpals.viewmodels.ItineraryPageViewModel
 
 class ItineraryPageFragment : Fragment() {
     private val viewModel: ItineraryPageViewModel by viewModels()
-    private lateinit var itineraryItemAdapter: ItineraryItemAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,11 +32,23 @@ class ItineraryPageFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val linearLayout = requireView().findViewById<LinearLayout>(R.id.lliterinerary)
         viewModel.itineraryItemsList.observe(viewLifecycleOwner) { itineraryItems ->
-            itineraryItemAdapter = ItineraryItemAdapter(itineraryItems)
-            val rvItineraryItems = requireView().findViewById<RecyclerView>(R.id.rvItineraryItems)
-            rvItineraryItems.adapter = itineraryItemAdapter
-            rvItineraryItems.layoutManager = LinearLayoutManager(context)
+            linearLayout.removeAllViews()
+            for ((location, date, forecast) in itineraryItems) {
+                val itineraryView = LayoutInflater.from(context).inflate(R.layout.view_itenerary_item, linearLayout, false)
+
+                itineraryView.findViewById<TextView>(R.id.tvlocation).text = location
+                itineraryView.findViewById<TextView>(R.id.tvdate).text = date
+                itineraryView.findViewById<TextView>(R.id.tvforecast).text = forecast
+                itineraryView.findViewById<ImageView>(R.id.image).setImageResource(R.mipmap.fenugs)
+
+                itineraryView.setOnClickListener {
+                    // fill in later
+                }
+
+                linearLayout.addView(itineraryView)
+            }
         }
 
         val addNewItemButton = requireView().findViewById<Button>(R.id.addItemButton)

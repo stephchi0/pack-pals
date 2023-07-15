@@ -3,15 +3,33 @@ package com.example.packpals.viewmodels
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.packpals.models.Itinerary_Item
+import com.example.packpals.repositories.ItineraryRepository
+import com.example.packpals.repositories.TripsRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
+import java.text.SimpleDateFormat
+import java.util.Date
+import javax.inject.Inject
+import kotlin.math.round
 
-class ItineraryPageViewModel : ViewModel() {
-    private val _itineraryItemsList: MutableLiveData<MutableList<Itinerary_Item>> = MutableLiveData()
-    val itineraryItemsList: LiveData<MutableList<Itinerary_Item>> get() = _itineraryItemsList
+@HiltViewModel
+class ItineraryPageViewModel @Inject constructor(
+    private val tripsRepo: TripsRepository,
+    private val itineraryRepo: ItineraryRepository
+) : ViewModel() {
+
+    private val _itineraryItemsList: MutableLiveData<List<Itinerary_Item>> = MutableLiveData(
+        emptyList()
+    )
+    private val _itineraryItemsInfoList: MutableLiveData<List<Itinerary_Item>> = _itineraryItemsList
+    val itineraryItemsInfoList: LiveData<List<Itinerary_Item>> = _itineraryItemsInfoList
 
     private val _reccItineraryItemsList: MutableLiveData<MutableList<Itinerary_Item>> = MutableLiveData()
 
     val reccItineraryItemsList: LiveData<MutableList<Itinerary_Item>> get() = _reccItineraryItemsList
+
 
     init {
         _itineraryItemsList.value = mutableListOf(
@@ -27,6 +45,23 @@ class ItineraryPageViewModel : ViewModel() {
             Itinerary_Item("Fengus Hill", "", ""),
             Itinerary_Item("Across the Spooder Cave", "", "")
         )
+    }
+
+    fun fetchItineraryItems() {
+        val tripId = "for later"
+        if (tripId != null) {
+            viewModelScope.launch {
+                val result = itineraryRepo.fetchItems(tripId)
+                if (result != null) {
+                    _itineraryItemsList.value = result!!
+                    createItemCardInfo()
+                }
+            }
+        }
+    }
+
+    fun createItemCardInfo(){
+        val newItemCardInfoList = mutableListOf<Itinerary_Item>()
     }
 
     fun addItineraryItem(item: Itinerary_Item) {
