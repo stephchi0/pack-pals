@@ -25,3 +25,6 @@
 |        |5      |     |        |       |     |07/04/2023|Connected firebase cloud storage, created storage and trip photos repositories, added profile picture upload to register page|
 |        |5      |     |        |       |     |07/07/2023|Added more customizability to expense splitting|
 |9       |       |     |        |       |9    |07/07/2023|Redesign app UI in Figma|
+|        |       |     |        |3      |     |07/08/2023|Connected firebase cloud storage, created profile page repository|
+|        |       |     |        |3      |     |07/12/2023|Redesign sign-in page and edit profile page UI in Figma|
+|        |       |     |        |8      |     |07/14/2023|updated profile page UI, updated profile page functionality|
