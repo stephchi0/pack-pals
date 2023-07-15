@@ -1,4 +1,3 @@
-# Time Log
 |Michelle|Stephen|Joey |Jonathan| Hojun |Alex |Date      |Task|
 |:------:|:-----:|:---:|:------:|:-----:|:---:|:--------:|:---|
 |1       |1      |1    |   1    |   1   |1    |05/23/2023|Meeting to discuss project ideas|
@@ -29,3 +28,4 @@
 |1       |1      |1    |1       |1      |1    |07/11/2023|Worked on deliverable 4 (architecture style examples)|
 |1       |       |     |        |       |     |07/13/2023|update UI for trips pages|
 |6       |       |     |        |       |     |07/14/2023|implement pop-up menu for individual trips and add archive functionality|
+|        |       |12   |        |       |     |07/14/2023|Pal request page, pal request system|
