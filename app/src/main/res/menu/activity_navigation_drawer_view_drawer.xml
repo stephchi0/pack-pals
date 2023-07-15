@@ -1,27 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:showIn="navigation_view">
+    tools:showIn="navigation_view"
+    android:id="@+id/navigation_Menu">
 
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/mapFragment"
-            android:title="@string/Map" />
+            android:title="@string/Map"
+            android:icon="@mipmap/location"/>
         <item
             android:id="@+id/itineraryPageFragment"
-            android:title="@string/Itinerary" />
+            android:title="@string/Itinerary"
+            android:icon="@mipmap/itinerary"/>
+        <item
+            android:id="@+id/photosFragment"
+            android:title="@string/Photos"
+            android:icon="@mipmap/photos"/>
+        <item
+            android:id="@+id/playlistFragment"
+            android:title="@string/Playlist"
+            android:icon="@mipmap/playlist"/>
         <item
             android:id="@+id/expensesFragment"
-            android:title="@string/Expenses" />
+            android:title="@string/Expenses"
+            android:icon="@mipmap/expenses"/>
         <item
-            android:id="@+id/profilePageFragment"
-            android:title="@string/Profile" />
+            android:id="@+id/packingListFragment"
+            android:title="@string/PackingList"
+            android:icon="@mipmap/palrequests"/>
         <item
-            android:id="@+id/findAPalFragment"
-            android:title="@string/FindAPal" />
-
-        <item
-            android:id="@+id/incomingPalRequestsFragment"
-            android:title="@string/IncomingPalRequests" />
+            android:id="@+id/endTrip"
+            android:title="@string/EndTrip"
+            android:gravity="right"/>
     </group>
 </menu>
