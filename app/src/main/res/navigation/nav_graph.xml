@@ -82,4 +82,9 @@
         android:name="com.example.packpals.views.findapal.FindAPalFragment"
         android:label="@string/FindAPal"
         tools:layout="@layout/fragment_find_a_pal" />
+    <fragment
+        android:id="@+id/incomingPalRequestsFragment"
+        android:name="com.example.packpals.views.findapal.IncomingPalRequestsFragment"
+        android:label="@string/IncomingPalRequests"
+        tools:layout="@layout/fragment_incoming_pal_requests" />
 </navigation>

@@ -19,5 +19,9 @@
         <item
             android:id="@+id/findAPalFragment"
             android:title="@string/FindAPal" />
+
+        <item
+            android:id="@+id/incomingPalRequestsFragment"
+            android:title="@string/IncomingPalRequests" />
     </group>
 </menu>
