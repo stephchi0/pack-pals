@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 
 import com.example.packpals.views.findapal.placeholder.PlaceholderContent.PlaceholderItem
-import com.example.packpals.databinding.ItemFindAPalBinding
+import com.example.packpals.databinding.ViewFindAPalItemBinding
 
 /**
  * [RecyclerView.Adapter] that can display a [PlaceholderItem].
@@ -17,7 +17,7 @@ class FindAPalRecyclerViewAdapter(
 ) : RecyclerView.Adapter<FindAPalRecyclerViewAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding = ItemFindAPalBinding.inflate(
+        val binding = ViewFindAPalItemBinding.inflate(
             LayoutInflater.from(parent.context),
             parent,
             false
@@ -33,7 +33,7 @@ class FindAPalRecyclerViewAdapter(
 
     override fun getItemCount(): Int = values.size
 
-    inner class ViewHolder(binding: ItemFindAPalBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class ViewHolder(binding: ViewFindAPalItemBinding) : RecyclerView.ViewHolder(binding.root) {
         val contentView: TextView = binding.content
 
         override fun toString(): String {

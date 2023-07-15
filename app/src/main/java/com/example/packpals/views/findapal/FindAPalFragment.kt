@@ -2,22 +2,21 @@ package com.example.packpals.views.findapal
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import com.example.packpals.R
-import com.example.packpals.views.findapal.placeholder.PlaceholderContent
-import kotlinx.android.synthetic.main.fragment_find_a_pal.view.findAPalRecyclerView
+import kotlinx.android.synthetic.main.fragment_find_a_pal.view.findAPalSubmitButton
+import kotlinx.android.synthetic.main.fragment_find_a_pal.view.findAPalUsernameInput
 
 /**
- * A fragment representing a list of Items.
+ * Fragment for the Find A Pal screen
  */
 class FindAPalFragment : Fragment() {
 
-    private lateinit var recyclerView: RecyclerView
+//    private lateinit var recyclerView: RecyclerView
+    private val viewModel: FindAPalViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -25,12 +24,11 @@ class FindAPalFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_find_a_pal, container, false)
 
-        // Set the adapter
-        recyclerView = view.findAPalRecyclerView
-        recyclerView?.apply {
-            layoutManager = LinearLayoutManager(context)
-            adapter = FindAPalRecyclerViewAdapter(PlaceholderContent.ITEMS)
+        view.findAPalSubmitButton.setOnClickListener {
+            val query = view.findAPalUsernameInput.text.toString()
+            viewModel.addPal(query)
         }
+
         return view
     }
 }
