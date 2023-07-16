@@ -41,7 +41,6 @@ class NewTripFragment : Fragment(){
                 addPalView.findViewById<TextView>(R.id.newTripPalName).text = pal.name
                 addPalView.setOnClickListener {
                     if (pal.id != null) {
-                        println(pal.id)
                         viewModel.addRemoveTripPal(pal.id!!)
                     }
                 }
@@ -60,8 +59,6 @@ class NewTripFragment : Fragment(){
             if (tripName.isNotEmpty()) {
                 viewModel.createTrip(tripName)
             }
-
-
 
             val transaction = parentFragmentManager.beginTransaction()
             transaction.replace(R.id.tripFragmentContainerView, TripsListFragment())

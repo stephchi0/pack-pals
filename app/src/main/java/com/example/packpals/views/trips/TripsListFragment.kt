@@ -10,7 +10,6 @@ import android.widget.Button
 import android.widget.ImageButton
 import android.widget.LinearLayout
 import android.widget.PopupMenu
-import android.view.MenuInflater
 import android.widget.TextView
 import androidx.fragment.app.viewModels
 import com.example.packpals.R
@@ -129,7 +128,4 @@ class TripsListFragment : Fragment() {
             transaction.commit()
         }
     }
-
-
-
 }
