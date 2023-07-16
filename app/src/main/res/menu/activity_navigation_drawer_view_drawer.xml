@@ -28,7 +28,7 @@
         <item
             android:id="@+id/packingListFragment"
             android:title="@string/PackingList"
-            android:icon="@mipmap/palrequests"/>
+            android:icon="@mipmap/pal_requests"/>
         <item
             android:id="@+id/endTrip"
             android:title="@string/EndTrip"
