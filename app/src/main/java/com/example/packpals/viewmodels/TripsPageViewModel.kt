@@ -33,13 +33,12 @@ class TripsPageViewModel @Inject constructor(private val authRepo: AuthRepositor
         viewModelScope.launch {
             val pal = userId?.let { palsRepo.fetchPal(it) }
             if (pal != null) {
-                _palsList.value = listOf(Pal("id1",pal.name))
+                _palsList.value = listOf(Pal(pal.id,pal.name))
             }
             else{
                 _palsList.value = listOf(Pal("id1","not yuh"))
             }
         }
-        _palsList.value = listOf(Pal("id1","not not yuh"))
     }
 
     fun addRemoveTripPal(palId: String) {
