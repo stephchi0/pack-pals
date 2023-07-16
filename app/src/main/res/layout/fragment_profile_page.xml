@@ -148,7 +148,7 @@
                 android:layout_marginEnd="100dp"
                 android:layout_marginBottom="8dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:srcCompat="@mipmap/packpals" />
+                app:srcCompat="@mipmap/pack_pals" />
 
             <TextView
                 android:id="@+id/textView16"
