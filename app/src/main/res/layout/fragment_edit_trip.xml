@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/newExpenseFragment"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:windowSoftInputMode="adjustNothing"
+    tools:context=".views.trips.NewTripFragment">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/editTripToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="73dp"
+        android:layout_marginBottom="20dp"
+        android:background="@color/dark_blue"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:layout_constraintBottom_toTopOf="@+id/tripNameInput"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:title="Edit Trip"
+        app:titleTextColor="@color/white" />
+
+    <Button
+        android:id="@+id/saveChangesButton"
+        android:layout_width="302dp"
+        android:layout_height="49dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/round_red_background"
+        android:text="Save Changes"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toTopOf="@+id/leaveTripButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTripPalsScrollView" />
+
+    <EditText
+        android:id="@+id/tripNameInput"
+        android:layout_width="340dp"
+        android:layout_height="40dp"
+        android:background="@drawable/round_light_blue_background"
+        android:ems="10"
+        android:inputType="text"
+        android:text="Trip Name"
+        android:textAlignment="textStart"
+        android:textColor="#000000"
+        app:layout_constraintBottom_toTopOf="@+id/tripPalsLabel"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.478"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTripToolbar" />
+
+    <TextView
+        android:id="@+id/tripPalsLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="27dp"
+        android:layout_marginTop="20dp"
+        android:text="Trip Pals"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/searchForTripPals"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.126"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tripNameInput" />
+
+    <ScrollView
+        android:id="@+id/editTripPalsScrollView"
+        android:layout_width="332dp"
+        android:layout_height="381dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/round_light_blue_background"
+        android:isScrollContainer="false"
+        app:layout_constraintBottom_toTopOf="@+id/saveChangesButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.541"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/searchForTripPals">
+
+        <LinearLayout
+            android:id="@+id/editTripPalsLinearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
+    </ScrollView>
+
+    <SearchView
+        android:id="@+id/searchForTripPals"
+        android:layout_width="346dp"
+        android:layout_height="55dp"
+        android:background="@drawable/round_dark_blue_background"
+        android:queryHint="@string/app_name"
+        app:layout_constraintBottom_toTopOf="@+id/editTripPalsScrollView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.523"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tripPalsLabel" />
+
+    <Button
+        android:id="@+id/leaveTripButton"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:layout_marginStart="152dp"
+        android:layout_marginTop="1dp"
+        android:layout_marginEnd="160dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/round_grey_background"
+        android:text="Leave Trip"
+        android:textAllCaps="false"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/saveChangesButton" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
