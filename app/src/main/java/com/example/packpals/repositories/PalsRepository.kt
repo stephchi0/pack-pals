@@ -16,7 +16,6 @@ class PalsRepository @Inject constructor (private val palsCollectionRef: Collect
             pal
 
         } catch(e: Exception){
-            print(e)
             null
         }
     }
