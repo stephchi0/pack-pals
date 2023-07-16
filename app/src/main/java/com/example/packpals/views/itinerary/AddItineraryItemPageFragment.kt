@@ -33,22 +33,22 @@ class AddItineraryPageFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.reccItineraryItemsList.observe(viewLifecycleOwner) { itineraryItems ->
-            itineraryItemAdapter = AddItineraryItemAdapter(itineraryItems, viewModel.itineraryItemsList.value!! )
-            itineraryItemAdapter.updateLists(itineraryItems, viewModel.itineraryItemsList.value!!)
-            val rvItineraryItems = requireView().findViewById<RecyclerView>(R.id.lliterinerary)
-            rvItineraryItems.adapter = itineraryItemAdapter
-            rvItineraryItems.layoutManager = LinearLayoutManager(context)
+//        viewModel.reccItineraryItemsList.observe(viewLifecycleOwner) { itineraryItems ->
+//            itineraryItemAdapter = AddItineraryItemAdapter(itineraryItems, viewModel.itineraryItemsList.value!! )
+//            itineraryItemAdapter.updateLists(itineraryItems, viewModel.itineraryItemsList.value!!)
+//            val rvItineraryItems = requireView().findViewById<RecyclerView>(R.id.lliterinerary)
+//            rvItineraryItems.adapter = itineraryItemAdapter
+//            rvItineraryItems.layoutManager = LinearLayoutManager(context)
+//
+//        }
 
-        }
-
-        viewModel.itineraryItemsList.observe(viewLifecycleOwner) { itineraryItems ->
-            itineraryItemAdapter = AddItineraryItemAdapter(itineraryItems, viewModel.reccItineraryItemsList.value!! )
-            itineraryItemAdapter.updateLists(itineraryItems, viewModel.itineraryItemsList.value!!)
-            val rvItineraryItems = requireView().findViewById<RecyclerView>(R.id.lliterinerary)
-            rvItineraryItems.adapter = itineraryItemAdapter
-            rvItineraryItems.layoutManager = LinearLayoutManager(context)
-        }
+//        viewModel.itineraryItemsList.observe(viewLifecycleOwner) { itineraryItems ->
+//            itineraryItemAdapter = AddItineraryItemAdapter(itineraryItems, viewModel.reccItineraryItemsList.value!! )
+//            itineraryItemAdapter.updateLists(itineraryItems, viewModel.itineraryItemsList.value!!)
+//            val rvItineraryItems = requireView().findViewById<RecyclerView>(R.id.lliterinerary)
+//            rvItineraryItems.adapter = itineraryItemAdapter
+//            rvItineraryItems.layoutManager = LinearLayoutManager(context)
+//        }
     }
 
     companion object {
