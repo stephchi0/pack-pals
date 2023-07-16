@@ -1,8 +1,6 @@
 package com.example.packpals.views
 
-import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import androidx.activity.viewModels
@@ -18,7 +16,7 @@ import com.example.packpals.R
 import com.example.packpals.databinding.ActivityNavigationDrawerViewBinding
 import com.google.android.material.navigation.NavigationView
 import dagger.hilt.android.AndroidEntryPoint
-import com.example.packpals.views.NavigationDrawerViewModel
+import com.example.packpals.viewmodels.NavigationDrawerViewModel
 
 
 @AndroidEntryPoint
