@@ -37,7 +37,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tripPalsScrollView" />
+        app:layout_constraintTop_toBottomOf="@+id/newTripPalsScrollView" />
 
     <EditText
         android:id="@+id/tripNameInput"
@@ -69,7 +69,7 @@
         app:layout_constraintTop_toBottomOf="@+id/tripNameInput" />
 
     <ScrollView
-        android:id="@+id/tripPalsScrollView"
+        android:id="@+id/newTripPalsScrollView"
         android:layout_width="339dp"
         android:layout_height="400dp"
         android:layout_marginBottom="20dp"
@@ -82,7 +82,7 @@
         app:layout_constraintTop_toBottomOf="@+id/searchForTripPals">
 
         <LinearLayout
-            android:id="@+id/tripPalsLinearLayout"
+            android:id="@+id/newTripPalsLinearLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical" />
@@ -94,7 +94,7 @@
         android:layout_height="55dp"
         android:background="@drawable/round_dark_blue_background"
         android:queryHint="@string/app_name"
-        app:layout_constraintBottom_toTopOf="@+id/tripPalsScrollView"
+        app:layout_constraintBottom_toTopOf="@+id/newTripPalsScrollView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.523"
         app:layout_constraintStart_toStartOf="parent"

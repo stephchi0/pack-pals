@@ -1,6 +1,5 @@
 package com.example.packpals.viewmodels
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -33,24 +32,26 @@ class TripsPageViewModel @Inject constructor(private val authRepo: AuthRepositor
         viewModelScope.launch {
             val pal = userId?.let { palsRepo.fetchPal(it) }
             if (pal != null) {
-                _palsList.value = listOf(Pal(pal.id,pal.name))
-            }
-            else{
-                _palsList.value = listOf(Pal("id1","not yuh"))
+                val listOfPalIds = pal.pals!!
+                val listOfPals = mutableListOf<Pal>()
+                for (p in listOfPalIds){
+                    val palItem = palsRepo.fetchPal(p)
+                    if (palItem != null) {
+                        listOfPals.add(palItem)
+                    }
+                }
+                _palsList.value = listOfPals
             }
         }
     }
 
     fun addRemoveTripPal(palId: String) {
-        val newTripPalIds = _currentTripPalIds.value!!.toMutableSet()
-        if (palId in newTripPalIds) {
-            newTripPalIds.remove(palId)
+        if(_currentTripPalIds.value!!.contains(palId)){
+            _currentTripPalIds.value = currentTripPalIds.value!!.minus(palId)
         }
-        else {
-            newTripPalIds.add(palId)
+        else{
+            _currentTripPalIds.value = currentTripPalIds.value!!.plus(palId)
         }
-
-        _currentTripPalIds.value = newTripPalIds
     }
 
     init {
@@ -83,7 +84,6 @@ class TripsPageViewModel @Inject constructor(private val authRepo: AuthRepositor
                  }
              }
          }
-         fetchPalsList()
     }
 
     fun createTrip(title: String) {
