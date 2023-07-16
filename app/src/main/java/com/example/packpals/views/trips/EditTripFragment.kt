@@ -32,8 +32,9 @@ class EditTripFragment : Fragment(){
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val linearLayout = requireView().findViewById<LinearLayout>(R.id.tripPalsLinearLayout)
-        viewModel.currentTripPalIds.observe(viewLifecycleOwner) { currentTripPalIds ->
+        val linearLayout = requireView().findViewById<LinearLayout>(R.id.newTripPalsLinearLayout)
+        viewModel.palsList.observe(viewLifecycleOwner) { palsList ->
+            linearLayout.removeAllViews()
             for (pal in viewModel.palsList.value!!) {
                 val addPalView = LayoutInflater.from(context).inflate(R.layout.view_new_expense_add_pal, linearLayout, false) // probably need to change this view, currently has expense specific UI
 

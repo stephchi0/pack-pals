@@ -32,3 +32,4 @@
 |2       |       |     |        |       |     |07/15/2023|fix bug in new trip UI and add trip nav to map functionality|
 |3       |       |     |        |       |     |07/15/2023|UI changes to navigation drawer and action bar|
 |4       |2      |     |        |       |     |07/15/2023|display pals list functionality in trips pages|
+|2       |       |     |        |       |     |07/16/2023|complete add trip pals functionality|
