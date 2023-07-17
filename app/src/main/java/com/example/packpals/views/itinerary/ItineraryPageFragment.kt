@@ -40,6 +40,7 @@ class ItineraryPageFragment : Fragment() {
         viewModel.itineraryItemsList.observe(viewLifecycleOwner) { itineraryItems ->
             linearLayout.removeAllViews()
             for (item in itineraryItems) {
+                print(item)
                 val itineraryView = LayoutInflater.from(context).inflate(R.layout.view_itenerary_item, linearLayout, false)
 
                 itineraryView.findViewById<TextView>(R.id.tvlocation).text = item.location

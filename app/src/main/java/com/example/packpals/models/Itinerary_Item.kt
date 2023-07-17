@@ -6,7 +6,12 @@ import java.util.Date
 data class Itinerary_Item(
     val tripId: String? = null,
     val date: Date? = null,
-    val forecast: String? = null,
-    val geoPoint: GeoPoint? = null,
+    var forecast: String? = null,
+    val geopoint: GeoPoint? = null,
     val location: String? = null
-)
+){
+    fun addForecast(weather: String) {
+        this.forecast = weather
+    }
+}
+

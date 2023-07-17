@@ -9,13 +9,16 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.packpals.R
 import com.example.packpals.viewmodels.ItineraryPageViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class AddItineraryItemFragment : Fragment(){
-    private val viewModel: ItineraryPageViewModel by viewModels()
+    private val viewModel: ItineraryPageViewModel by activityViewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,10 +38,10 @@ class AddItineraryItemFragment : Fragment(){
         val linearLayout = requireView().findViewById<LinearLayout>(R.id.lladdItinerary)
         viewModel.itineraryItemsList.observe(viewLifecycleOwner) { itineraryItems ->
             linearLayout.removeAllViews()
-            for ((location, date, forecast) in itineraryItems) {
+            for (item in itineraryItems) {
                 val itineraryView = LayoutInflater.from(context).inflate(R.layout.view_itenerary_item, linearLayout, false)
 
-                itineraryView.findViewById<TextView>(R.id.tvlocation).text = location
+                itineraryView.findViewById<TextView>(R.id.tvlocation).text = item.location
 //                itineraryView.findViewById<TextView>(R.id.tvdate).text = date
 //                itineraryView.findViewById<TextView>(R.id.tvforecast).text = forecast
                 itineraryView.findViewById<ImageView>(R.id.image).setImageResource(R.mipmap.fenugs)
