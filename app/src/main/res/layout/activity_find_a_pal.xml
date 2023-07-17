@@ -6,6 +6,6 @@
     <androidx.fragment.app.FragmentContainerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:name="com.example.packpals.views.findapal.FindAPalFragment"/>
+        android:name="com.example.packpals.views.pals.FindAPalFragment"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

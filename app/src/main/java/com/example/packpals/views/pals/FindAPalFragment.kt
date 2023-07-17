@@ -1,4 +1,4 @@
-package com.example.packpals.views.findapal
+package com.example.packpals.views.pals
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
