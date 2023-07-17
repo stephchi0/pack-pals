@@ -39,3 +39,4 @@
 |4       |2      |     |        |       |     |07/15/2023|display pals list functionality in trips pages|
 |2       |       |     |        |       |     |07/16/2023|complete add trip pals functionality|
 |2       |       |     |        |       |     |07/16/2023|setup navdrawer viewmodel|
+|        |2      |     |        |       |     |07/17/2023|add trip selecting to TripsRepository and use selected trip data in expenses|

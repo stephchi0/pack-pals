@@ -52,8 +52,9 @@ class TripsListFragment : Fragment() {
 
                     val tripItem = tripView.findViewById<LinearLayout>(R.id.tripLinearLayout)
                     tripItem.setOnClickListener{
+                        viewModel.selectTrip(trip)
+
                         val intent = Intent(activity, NavigationDrawerViewActivity::class.java)
-                        intent.putExtra("tripId",trip.tripId)
                         startActivity(intent)
                     }
 

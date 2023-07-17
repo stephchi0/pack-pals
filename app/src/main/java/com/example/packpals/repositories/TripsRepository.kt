@@ -1,6 +1,5 @@
 package com.example.packpals.repositories
 
-import com.example.packpals.models.Pal
 import com.example.packpals.models.Trip
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.Filter
@@ -8,6 +7,12 @@ import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 
 class TripsRepository @Inject constructor (private val tripsCollectionRef: CollectionReference) {
+    var selectedTrip: Trip = Trip()
+
+    fun selectTrip(trip: Trip) {
+        selectedTrip = trip
+    }
+
     suspend fun fetchTrips(userId: String): List<Trip>? {
         val tripsFilter = Filter.or(
             Filter.equalTo("tripCreatorId",userId),
