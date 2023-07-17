@@ -10,7 +10,6 @@ import android.widget.Button
 import android.widget.ImageButton
 import android.widget.LinearLayout
 import android.widget.PopupMenu
-import android.view.MenuInflater
 import android.widget.TextView
 import androidx.fragment.app.viewModels
 import com.example.packpals.R
@@ -51,6 +50,13 @@ class TripsListFragment : Fragment() {
                     val activeMenuButton = tripView.findViewById<ImageButton>(R.id.trip_triple_dot_menu)
                     tripView.findViewById<TextView>(R.id.tripTitle).text = trip.title
 
+                    val tripItem = tripView.findViewById<LinearLayout>(R.id.tripLinearLayout)
+                    tripItem.setOnClickListener{
+                        val intent = Intent(activity, NavigationDrawerViewActivity::class.java)
+                        intent.putExtra("tripId",trip.tripId)
+                        startActivity(intent)
+                    }
+
                     activeMenuButton.setOnClickListener{
                         val popup = PopupMenu(context, activeMenuButton)
                         popup.menuInflater.inflate(R.menu.active_trip_settings, popup.menu)
@@ -82,6 +88,11 @@ class TripsListFragment : Fragment() {
                     val pastMenuButton = tripView.findViewById<ImageButton>(R.id.trip_triple_dot_menu)
                     tripView.findViewById<TextView>(R.id.tripTitle).text = trip.title
 
+                    val tripItem = tripView.findViewById<LinearLayout>(R.id.tripLinearLayout)
+                    tripItem.setOnClickListener{
+                        val intent = Intent(activity, NavigationDrawerViewActivity::class.java)
+                        startActivity(intent)
+                    }
                     pastMenuButton.setOnClickListener{
                         val popup = PopupMenu(context, pastMenuButton)
                         popup.menuInflater.inflate(R.menu.past_trip_settings, popup.menu)
@@ -117,7 +128,4 @@ class TripsListFragment : Fragment() {
             transaction.commit()
         }
     }
-
-
-
 }

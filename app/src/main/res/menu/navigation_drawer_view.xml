@@ -3,7 +3,19 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/action_settings"
-        android:orderInCategory="100"
-        android:title="@string/action_settings"
-        app:showAsAction="never" />
+        android:title="@string/Profile"
+        app:showAsAction="ifRoom"
+        android:icon="@mipmap/pack_pals">
+        <menu>
+            <item
+                android:id="@+id/profilePageFragment"
+                android:title="@string/Profile"/>
+            <item
+                android:id="@+id/findAPalFragment"
+                android:title="@string/FindAPal" />
+            <item
+                android:id="@+id/incomingPalRequestsFragment"
+                android:title="@string/IncomingPalRequests"/>
+        </menu>
+    </item>
 </menu>

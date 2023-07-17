@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.fragment.app.viewModels
@@ -15,7 +14,7 @@ import com.example.packpals.viewmodels.TripsPageViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class NewTripFragment : Fragment(){
+class EditTripFragment : Fragment(){
     private val viewModel: TripsPageViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,9 +35,10 @@ class NewTripFragment : Fragment(){
         val linearLayout = requireView().findViewById<LinearLayout>(R.id.newTripPalsLinearLayout)
         viewModel.palsList.observe(viewLifecycleOwner) { palsList ->
             linearLayout.removeAllViews()
-            for (pal in palsList) {
-                val addPalView = LayoutInflater.from(context).inflate(R.layout.view_new_trip_add_pal, linearLayout, false)
-                addPalView.findViewById<TextView>(R.id.newTripPalName).text = pal.name
+            for (pal in viewModel.palsList.value!!) {
+                val addPalView = LayoutInflater.from(context).inflate(R.layout.view_new_expense_add_pal, linearLayout, false) // probably need to change this view, currently has expense specific UI
+
+                addPalView.findViewById<TextView>(R.id.palName).text = pal.name
                 addPalView.setOnClickListener {
                     if (pal.id != null) {
                         viewModel.addRemoveTripPal(pal.id!!)
@@ -46,13 +46,7 @@ class NewTripFragment : Fragment(){
                 }
                 linearLayout.addView(addPalView)
             }
-
         }
-
-        viewModel.currentTripPalIds.observe(viewLifecycleOwner){
-            updateTripPals()
-        }
-
         val createTripButton = requireView().findViewById<Button>(R.id.createTripButton)
         createTripButton.setOnClickListener {
             val tripName = requireView().findViewById<TextView>(R.id.tripNameInput).text.toString()
@@ -64,22 +58,5 @@ class NewTripFragment : Fragment(){
             transaction.replace(R.id.tripFragmentContainerView, TripsListFragment())
             transaction.commit()
         }
-    }
-
-    private fun updateTripPals(){
-        val linearLayout = requireView().findViewById<LinearLayout>(R.id.newTripPalsLinearLayout)
-        for (i in 0 until linearLayout.childCount){
-            val addPalView = linearLayout.getChildAt(i)
-            val checkmarkImageView = addPalView.findViewById<ImageView>(R.id.newTripCheckmarkIcon)
-            val palId = viewModel.palsList.value?.get(i)?.id
-
-            if(viewModel.currentTripPalIds.value?.contains(palId)==true){
-                checkmarkImageView.setImageResource(R.drawable.ic_checked)
-            }
-            else{
-                checkmarkImageView.setImageResource(R.drawable.ic_unchecked)
-            }
-        }
-
     }
 }

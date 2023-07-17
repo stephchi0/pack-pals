@@ -82,7 +82,7 @@ class NewExpenseFragment : Fragment() {
                 addPalView.findViewById<TextView>(R.id.palName).text = pal.name
                 addPalView.setOnClickListener {
                     if (pal.id != null) {
-                        viewModel.addRemovePayingPal(pal.id)
+                        viewModel.addRemovePayingPal(pal.id!!)
                     }
                 }
 
@@ -90,7 +90,7 @@ class NewExpenseFragment : Fragment() {
                     override fun afterTextChanged(s: Editable?) {
                         val newAmountOwed = s.toString().toDoubleOrNull()
                         if (newAmountOwed != null && pal.id != null) {
-                            viewModel.setAmountOwed(pal.id, newAmountOwed)
+                            viewModel.setAmountOwed(pal.id!!, newAmountOwed)
                         }
                     }
                     override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
