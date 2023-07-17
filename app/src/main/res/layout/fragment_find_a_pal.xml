@@ -6,7 +6,7 @@
     android:name="com.example.packpals.views.findapal.FindAPalFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".views.findapal.FindAPalFragment">
+    tools:context=".views.pals.FindAPalFragment">
 
     <EditText
         android:id="@+id/findAPalUsernameInput"
@@ -15,7 +15,9 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        android:hint="Email/Username"/>
+        android:autofillHints="Email/Username"
+        android:hint="Email/Username"
+        android:inputType="text"/>
 
     <Button
         android:id="@+id/findAPalSubmitButton"
