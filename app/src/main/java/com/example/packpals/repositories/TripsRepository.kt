@@ -1,5 +1,6 @@
 package com.example.packpals.repositories
 
+import com.example.packpals.models.Pal
 import com.example.packpals.models.Trip
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.Filter
@@ -31,6 +32,18 @@ class TripsRepository @Inject constructor (private val tripsCollectionRef: Colle
     suspend fun updateTrip(tripId: String, updatedTrip: Trip){
         tripsCollectionRef.document(tripId).set(updatedTrip).await()
     }
+
+    suspend fun fetchTrip(tripId: String): Trip?{
+        return try{
+            val tripReturned = tripsCollectionRef.document(tripId).get().await()
+            val trip = tripReturned.toObject(Trip::class.java)
+            trip
+
+        } catch(e: Exception){
+            null
+        }
+    }
+
 
     suspend fun createTrip(trip: Trip): String {
         val trip =  tripsCollectionRef.add(trip).await()

@@ -9,4 +9,8 @@
 
     <color name="darker_blue">#FF6A7B9B</color>
     <color name="light_blue2">#C9E5FF</color>
+
+    <color name="Blue_Theme1">#929DFF</color>
+    <color name="Blue_Background1">#DADEFF</color>
+    <color name="Blue_Selected1">#364099</color>
 </resources>
