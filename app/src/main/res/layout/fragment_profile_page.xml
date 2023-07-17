@@ -122,13 +122,13 @@
                 android:layout_weight="2"
                 android:orientation="vertical">
 
-                <LinearLayout
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="35dp"
                     android:orientation="horizontal">
 
                     <TextView
-                        android:id="@+id/nameView"
+                        android:id="@+id/nameView123"
                         android:layout_width="wrap_content"
                         android:layout_height="30dp"
                         android:text="Name"
@@ -136,12 +136,12 @@
 
                     <ImageView
                         android:id="@+id/button_edit"
-                        android:layout_width="35dp"
-                        android:layout_height="30dp"
-                        android:layout_marginLeft="140dp"
+                        android:layout_width="25dp"
+                        android:layout_height="match_parent"
                         android:background="#00FFFFFF"
+                        android:layout_alignParentEnd="true"
                         android:src="@mipmap/edit_profile" />
-                </LinearLayout>
+                </RelativeLayout>
 
                 <TextView
                     android:id="@+id/joinedView"
@@ -194,8 +194,8 @@
             android:id="@+id/bioView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Description"
-            android:paddingLeft="22dp"/>
+            android:text="Description of person"
+            android:paddingStart="22dp"/>
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

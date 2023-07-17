@@ -32,5 +32,6 @@
 |1       |       |     |        |       |     |07/13/2023|update UI for trips pages|
 |6       |       |     |        |       |     |07/14/2023|implement pop-up menu for individual trips and add archive functionality|
 |        |       |12   |        |       |     |07/14/2023|Pal request page, pal request system|
-|        |       |     |        |   9   |     |07/14/2023|updated profile page UI, updated profile page functionality|
+|        |       |     |        |   9   |     |07/14/2023|updated profile page and profile edit page UI, updated profile page functionality|
+|        |       |     |        |   5   |     |07/14/2023|updated profile page edit functionality|
 
