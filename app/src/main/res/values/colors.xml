@@ -12,4 +12,8 @@
     <color name="light_purple">#929dff</color>
     <color name="light_purple2">#dadeff</color>
     <color name="salmon">#ff7777</color>
+
+    <color name="Blue_Theme1">#929DFF</color>
+    <color name="Blue_Background1">#DADEFF</color>
+    <color name="Blue_Selected1">#364099</color>
 </resources>
