@@ -4,7 +4,6 @@ import com.example.packpals.models.Pal
 import com.google.firebase.firestore.CollectionReference
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
-import android.util.Log
 
 class PalsRepository @Inject constructor (private val palsCollectionRef: CollectionReference) {
     suspend fun fetchPal(userId: String): Pal? {
@@ -21,8 +20,20 @@ class PalsRepository @Inject constructor (private val palsCollectionRef: Collect
         }
     }
 
+    suspend fun fetchPals(palIds: List<String>): List<Pal> {
+        val tripPals = mutableListOf<Pal>()
+        for (pal in palIds){
+            val palItem = fetchPal(pal)
+            if(palItem != null) {
+                tripPals.add(palItem)
+            }
+
+        }
+        return tripPals
+    }
+
     suspend fun createPal(id: String, name: String) {
-        val palValues = mapOf("name" to name, "tripIds" to listOf<String>())
+        val palValues = mapOf("name" to name)
         palsCollectionRef.document(id).set(palValues).await()
     }
 

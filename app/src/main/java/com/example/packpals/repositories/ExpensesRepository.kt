@@ -7,10 +7,13 @@ import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 
 class ExpensesRepository @Inject constructor(private val expensesCollectionRef: CollectionReference) {
-    suspend fun fetchExpenses(userId: String): List<Expense>? {
-        val expensesFilter = Filter.or(
-            Filter.equalTo("payerId", userId),
-            Filter.arrayContains("debtorIds", userId)
+    suspend fun fetchExpenses(userId: String, tripId: String): List<Expense>? {
+        val expensesFilter = Filter.and(
+            Filter.equalTo("tripId", tripId),
+            Filter.or(
+                Filter.equalTo("payerId", userId),
+                Filter.arrayContains("debtorIds", userId)
+            )
         )
         return try {
             val snapshot = expensesCollectionRef.where(expensesFilter).get().await()

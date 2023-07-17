@@ -96,4 +96,8 @@ class TripsPageViewModel @Inject constructor(private val authRepo: AuthRepositor
             }
         }
     }
+
+    fun selectTrip(selectedTrip: Trip) {
+        tripsRepo.selectTrip(selectedTrip)
+    }
 }
