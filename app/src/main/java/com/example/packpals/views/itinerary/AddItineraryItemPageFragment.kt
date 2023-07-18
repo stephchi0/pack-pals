@@ -6,10 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.packpals.R
-import com.example.packpals.viewmodels.AddItineraryItemPageViewModel
 import com.example.packpals.viewmodels.ItineraryPageViewModel
 
 class AddItineraryPageFragment : Fragment() {
