@@ -24,17 +24,4 @@ class FindAPalViewModel : ViewModel() {
 
     val palRequestsLiveData: LiveData<List<PalRequest>>
         get() = _palRequestsLiveData
-
-    fun addPal(query: String) {
-        usersCollectionRef.whereEqualTo("name", query)
-            .get()
-            .addOnSuccessListener { documents ->
-                val palObjects = documents.map { it.toObject(Pal::class.java) }
-                Log.d(TAG, "${palObjects[0]}")
-            }.addOnFailureListener { exception ->
-                Log.w(TAG, "addPal error", exception)
-            }
-    }
-
-
 }
