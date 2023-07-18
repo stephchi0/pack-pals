@@ -1,4 +1,3 @@
-# Time Log
 |Michelle|Stephen| Joey | Jonathan | Hojun |Alex |    Date    |Task|
 |:------:|:-----:|:----:|:--------:|:-----:|:---:|:----------:|:---|
 |1       |   1   |  1   |    1     |   1   |1    | 05/23/2023 |Meeting to discuss project ideas|
@@ -40,8 +39,9 @@
 |2       |       |      |          |       |     | 07/16/2023 |complete add trip pals functionality|
 |2       |       |      |          |       |     | 07/16/2023 |setup navdrawer viewmodel|
 |        |   2   |      |          |       |     | 07/17/2023 |add trip selecting to TripsRepository and use selected trip data in expenses|
-|        |       |      |    5     |       |     | 07/17/2023 |Setup repo and viewmodel for itinerary page
-|        |       |      |    3     |       |     | 07/17/2023 |Connected the itinerary page to firebase
-|        |       |      |    5     |       |     | 07/17/2023 |Updated itinerary page UI
-|        |       |      |    4     |       |     | 07/17/2023 |Added weather API to each itinerary item 
-|        |       |  1   |          |       |     | 07/18/2023 |Refactor Find a Pal logic into pal repository 
+|        |       |      |    5     |       |     | 07/17/2023 |Setup repo and viewmodel for itinerary page|
+|        |       |      |    3     |       |     | 07/17/2023 |Connected the itinerary page to firebase|
+|        |       |      |    5     |       |     | 07/17/2023 |Updated itinerary page UI|
+|        |       |      |    4     |       |     | 07/17/2023 |Added weather API to each itinerary item |
+|        |       |  1   |          |       |     | 07/18/2023 |Refactor Find a Pal logic into pal repository |
+|        |       |      |          |       |3    | 07/18/2023 | Add current location to map feature |     
