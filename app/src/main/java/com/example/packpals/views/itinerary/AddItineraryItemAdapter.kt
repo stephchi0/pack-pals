@@ -44,16 +44,16 @@ class AddItineraryItemAdapter(
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
         val curItem = reccItems[position]
 
-        holder.itemView.apply{
-            tvlocation.text = curItem.location
-            tvdate.text = curItem.date
-            tvforecast.text = curItem.forecast
-            image.setImageResource(R.mipmap.fenugs)
-
-            setOnClickListener {
-                addItem(curItem)
-            }
-        }
+//        holder.itemView.apply{
+//            tvlocation.text = curItem.location
+//            tvdate.text = curItem.date
+//            tvforecast.text = curItem.forecast
+//            image.setImageResource(R.mipmap.fenugs)
+//
+//            setOnClickListener {
+//                addItem(curItem)
+//            }
+//        }
     }
 
     override fun getItemCount(): Int {
