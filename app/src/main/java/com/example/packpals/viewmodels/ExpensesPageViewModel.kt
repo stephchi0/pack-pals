@@ -8,6 +8,8 @@ import com.example.packpals.models.Expense
 import com.example.packpals.models.Pal
 import com.example.packpals.repositories.AuthRepository
 import com.example.packpals.repositories.ExpensesRepository
+import com.example.packpals.repositories.PalsRepository
+import com.example.packpals.repositories.TripsRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import java.util.Date
@@ -16,7 +18,9 @@ import kotlin.math.round
 
 @HiltViewModel
 class ExpensesPageViewModel @Inject constructor(private val authRepo: AuthRepository,
-                                                private val expensesRepo: ExpensesRepository) : ViewModel() {
+                                                private val expensesRepo: ExpensesRepository,
+                                                private val tripsRepo: TripsRepository,
+                                                private val palsRepo: PalsRepository) : ViewModel() {
 
     private val _expensesList: MutableLiveData<List<Expense>> = MutableLiveData(emptyList())
     val expensesList: LiveData<List<Expense>> get() = _expensesList
@@ -43,14 +47,8 @@ class ExpensesPageViewModel @Inject constructor(private val authRepo: AuthReposi
     val totalCost: LiveData<Double> get() = _totalCost
     private val _splitMethod: MutableLiveData<ExpenseSplittingMethod> = MutableLiveData(ExpenseSplittingMethod.EQUAL)
     val splitMethod: LiveData<ExpenseSplittingMethod> get() = _splitMethod
-    val palsList: LiveData<List<Pal>> = MutableLiveData( // TODO: retrieve trip pals when trip functionality is finished
-        listOf(
-            Pal("id1", "stooge"),
-            Pal("id2", "mooge"),
-            Pal("id3", "looge"),
-            Pal("id4", "jooge")
-        )
-    )
+    private val _palsList: MutableLiveData<List<Pal>> = MutableLiveData(listOf())
+    val palsList: LiveData<List<Pal>> get() = _palsList
     private val _debtorIdsSet: MutableLiveData<Set<String>> = MutableLiveData(emptySet())
     val debtorIdsSet: LiveData<Set<String>> get() = _debtorIdsSet
     private val _amountsOwedMap: MutableLiveData<Map<String, Double>> = MutableLiveData(emptyMap())
@@ -58,6 +56,7 @@ class ExpensesPageViewModel @Inject constructor(private val authRepo: AuthReposi
 
     init {
         fetchExpenses()
+        fetchPalsList()
     }
 
     fun getUserId(): String {
@@ -66,12 +65,24 @@ class ExpensesPageViewModel @Inject constructor(private val authRepo: AuthReposi
 
     fun fetchExpenses() {
         val userId = authRepo.getCurrentUID()
-        if (userId != null) {
+        val tripId = tripsRepo.selectedTrip.tripId
+        if (userId != null && tripId != null) {
             viewModelScope.launch {
-                val result = expensesRepo.fetchExpenses(userId)
+                val result = expensesRepo.fetchExpenses(userId, tripId)
                 if (result != null) {
                     _expensesList.value = result!!
                 }
+            }
+        }
+    }
+
+    private fun fetchPalsList() {
+        val userId = authRepo.getCurrentUID()
+        val palIds = tripsRepo.selectedTrip.tripPalIds?.toMutableList()
+        if (userId != null && palIds != null) {
+            palIds.remove(userId)
+            viewModelScope.launch {
+                _palsList.value = palsRepo.fetchPals(palIds)
             }
         }
     }
@@ -82,6 +93,7 @@ class ExpensesPageViewModel @Inject constructor(private val authRepo: AuthReposi
             val updatedExpense = Expense(
                 expense.title,
                 expense.date,
+                expense.tripId,
                 expense.amountPaid,
                 expense.payerId,
                 expense.debtorIds,
@@ -154,6 +166,7 @@ class ExpensesPageViewModel @Inject constructor(private val authRepo: AuthReposi
             val newExpense = Expense(
                 title,
                 Date(),
+                tripsRepo.selectedTrip.tripId,
                 _totalCost.value,
                 authRepo.getCurrentUID(),
                 _debtorIdsSet.value?.toList(),
@@ -198,6 +211,7 @@ class ExpensesPageViewModel @Inject constructor(private val authRepo: AuthReposi
             return false
         }
         if (expense.date == null) return false
+        if (expense.tripId == null) return false
         if (expense.amountPaid == null || expense.amountPaid <= 0) {
             _toastMessage.value = "Cannot have no expense total"
             return false

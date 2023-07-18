@@ -1,4 +1,4 @@
-package com.example.packpals.views.findapal
+package com.example.packpals.views.pals
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -9,15 +9,8 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.packpals.databinding.FragmentIncomingPalRequestsBinding
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
 /**
- * A simple [Fragment] subclass.
- * Use the [IncomingPalRequestsFragment.newInstance] factory method to
- * create an instance of this fragment.
+ * Fragment for displaying incoming pal requests
  */
 class IncomingPalRequestsFragment : Fragment() {
 

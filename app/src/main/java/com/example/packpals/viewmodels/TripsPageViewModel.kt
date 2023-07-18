@@ -31,7 +31,7 @@ class TripsPageViewModel @Inject constructor(private val authRepo: AuthRepositor
         val userId = authRepo.getCurrentUID()
         viewModelScope.launch {
             val pal = userId?.let { palsRepo.fetchPal(it) }
-            if (pal != null) {
+            if (pal?.pals != null) {
                 val listOfPalIds = pal.pals!!
                 val listOfPals = mutableListOf<Pal>()
                 for (p in listOfPalIds){
@@ -95,5 +95,9 @@ class TripsPageViewModel @Inject constructor(private val authRepo: AuthRepositor
                 fetchTrips()
             }
         }
+    }
+
+    fun selectTrip(selectedTrip: Trip) {
+        tripsRepo.selectTrip(selectedTrip)
     }
 }

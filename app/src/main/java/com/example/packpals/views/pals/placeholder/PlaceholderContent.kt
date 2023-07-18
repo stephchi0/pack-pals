@@ -1,4 +1,4 @@
-package com.example.packpals.views.findapal.placeholder
+package com.example.packpals.views.pals.placeholder
 
 import java.util.ArrayList
 import java.util.HashMap

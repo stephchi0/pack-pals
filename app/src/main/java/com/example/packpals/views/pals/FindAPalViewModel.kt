@@ -1,4 +1,4 @@
-package com.example.packpals.views.findapal
+package com.example.packpals.views.pals
 
 import android.util.Log
 import androidx.lifecycle.LiveData

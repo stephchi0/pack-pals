@@ -1,11 +1,11 @@
-package com.example.packpals.views.findapal
+package com.example.packpals.views.pals
 
 import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
 
-import com.example.packpals.views.findapal.placeholder.PlaceholderContent.PlaceholderItem
+import com.example.packpals.views.pals.placeholder.PlaceholderContent.PlaceholderItem
 import com.example.packpals.databinding.ViewFindAPalItemBinding
 
 /**

@@ -1,3 +1,4 @@
+# Time Log
 |Michelle|Stephen|Joey |Jonathan| Hojun |Alex |Date      |Task|
 |:------:|:-----:|:---:|:------:|:-----:|:---:|:--------:|:---|
 |1       |1      |1    |   1    |   1   |1    |05/23/2023|Meeting to discuss project ideas|
@@ -19,18 +20,23 @@
 |        |       |     |        |       |6    |06/24/2023|Worked on Maps, Hamburger Navigation and refactored some code|
 |        |       |4    |        |       |     |06/24/2023|Created Find A Pal page UI|
 |        |       |     |   13   |       |     |06/24/2023|Worked on itinerary page and add itinerary item page|
-|1       |1      |1    |1       |1      |1    |06/29/2023|Worked on prototype document|
+|1       |1      |1    |1       |   1   |1    |06/29/2023|Worked on prototype document|
 |        |7      |     |        |       |     |06/30/2023|Connected firebase to packpals email, added hilt, added repository for auth, pals, trips, and expenses, refactored login/register, trips, and expenses pages to use repository|
 |        |5      |     |        |       |     |07/04/2023|Connected firebase cloud storage, created storage and trip photos repositories, added profile picture upload to register page|
 |        |5      |     |        |       |     |07/07/2023|Added more customizability to expense splitting|
 |9       |       |     |        |       |9    |07/07/2023|Redesign app UI in Figma|
+|        |       |     |        |   3   |     |07/08/2023|Connected firebase cloud storage, created profile page repository|
 |        |11     |     |        |       |     |07/10/2023|Update expense list and new expense page UI, added more expense splitting options, expense settling, and expense editing|
-|1       |1      |1    |1       |1      |1    |07/11/2023|Worked on deliverable 4 (architecture style examples)|
+|1       |1      |1    |1       |   1   |1    |07/11/2023|Worked on deliverable 4 (architecture style examples)|
+|        |       |     |        |   3   |     |07/12/2023|Redesign sign-in page and edit profile page UI in Figma|
 |1       |       |     |        |       |     |07/13/2023|update UI for trips pages|
 |6       |       |     |        |       |     |07/14/2023|implement pop-up menu for individual trips and add archive functionality|
 |        |       |12   |        |       |     |07/14/2023|Pal request page, pal request system|
+|        |       |     |        |   9   |     |07/14/2023|updated profile page and profile edit page UI, updated profile page functionality|
+|        |       |     |        |   8   |     |07/14/2023|updated profile page edit functionality|
 |2       |       |     |        |       |     |07/15/2023|fix bug in new trip UI and add trip nav to map functionality|
 |3       |       |     |        |       |     |07/15/2023|UI changes to navigation drawer and action bar|
 |4       |2      |     |        |       |     |07/15/2023|display pals list functionality in trips pages|
 |2       |       |     |        |       |     |07/16/2023|complete add trip pals functionality|
 |2       |       |     |        |       |     |07/16/2023|setup navdrawer viewmodel|
+|        |2      |     |        |       |     |07/17/2023|add trip selecting to TripsRepository and use selected trip data in expenses|

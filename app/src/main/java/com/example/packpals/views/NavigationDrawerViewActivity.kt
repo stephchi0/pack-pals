@@ -3,7 +3,6 @@ package com.example.packpals.views
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.findNavController
@@ -16,7 +15,6 @@ import com.example.packpals.R
 import com.example.packpals.databinding.ActivityNavigationDrawerViewBinding
 import com.google.android.material.navigation.NavigationView
 import dagger.hilt.android.AndroidEntryPoint
-import com.example.packpals.viewmodels.NavigationDrawerViewModel
 
 
 @AndroidEntryPoint
@@ -25,17 +23,8 @@ class NavigationDrawerViewActivity : AppCompatActivity() {
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityNavigationDrawerViewBinding
 
-    private val viewModel : NavigationDrawerViewModel by viewModels()
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-
-        val tripId: String? = intent.getStringExtra("tripId")
-        if(tripId!=null){
-            viewModel.updateCurrentTrip(tripId)
-        }
-
 
         binding = ActivityNavigationDrawerViewBinding.inflate(layoutInflater)
         setContentView(binding.root)

@@ -1,4 +1,4 @@
-package com.example.packpals.views.findapal
+package com.example.packpals.views.pals
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
