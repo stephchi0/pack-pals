@@ -1,4 +1,7 @@
 package com.example.packpals.repositories
+
+import android.content.pm.PackageManager
+import android.os.Bundle
 import com.example.packpals.models.Itinerary_Item
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.Filter
@@ -10,10 +13,15 @@ import kotlinx.serialization.json.contentOrNull
 import kotlinx.serialization.json.jsonArray
 import kotlinx.serialization.json.jsonObject
 import kotlinx.serialization.json.jsonPrimitive
+import java.io.File
+import java.io.FileInputStream
 import java.net.URL
+import java.util.Properties
 import javax.inject.Inject
 
+
 class ItineraryRepository @Inject constructor(private val itineraryCollectionRef: CollectionReference) {
+
     suspend fun fetchItems(tripId: String): List<Itinerary_Item>? {
         val tripFilter = Filter.equalTo("tripId", tripId)
         var itineraryItems = emptyList<Itinerary_Item>()
@@ -39,7 +47,8 @@ class ItineraryRepository @Inject constructor(private val itineraryCollectionRef
 
     private suspend fun fetchWeatherForLocation(latitude: Double, longitude: Double): String? =
         withContext(Dispatchers.IO) {
-            val apiKey = "44988b69e712d97ad5d74b585530ddf4" // Replace with your actual API key
+
+            val apiKey = "" // TODO: grab from localproperties idk how yet
             val url = "https://api.openweathermap.org/data/2.5/weather?lat=$latitude&lon=$longitude&appid=$apiKey"
 
             return@withContext try {

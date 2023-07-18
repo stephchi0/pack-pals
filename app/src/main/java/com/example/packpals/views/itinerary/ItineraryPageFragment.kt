@@ -40,11 +40,11 @@ class ItineraryPageFragment : Fragment() {
         viewModel.itineraryItemsList.observe(viewLifecycleOwner) { itineraryItems ->
             linearLayout.removeAllViews()
             for (item in itineraryItems) {
-                print(item)
                 val itineraryView = LayoutInflater.from(context).inflate(R.layout.view_itenerary_item, linearLayout, false)
 
                 itineraryView.findViewById<TextView>(R.id.tvlocation).text = item.location
-                itineraryView.findViewById<TextView>(R.id.tvforecast).text = SimpleDateFormat("MM/dd/yyyy").format(item.date)
+                itineraryView.findViewById<TextView>(R.id.tvforecast).text = item.forecast
+                itineraryView.findViewById<TextView>(R.id.tvdate).text = SimpleDateFormat("MM/dd/yyyy").format(item.date)
                 itineraryView.findViewById<ImageView>(R.id.image).setImageResource(R.mipmap.fenugs)
 
                 itineraryView.setOnClickListener {
