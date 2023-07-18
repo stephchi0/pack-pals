@@ -1,7 +1,6 @@
 package com.example.packpals.views.itinerary
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,16 +8,16 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.packpals.R
 import com.example.packpals.viewmodels.ItineraryPageViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import java.text.SimpleDateFormat
 
 @AndroidEntryPoint
-class ItineraryPageFragment : Fragment() {
+class AddItineraryItemFragment : Fragment(){
     private val viewModel: ItineraryPageViewModel by activityViewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,21 +29,21 @@ class ItineraryPageFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_itinerary_page, container, false)
+        return inflater.inflate(R.layout.fragment_add_itinerary_item, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val linearLayout = requireView().findViewById<LinearLayout>(R.id.lliterinerary)
+        val linearLayout = requireView().findViewById<LinearLayout>(R.id.lladdItinerary)
         viewModel.itineraryItemsList.observe(viewLifecycleOwner) { itineraryItems ->
             linearLayout.removeAllViews()
             for (item in itineraryItems) {
                 val itineraryView = LayoutInflater.from(context).inflate(R.layout.view_itenerary_item, linearLayout, false)
 
                 itineraryView.findViewById<TextView>(R.id.tvlocation).text = item.location
-                itineraryView.findViewById<TextView>(R.id.tvforecast).text = item.forecast
-                itineraryView.findViewById<TextView>(R.id.tvdate).text = SimpleDateFormat("MM/dd/yyyy").format(item.date)
+//                itineraryView.findViewById<TextView>(R.id.tvdate).text = date
+//                itineraryView.findViewById<TextView>(R.id.tvforecast).text = forecast
                 itineraryView.findViewById<ImageView>(R.id.image).setImageResource(R.mipmap.fenugs)
 
                 itineraryView.setOnClickListener {
@@ -54,20 +53,6 @@ class ItineraryPageFragment : Fragment() {
                 linearLayout.addView(itineraryView)
             }
         }
-
-        val addNewItemButton = requireView().findViewById<Button>(R.id.addItemButton)
-        addNewItemButton.setOnClickListener {
-            findNavController().navigate(R.id.action_itineraryFragment_to_addItineraryItemFragment)
-        }
     }
 
-    companion object {
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            ItineraryPageFragment().apply {
-                arguments = Bundle().apply {
-
-                }
-            }
-    }
 }
