@@ -13,7 +13,7 @@ import com.example.packpals.viewmodels.PalsViewModel
 /**
  * Fragment for displaying incoming pal requests
  */
-class IncomingPalRequestsFragment : Fragment() {
+class PalsFragment : Fragment() {
 
     val viewModel: PalsViewModel by viewModels()
 
