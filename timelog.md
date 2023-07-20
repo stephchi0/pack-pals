@@ -44,4 +44,5 @@
 |        |       |      |    5     |       |     | 07/17/2023 |Updated itinerary page UI|
 |        |       |      |    4     |       |     | 07/17/2023 |Added weather API to each itinerary item |
 |        |       |  1   |          |       |     | 07/18/2023 |Refactor Find a Pal logic into pal repository |
-|        |       |      |          |       |3    | 07/18/2023 | Add current location to map feature |     
+|        |       |      |          |       |3    | 07/18/2023 | Add current location to map feature |
+|1       |       |      |          |       |     | 07/20/2023 | refactor homepage and login ui |     
