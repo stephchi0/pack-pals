@@ -48,3 +48,4 @@
 |        |       |      |    4     |       |     | 07/19/2023 | Automatic photo based on location name|                                                                                                                                        
 |1       |       |      |          |       |     | 07/20/2023 | refactor homepage and login ui | 
 |        |       |      |    3     |       |     | 07/20/2023 | Items details with auto-fill |
+|        |1      |      |          |       |     | 07/20/2023 |Add profile picture to pal on registration and display profile pictures in add expense page|    

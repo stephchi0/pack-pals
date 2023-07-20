@@ -69,9 +69,11 @@ class PalsRepository @Inject constructor (private val palsCollectionRef: Collect
         return tripPals
     }
 
-    suspend fun createPal(id: String, name: String) {
-        val palValues = mapOf("name" to name)
-        palsCollectionRef.document(id).set(palValues).await()
+    suspend fun createPal(newPal: Pal) {
+        val id = newPal.id
+        if (!id.isNullOrEmpty()) {
+            palsCollectionRef.document(id).set(newPal).await()
+        }
     }
 
     suspend fun editProfile(id: String, name: String, gender: String?, bio: String?) {
