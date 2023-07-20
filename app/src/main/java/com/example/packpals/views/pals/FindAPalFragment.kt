@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.example.packpals.R
+import com.example.packpals.viewmodels.FindAPalViewModel
 import kotlinx.android.synthetic.main.fragment_find_a_pal.view.findAPalSubmitButton
 import kotlinx.android.synthetic.main.fragment_find_a_pal.view.findAPalUsernameInput
 
