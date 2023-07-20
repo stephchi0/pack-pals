@@ -6,6 +6,8 @@
     <string name="Photos">Photos</string>
     <string name="Pals">Pals</string>
     <string name="FindAPal">Find A Pal</string>
+    <string name="AddItineraryItem">Add Itinerary Item</string>
+    <string name="ItemDetails">Item Details</string>
     <string name="Playlist">Playlist</string>
     <string name="Expenses">Expenses</string>
     <string name="NewExpense">Edit Expense</string>

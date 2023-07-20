@@ -34,12 +34,21 @@
         <action
             android:id="@+id/action_itineraryFragment_to_addItineraryItemFragment"
             app:destination="@id/addItineraryItemPageFragment" />
+        <action
+            android:id="@+id/action_itineraryFragment_to_itemDetailsPageFragment"
+            app:destination="@id/itemDetailsPageFragment" />
     </fragment>
     <fragment
         android:id="@+id/addItineraryItemPageFragment"
         android:name="com.example.packpals.views.itinerary.AddItineraryItemFragment"
-        android:label="AddItineraryItem"
+        android:label="@string/AddItineraryItem"
         tools:layout="@layout/fragment_add_itinerary_item" >
+    </fragment>
+    <fragment
+        android:id="@+id/itemDetailsPageFragment"
+        android:name="com.example.packpals.views.itinerary.ItemDetailPageFragment"
+        android:label="ItemDetails"
+        tools:layout="@layout/fragment_item_details_page" >
     </fragment>
     <fragment
         android:id="@+id/profilePageFragment"
