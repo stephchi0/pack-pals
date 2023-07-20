@@ -12,6 +12,7 @@ import android.widget.TextView
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.bumptech.glide.Glide
 import com.example.packpals.R
 import com.example.packpals.viewmodels.ItineraryPageViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -45,7 +46,16 @@ class ItineraryPageFragment : Fragment() {
                 itineraryView.findViewById<TextView>(R.id.tvlocation).text = item.location
                 itineraryView.findViewById<TextView>(R.id.tvforecast).text = item.forecast
                 itineraryView.findViewById<TextView>(R.id.tvdate).text = SimpleDateFormat("MM/dd/yyyy").format(item.date)
-                itineraryView.findViewById<ImageView>(R.id.image).setImageResource(R.mipmap.fenugs)
+
+                if(item.photo_reference != null){
+                    Glide
+                        .with(requireContext())
+                        .load(item.photo_reference)
+                        .into(itineraryView.findViewById(R.id.image))
+                }else{
+                    itineraryView.findViewById<ImageView>(R.id.image).setImageResource(R.mipmap.fenugs)
+                }
+
 
                 itineraryView.setOnClickListener {
                     // fill in later

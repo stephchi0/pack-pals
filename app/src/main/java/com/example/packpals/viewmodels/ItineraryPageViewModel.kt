@@ -7,6 +7,7 @@
     import com.example.packpals.models.Expense
     import com.example.packpals.models.Itinerary_Item
     import com.example.packpals.repositories.ItineraryRepository
+    import com.example.packpals.repositories.PlacesRepository
     import com.example.packpals.repositories.TripsRepository
     import dagger.hilt.android.lifecycle.HiltViewModel
     import kotlinx.coroutines.launch
@@ -18,6 +19,7 @@
     @HiltViewModel
     class ItineraryPageViewModel @Inject constructor(
         private val tripsRepo: TripsRepository,
+        private val placesRepo: PlacesRepository,
         private val itineraryRepo: ItineraryRepository
     ) : ViewModel() {
 
@@ -43,6 +45,14 @@
                 viewModelScope.launch {
                     val result = itineraryRepo.fetchItems(tripId)
                     if (result != null) {
+                        result.forEach {item ->
+                            val photoReference = placesRepo.photoIdFromName(item.location!!)
+                            val photoURL = null
+                            if (photoReference != null){
+                                val photoURL = placesRepo.photoUrlFromId(photoReference)
+                                item.addPhotoReference(photoURL!!)
+                            }
+                        }
                         _itineraryItemsList.value = result!!
                     }
                 }
