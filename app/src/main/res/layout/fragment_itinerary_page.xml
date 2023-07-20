@@ -43,17 +43,17 @@
         app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
     <LinearLayout
-        android:layout_width="371dp"
-        android:layout_height="628dp"
+        android:layout_width="367dp"
+        android:layout_height="575dp"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="16dp"
         android:background="@drawable/rounded_corner_light_purple2"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.512"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView10"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        app:layout_constraintVertical_bias="0.685"
         app:layout_constraintVertical_weight="1">
 
         <ScrollView
@@ -64,9 +64,9 @@
                 android:id="@+id/lliterinerary"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
                 android:layout_marginLeft="17dp"
-                android:layout_marginRight="17dp"/>
+                android:layout_marginRight="17dp"
+                android:orientation="vertical" />
         </ScrollView>
     </LinearLayout>
 
