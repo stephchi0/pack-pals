@@ -41,7 +41,7 @@
     <fragment
         android:id="@+id/addItineraryItemPageFragment"
         android:name="com.example.packpals.views.itinerary.AddItineraryItemFragment"
-        android:label="AddItineraryItem"
+        android:label="@string/AddItineraryItem"
         tools:layout="@layout/fragment_add_itinerary_item" >
     </fragment>
     <fragment
