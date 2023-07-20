@@ -28,6 +28,16 @@
         )
         val itineraryItemsList: LiveData<List<Itinerary_Item>> get() = _itineraryItemsList
 
+        private val _nearbyItemsList: MutableLiveData<List<Itinerary_Item>> = MutableLiveData(
+            emptyList()
+        )
+
+        val nearbyItemsList: LiveData<List<Itinerary_Item>> get() = _nearbyItemsList
+
+        private val _currentItem =  MutableLiveData<Itinerary_Item>()
+        val currentItem: LiveData<Itinerary_Item> get() = _currentItem
+
+
 //        private val _itineraryItemsInfoList: MutableLiveData<List<Itinerary_Item>> = _itineraryItemsList
 //
 
@@ -57,6 +67,10 @@
                     }
                 }
             }
+        }
+
+        fun setCurrentItem(item:Itinerary_Item){
+            _currentItem.value = item
         }
 
     }

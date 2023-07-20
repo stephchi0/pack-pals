@@ -26,7 +26,7 @@ class FindAPalFragment : Fragment() {
 
         view.findAPalSubmitButton.setOnClickListener {
             val query = view.findAPalUsernameInput.text.toString()
-            viewModel.addPal(query)
+//            viewModel.addPal(query)
         }
 
         return view

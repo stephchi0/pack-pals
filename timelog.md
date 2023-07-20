@@ -46,3 +46,4 @@
 |        |       |  1   |          |       |     | 07/18/2023 | Refactor Find a Pal logic into pal repository                                                                                                                                  |
 |        |       |      |          |       |3    | 07/18/2023 | Add current location to map feature                                                                                                                                            |  
 |        |       |      |    4     |       |     | 07/19/2023 | Automatic photo based on location name                                                                                                                                         |
+|        |       |      |    3     |       |     |07/20/2023  | Items details with auto-fill

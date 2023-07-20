@@ -58,7 +58,8 @@ class ItineraryPageFragment : Fragment() {
 
 
                 itineraryView.setOnClickListener {
-                    // fill in later
+                    viewModel.setCurrentItem(item)
+                    findNavController().navigate(R.id.action_itineraryFragment_to_itemDetailsPageFragment)
                 }
 
                 linearLayout.addView(itineraryView)
