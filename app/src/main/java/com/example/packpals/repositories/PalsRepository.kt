@@ -91,8 +91,9 @@ class PalsRepository @Inject constructor (private val palsCollectionRef: Collect
         }
     }
 
-    suspend fun addPal(id: String, newPalId: String): Boolean {
+    suspend fun acceptPalRequest(id: String, newPalId: String): Boolean {
         try {
+            // TODO: check if newPalId is in requests
             // TODO: check if pal exists
             val palRef = palsCollectionRef.document(id)
             val pal = palRef.get().await().toObject(Pal::class.java)

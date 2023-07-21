@@ -11,20 +11,18 @@ import androidx.lifecycle.LiveData
 import com.example.packpals.views.pals.placeholder.PlaceholderContent.PlaceholderItem
 import com.example.packpals.databinding.ViewFindAPalItemBinding
 import com.example.packpals.models.Pal
-import com.example.packpals.viewmodels.PalsViewModel
-import hilt_aggregated_deps._com_example_packpals_views_trips_TripsListFragment_GeneratedInjector
+import com.example.packpals.viewmodels.FindAPalViewModel
+import com.example.packpals.viewmodels.PalsFragmentViewModel
 
 /**
  * [RecyclerView.Adapter] that can display a [PlaceholderItem].
  * TODO: Replace the implementation with code for your data type.
  */
 class FindAPalRecyclerViewAdapter(
-    val viewModel: PalsViewModel,
-    lifecycleOwner: LifecycleOwner
+    private val palsLiveData: LiveData<List<Pal>>,
+    lifecycleOwner: LifecycleOwner,
+    val onAddButtonClickListener: (Pal) -> Unit
 ) : RecyclerView.Adapter<FindAPalRecyclerViewAdapter.ViewHolder>() {
-
-    private lateinit var pals: List<Pal>
-    val palsLiveData = viewModel.palRequestQueryResultLiveData
 
     init {
         palsLiveData.observe(lifecycleOwner) {
@@ -46,8 +44,8 @@ class FindAPalRecyclerViewAdapter(
         val pal = palsLiveData.value?.get(position)
         holder.userNameView.text = pal?.name
         holder.addButton.setOnClickListener {
-            pal?.id?.let {
-                viewModel.addPal(it)
+            pal?.let {
+                onAddButtonClickListener(it)
             }
         }
     }

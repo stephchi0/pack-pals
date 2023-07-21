@@ -45,3 +45,5 @@
 |        |       |      |    5     |       |     | 07/17/2023 |Updated itinerary page UI
 |        |       |      |    4     |       |     | 07/17/2023 |Added weather API to each itinerary item 
 |        |       |  1   |          |       |     | 07/18/2023 |Refactor Find a Pal logic into pal repository 
+|        |       |  4   |          |       |     | 07/19/2023 |Basic add pal by uid functionality
+|        |       |  2   |          |       |     | 07/18/2023 |Refactoring pals list, find a pal viewmodel logic

@@ -87,4 +87,8 @@
         android:name="com.example.packpals.views.pals.IncomingPalRequestsFragment"
         android:label="@string/IncomingPalRequests"
         tools:layout="@layout/fragment_incoming_pal_requests" />
+    <fragment
+        android:id="@+id/palsFragment"
+        android:name="com.example.packpals.views.pals.PalsFragment"
+        android:label="@string/Pals" />
 </navigation>

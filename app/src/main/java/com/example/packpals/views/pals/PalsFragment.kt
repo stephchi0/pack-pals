@@ -8,24 +8,25 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.packpals.databinding.FragmentIncomingPalRequestsBinding
-import com.example.packpals.viewmodels.PalsViewModel
+import com.example.packpals.databinding.FragmentPalsBinding
+import com.example.packpals.viewmodels.PalsFragmentViewModel
 
 /**
  * Fragment for displaying incoming pal requests
  */
 class PalsFragment : Fragment() {
 
-    val viewModel: PalsViewModel by viewModels()
+    val viewModel: PalsFragmentViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val viewBinding = FragmentIncomingPalRequestsBinding.inflate(inflater, container, false)
+        val viewBinding = FragmentPalsBinding.inflate(inflater, container, false)
 
-        viewBinding.palRequestRecyclerView.layoutManager = LinearLayoutManager(context)
-        viewBinding.palRequestRecyclerView.adapter = IncomingPalRequestsAdapter(viewModel.palRequestsLiveData, this)
+        viewBinding.palRecyclerView.layoutManager = LinearLayoutManager(context)
+//        viewBinding.palRequestRecyclerView.adapter = IncomingPalRequestsAdapter(viewModel.palRequestsLiveData, this)
 
         return viewBinding.root
     }
