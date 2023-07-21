@@ -11,6 +11,7 @@ import android.widget.ImageView
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.packpals.R
+import com.example.packpals.R.id
 import com.example.packpals.viewmodels.ProfilePageViewModel
 import dagger.hilt.android.AndroidEntryPoint
 

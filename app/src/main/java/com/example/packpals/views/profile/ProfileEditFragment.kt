@@ -14,7 +14,10 @@ import androidx.navigation.fragment.findNavController
 import com.example.packpals.R
 import android.widget.EditText
 import android.widget.LinearLayout
+import android.widget.ImageView
 import com.example.packpals.viewmodels.ProfilePageViewModel
+import android.content.Intent
+import android.provider.MediaStore
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -23,7 +26,7 @@ class ProfileEditFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
-
+    //private val pickImageRequestCode = 101
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -35,11 +38,19 @@ class ProfileEditFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.profile.observe(viewLifecycleOwner) { profile ->
-            // Handle the profile data here, update UI, etc.
-        }
         var genderSelected: String? = null
         val genderSpinner: Spinner = requireView().findViewById(R.id.genderSpinner)
+        val name = requireView().findViewById<EditText>(R.id.nameEdit)
+        val bio = requireView().findViewById<EditText>(R.id.bioEdit)
+        val update = requireView().findViewById<LinearLayout>(R.id.updateProfile)
+
+        viewModel.profile.observe(viewLifecycleOwner) { profile ->
+            profile?.let {
+                name.setText(profile.name)
+                bio.setText(profile.bio)
+            }
+        }
+
         val adapter: ArrayAdapter<CharSequence> = ArrayAdapter.createFromResource(
             requireContext(),
             R.array.gender_array,
@@ -56,19 +67,22 @@ class ProfileEditFragment : Fragment() {
             ) {
                 genderSelected = parent.getItemAtPosition(position).toString()
             }
+
             override fun onNothingSelected(parent: AdapterView<*>) {
             }
         }
-        val name = requireView().findViewById<EditText>(R.id.nameEdit)
-        val bio = requireView().findViewById<EditText>(R.id.bioEdit)
-        val update = requireView().findViewById<LinearLayout>(R.id.updateProfile)
         update.setOnClickListener { //on clicking update profile button, update all information
             val nameString = name.text.toString()
             val bioString = bio.text.toString()
-
             viewModel.updateProfile(nameString, genderSelected, bioString)
         }
+        viewModel.fetchProfile()
+
+
+        //profile picture add
+        val profileImageView = view.findViewById<ImageView>(R.id.profileImage)
     }
+
     companion object {
         @JvmStatic
         fun newInstance() =
