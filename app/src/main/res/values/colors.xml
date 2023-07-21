@@ -9,6 +9,9 @@
 
     <color name="darker_blue">#FF6A7B9B</color>
     <color name="light_blue2">#C9E5FF</color>
+    <color name="light_purple">#929dff</color>
+    <color name="light_purple2">#dadeff</color>
+    <color name="salmon">#ff7777</color>
 
     <color name="Blue_Theme1">#929DFF</color>
     <color name="Blue_Background1">#DADEFF</color>

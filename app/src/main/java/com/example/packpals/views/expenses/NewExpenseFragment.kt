@@ -18,8 +18,10 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import com.bumptech.glide.Glide
 import com.example.packpals.R
 import com.example.packpals.viewmodels.ExpensesPageViewModel
+import com.google.android.material.imageview.ShapeableImageView
 import com.google.android.material.textfield.TextInputEditText
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -80,6 +82,13 @@ class NewExpenseFragment : Fragment() {
             for (pal in palsList) {
                 val addPalView = LayoutInflater.from(context).inflate(R.layout.view_new_expense_add_pal, linearLayout, false)
                 addPalView.findViewById<TextView>(R.id.palName).text = pal.name
+                if (!pal.profilePictureURL.isNullOrEmpty()) {
+                    Glide
+                        .with(requireContext())
+                        .load(pal.profilePictureURL)
+                        .into(addPalView.findViewById<ShapeableImageView>(R.id.expenseProfilePicture))
+                }
+
                 addPalView.setOnClickListener {
                     if (pal.id != null) {
                         viewModel.addRemovePayingPal(pal.id!!)

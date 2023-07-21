@@ -1,55 +1,76 @@
-package com.example.packpals.viewmodels
+    package com.example.packpals.viewmodels
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import com.example.packpals.models.Itinerary_Item
+    import androidx.lifecycle.LiveData
+    import androidx.lifecycle.MutableLiveData
+    import androidx.lifecycle.ViewModel
+    import androidx.lifecycle.viewModelScope
+    import com.example.packpals.models.Expense
+    import com.example.packpals.models.Itinerary_Item
+    import com.example.packpals.repositories.ItineraryRepository
+    import com.example.packpals.repositories.PlacesRepository
+    import com.example.packpals.repositories.TripsRepository
+    import dagger.hilt.android.lifecycle.HiltViewModel
+    import kotlinx.coroutines.launch
+    import java.text.SimpleDateFormat
+    import java.util.Date
+    import javax.inject.Inject
+    import kotlin.math.round
 
-class ItineraryPageViewModel : ViewModel() {
-    private val _itineraryItemsList: MutableLiveData<MutableList<Itinerary_Item>> = MutableLiveData()
-    val itineraryItemsList: LiveData<MutableList<Itinerary_Item>> get() = _itineraryItemsList
+    @HiltViewModel
+    class ItineraryPageViewModel @Inject constructor(
+        private val tripsRepo: TripsRepository,
+        private val placesRepo: PlacesRepository,
+        private val itineraryRepo: ItineraryRepository
+    ) : ViewModel() {
 
-    private val _reccItineraryItemsList: MutableLiveData<MutableList<Itinerary_Item>> = MutableLiveData()
-
-    val reccItineraryItemsList: LiveData<MutableList<Itinerary_Item>> get() = _reccItineraryItemsList
-
-    init {
-        _itineraryItemsList.value = mutableListOf(
-            Itinerary_Item("Fenugs Chasm", "May 1st, 2023 12:30pm-2pm", "Forecast: Rainy, 19 degrees Celsius"),
-            Itinerary_Item("Anzac Hill of Chi", "May 2nd, 2023 2pm-5pm", "Forecast: Partly Cloudy, 19 degrees Celsius"),
-            Itinerary_Item("Mount Spooder", "May 3rd, 2023 2pm-5pm", "Forecast: Sunny, 19 degrees Celsius")
+        private val _itineraryItemsList: MutableLiveData<List<Itinerary_Item>> = MutableLiveData(
+            emptyList()
         )
-    }
+        val itineraryItemsList: LiveData<List<Itinerary_Item>> get() = _itineraryItemsList
 
-    init {
-        _reccItineraryItemsList.value = mutableListOf(
-            Itinerary_Item("Chasm of chi", "", ""),
-            Itinerary_Item("Fengus Hill", "", ""),
-            Itinerary_Item("Across the Spooder Cave", "", "")
+        private val _nearbyItemsList: MutableLiveData<List<Itinerary_Item>> = MutableLiveData(
+            emptyList()
         )
-    }
 
-    fun addItineraryItem(item: Itinerary_Item) {
-        val currentList = _itineraryItemsList.value?.toMutableList()
-        currentList?.add(item)
-        _itineraryItemsList.value = currentList!!
-    }
+        val nearbyItemsList: LiveData<List<Itinerary_Item>> get() = _nearbyItemsList
 
-    fun removeItineraryItem(item: Itinerary_Item) {
-        val currentList = _itineraryItemsList.value?.toMutableList()
-        currentList?.remove(item)
-        _itineraryItemsList.value = currentList!!
-    }
+        private val _currentItem =  MutableLiveData<Itinerary_Item>()
+        val currentItem: LiveData<Itinerary_Item> get() = _currentItem
 
-    fun addReccItineraryItem(item: Itinerary_Item) {
-        val currentList = _reccItineraryItemsList.value?.toMutableList()
-        currentList?.add(item)
-        _reccItineraryItemsList.value = currentList!!
-    }
 
-    fun removeReccItineraryItem(item: Itinerary_Item) {
-        val currentList = _reccItineraryItemsList.value?.toMutableList()
-        currentList?.remove(item)
-        _reccItineraryItemsList.value = currentList!!
+//        private val _itineraryItemsInfoList: MutableLiveData<List<Itinerary_Item>> = _itineraryItemsList
+//
+
+//        private val _reccItineraryItemsList: MutableLiveData<MutableList<Itinerary_Item>> = MutableLiveData()
+
+
+        init{
+            fetchItineraryItems()
+        }
+
+        fun fetchItineraryItems() {
+            // TODO: not hardcore this later
+            val tripId = "SxXsH6jHElrx3oocliFY"
+            if (tripId != null) {
+                viewModelScope.launch {
+                    val result = itineraryRepo.fetchItems(tripId)
+                    if (result != null) {
+                        result.forEach {item ->
+                            val photoReference = placesRepo.photoIdFromName(item.location!!)
+                            val photoURL = null
+                            if (photoReference != null){
+                                val photoURL = placesRepo.photoUrlFromId(photoReference)
+                                item.addPhotoReference(photoURL!!)
+                            }
+                        }
+                        _itineraryItemsList.value = result!!
+                    }
+                }
+            }
+        }
+
+        fun setCurrentItem(item:Itinerary_Item){
+            _currentItem.value = item
+        }
+
     }
-}

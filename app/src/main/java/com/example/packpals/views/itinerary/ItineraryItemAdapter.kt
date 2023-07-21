@@ -38,12 +38,12 @@ class ItineraryItemAdapter (
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
         val curItem = items[position]
-        holder.itemView.apply{
-            tvlocation.text = curItem.location
-            tvdate.text = curItem.date
-            tvforecast.text = curItem.forecast
-            image.setImageResource(R.mipmap.fenugs)
-        }
+//        holder.itemView.apply{
+//            tvlocation.text = curItem.location
+//            tvdate.text = curItem.date
+//            tvforecast.text = curItem.forecast
+//            image.setImageResource(R.mipmap.fenugs)
+//        }
     }
 
     override fun getItemCount(): Int {
