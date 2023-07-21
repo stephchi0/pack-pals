@@ -45,7 +45,7 @@ class ItineraryPageFragment : Fragment() {
 
                 itineraryView.findViewById<TextView>(R.id.tvlocation).text = item.location
                 itineraryView.findViewById<TextView>(R.id.tvforecast).text = item.forecast
-                itineraryView.findViewById<TextView>(R.id.tvdate).text = SimpleDateFormat("MM/dd/yyyy").format(item.date)
+                itineraryView.findViewById<TextView>(R.id.tvdate).text = SimpleDateFormat("MM/dd/yyyy").format(item.startDate)
 
                 if(item.photo_reference != null){
                     Glide

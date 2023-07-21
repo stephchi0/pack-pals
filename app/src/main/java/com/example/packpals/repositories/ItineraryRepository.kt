@@ -47,8 +47,8 @@ class ItineraryRepository @Inject constructor(private val itineraryCollectionRef
 
     private suspend fun fetchWeatherForLocation(latitude: Double, longitude: Double): String? =
         withContext(Dispatchers.IO) {
-
-            val apiKey = "" // TODO: grab from localproperties idk how yet
+            val properties = Properties()
+            val apiKey = "44988b69e712d97ad5d74b585530ddf4" // TODO: grab from localproperties idk how yet
             val url = "https://api.openweathermap.org/data/2.5/weather?lat=$latitude&lon=$longitude&appid=$apiKey"
 
             return@withContext try {

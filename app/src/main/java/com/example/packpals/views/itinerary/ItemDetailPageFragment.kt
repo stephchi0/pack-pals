@@ -42,7 +42,7 @@ class ItemDetailPageFragment : Fragment() {
             val tvForecastField = view.findViewById<TextView>(R.id.tvForecastField)
 
             tvLocationField.text = item.location
-            tvDateField.text = SimpleDateFormat("MM/dd/yyyy").format(item.date)
+            tvDateField.text = SimpleDateFormat("MM/dd/yyyy").format(item.startDate)
             tvForecastField.text = item.forecast
         }
     }

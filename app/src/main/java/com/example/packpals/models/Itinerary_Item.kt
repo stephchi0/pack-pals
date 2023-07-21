@@ -1,11 +1,13 @@
 package com.example.packpals.models
 
 import com.google.firebase.firestore.GeoPoint
+import com.google.type.DateTime
 import java.util.Date
 
 data class Itinerary_Item(
     val tripId: String? = null,
-    val date: Date? = null,
+    val startDate: Date? = null,
+    val endDate: Date? = null,
     val geopoint: GeoPoint? = null,
     val location: String? = null,
     var forecast: String? = null,

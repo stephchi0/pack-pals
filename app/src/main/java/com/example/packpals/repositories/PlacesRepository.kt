@@ -10,7 +10,7 @@ import java.net.URL
 import javax.inject.Inject
 
 class PlacesRepository @Inject constructor(){
-    val key = ""
+    val key = "AIzaSyDYk8Xsk4AEFJ89f5M4I8ulMmOaSwLOUwA"
 
     // Returns the photo reference id from a given place name
     suspend fun photoIdFromName(name:String, maxWidth: Int = 200, maxLength: Int= 200): String? = 
