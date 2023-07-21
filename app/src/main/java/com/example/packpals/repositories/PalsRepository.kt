@@ -69,9 +69,12 @@ class PalsRepository @Inject constructor (private val palsCollectionRef: Collect
         return tripPals
     }
 
-    suspend fun createPal(id: String, name: String) {
-        val palValues = mapOf("name" to name)
-        palsCollectionRef.document(id).set(palValues).await()
+    suspend fun createPal(id: String, name: String, email: String) {
+        val newPal = Pal(
+            name = name,
+            email = email
+        )
+        palsCollectionRef.document(id).set(newPal).await()
     }
 
     suspend fun editProfile(id: String, name: String, gender: String?, bio: String?) {
@@ -88,8 +91,26 @@ class PalsRepository @Inject constructor (private val palsCollectionRef: Collect
         }
     }
 
-    suspend fun addPal(userId: String): Boolean {
-        // TODO: implement
-        return false
+    suspend fun addPal(id: String, newPalId: String): Boolean {
+        try {
+            // TODO: check if pal exists
+            val palRef = palsCollectionRef.document(id)
+            val pal = palRef.get().await().toObject(Pal::class.java)
+            val newPalsList = if (pal?.pals?.contains(newPalId) == true) {
+                listOf(newPalId)
+            } else {
+                buildList {
+                    add(newPalId)
+                    pal?.pals?.let {
+                        addAll(it)
+                    }
+                }
+            }
+
+            palRef.update("pals", newPalsList).await()
+            return true
+        } catch (e: Exception) {
+            return false
+        }
     }
 }

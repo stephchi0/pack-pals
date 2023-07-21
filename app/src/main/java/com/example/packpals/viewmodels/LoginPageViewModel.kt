@@ -44,7 +44,7 @@ class LoginPageViewModel @Inject constructor(private val authRepo: AuthRepositor
             viewModelScope.launch {
                 val newUserId = authRepo.register(email, password)
                 if (newUserId != null) {
-                    palsRepo.createPal(newUserId, name)
+                    palsRepo.createPal(newUserId, name, email)
 
                     val uri = _profilePictureUri
                     if (uri != Uri.EMPTY) {

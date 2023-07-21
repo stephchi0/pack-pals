@@ -6,8 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView.LayoutManager
 import com.example.packpals.R
 import com.example.packpals.viewmodels.PalsViewModel
+import kotlinx.android.synthetic.main.fragment_find_a_pal.view.findAPalRecyclerView
 import kotlinx.android.synthetic.main.fragment_find_a_pal.view.findAPalSubmitButton
 import kotlinx.android.synthetic.main.fragment_find_a_pal.view.findAPalUsernameInput
 
@@ -15,8 +18,6 @@ import kotlinx.android.synthetic.main.fragment_find_a_pal.view.findAPalUsernameI
  * Fragment for the Find A Pal screen
  */
 class FindAPalFragment : Fragment() {
-
-//    private lateinit var recyclerView: RecyclerView
     private val viewModel: PalsViewModel by viewModels()
 
     override fun onCreateView(
@@ -24,6 +25,10 @@ class FindAPalFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_find_a_pal, container, false)
+
+        val recyclerView = view.findAPalRecyclerView
+        recyclerView.adapter = FindAPalRecyclerViewAdapter(viewModel.palRequestQueryResultLiveData, this)
+        recyclerView.layoutManager = LinearLayoutManager(context)
 
         view.findAPalSubmitButton.setOnClickListener {
             val query = view.findAPalUsernameInput.text.toString()
