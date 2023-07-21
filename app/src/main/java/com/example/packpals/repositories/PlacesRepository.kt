@@ -1,4 +1,6 @@
 package com.example.packpals.repositories
+import android.content.res.Resources
+import com.example.packpals.R
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.json.Json
@@ -10,7 +12,7 @@ import java.net.URL
 import javax.inject.Inject
 
 class PlacesRepository @Inject constructor(){
-    val key = ""
+    val key = Resources.getSystem().getString(R.string.MAPS_API_KEY)
 
     // Returns the photo reference id from a given place name
     suspend fun photoIdFromName(name:String, maxWidth: Int = 200, maxLength: Int= 200): String? = 

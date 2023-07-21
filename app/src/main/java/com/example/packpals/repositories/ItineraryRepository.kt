@@ -1,7 +1,9 @@
 package com.example.packpals.repositories
 
 import android.content.pm.PackageManager
+import android.content.res.Resources
 import android.os.Bundle
+import com.example.packpals.R
 import com.example.packpals.models.Itinerary_Item
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.Filter
@@ -48,7 +50,7 @@ class ItineraryRepository @Inject constructor(private val itineraryCollectionRef
     private suspend fun fetchWeatherForLocation(latitude: Double, longitude: Double): String? =
         withContext(Dispatchers.IO) {
 
-            val apiKey = "" // TODO: grab from localproperties idk how yet
+            val apiKey = Resources.getSystem().getString(R.string.OPEN_WEATHER_API_KEY)
             val url = "https://api.openweathermap.org/data/2.5/weather?lat=$latitude&lon=$longitude&appid=$apiKey"
 
             return@withContext try {
