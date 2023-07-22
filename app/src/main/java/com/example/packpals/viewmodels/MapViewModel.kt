@@ -6,21 +6,18 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.CreationExtras
 import com.example.packpals.models.MapModel
+import com.google.firebase.firestore.GeoPoint
+import java.util.Date
 
 class MapViewModel : ViewModel() {
 
-    /**
-     *  The representation of a [MapModel.ModelLocation] in the ViewModel. Only [VMLocation]s are exposed to the View.
-     */
-    data class VMLocation(val id: Int, var title: String, var content: String, var visited: Boolean = false)  {
-        constructor(location : MapModel.ModelLocation) : this(location.id, location.title, location.content, location.visited)
-    }
-
-    // model
-    private val mapModel = MapModel()
-
-    // list of all locations
-    val map = MutableLiveData<MutableList<MutableLiveData<VMLocation>>>(mutableListOf())
+    private val _locationLiveData = MutableLiveData(listOf(
+        MapModel.ModelLocation("100001","101", Date(2022,1,1,1,1),
+            "Sunny", GeoPoint(37.42242770588777, -122.0845403133058), "Location 1"
+        ),
+        MapModel.ModelLocation("100001","102", Date(2022,9,1,1,1),
+            "Not Sunny",GeoPoint(37.42152394191977, -122.08290410837543), "Location 2")
+    ))
 
     companion object {
         val Factory = object : ViewModelProvider.Factory {
@@ -31,10 +28,7 @@ class MapViewModel : ViewModel() {
         }
     }
 
-    /**
-     * Returns a read-only version of [map], which stores read-only observables of [VMLocation].
-     */
-    fun getLocations() : LiveData<MutableList<LiveData<VMLocation>>> {
-        return map as LiveData<MutableList<LiveData<VMLocation>>>
-    }
+    val locationLiveData: LiveData<List<MapModel.ModelLocation>>
+        get() = _locationLiveData
+
 }

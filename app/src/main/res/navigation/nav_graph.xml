@@ -96,4 +96,13 @@
         android:name="com.example.packpals.views.pals.IncomingPalRequestsFragment"
         android:label="@string/IncomingPalRequests"
         tools:layout="@layout/fragment_incoming_pal_requests" />
+    <fragment
+        android:id="@+id/locationDetailsFragment"
+        android:name="com.example.packpals.views.map.LocationDetails"
+        android:label="@string/LocationDetails"
+        tools:layout="@layout/fragment_location_details" >
+        <action
+            android:id="@+id/action_locationDetails_to_mapFragment"
+            app:destination="@id/mapFragment" />
+    </fragment>
 </navigation>
