@@ -1,9 +1,14 @@
 package com.example.packpals.views
 
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -18,7 +23,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 
 @AndroidEntryPoint
-class NavigationDrawerViewActivity : AppCompatActivity() {
+class NavigationDrawerViewActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityNavigationDrawerViewBinding
@@ -28,7 +33,6 @@ class NavigationDrawerViewActivity : AppCompatActivity() {
 
         binding = ActivityNavigationDrawerViewBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
         setSupportActionBar(binding.appBarNavigationDrawerView.toolbar)
 
         val drawerLayout: DrawerLayout = binding.drawerLayout
@@ -40,6 +44,7 @@ class NavigationDrawerViewActivity : AppCompatActivity() {
             R.id.expensesFragment, R.id.profilePageFragment, R.id.findAPalFragment, R.id.incomingPalRequestsFragment), drawerLayout)
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+        setNavigationViewListener(navView)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -58,5 +63,16 @@ class NavigationDrawerViewActivity : AppCompatActivity() {
     override fun onSupportNavigateUp(): Boolean {
         val navController = findNavController(R.id.nav_host_fragment_content_navigation_drawer_view)
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
+    }
+    private fun setNavigationViewListener(navView: NavigationView) {
+        navView.setNavigationItemSelectedListener(this)
+    }
+    override fun onNavigationItemSelected(item: MenuItem): Boolean {
+        val navController = findNavController(R.id.nav_host_fragment_content_navigation_drawer_view)
+        Log.i("NavActivity", item.title as String)
+        binding.drawerLayout.closeDrawer(GravityCompat.START);
+        if (item.title == "End Trip") {
+        }
+        return item.onNavDestinationSelected(navController) || super.onOptionsItemSelected(item)
     }
 }
