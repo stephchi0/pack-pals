@@ -50,3 +50,4 @@
 |        |       |      |    3     |       |     | 07/20/2023 | Items details with auto-fill |
 |        |1      |      |          |       |     | 07/20/2023 |Add profile picture to pal on registration and display profile pictures in add expense page|
 |1       |       |      |          |       |     | 07/20/2023 | refactor homepage, register, and login ui | 
+|        |       |      |          |       |8    | 07/18/2023 | Setting up Map for Itinerary and Photos with Mock Data |
