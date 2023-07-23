@@ -36,7 +36,7 @@ class ProfileEditFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel.profile.observe(viewLifecycleOwner) { profile ->
-            // Handle the profile data here, update UI, etc.
+            // TODO: Handle the profile data here, update UI, etc.
         }
         var genderSelected: String? = null
         val genderSpinner: Spinner = requireView().findViewById(R.id.genderSpinner)

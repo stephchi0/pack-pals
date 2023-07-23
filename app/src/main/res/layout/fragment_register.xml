@@ -10,15 +10,28 @@
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/RegisterToolbar"
         android:layout_width="match_parent"
-        android:layout_height="73dp"
+        android:layout_height="72dp"
         android:background="@color/dark_blue"
+        android:gravity="center_vertical"
         android:minHeight="?attr/actionBarSize"
+        android:paddingStart="48dp"
         android:theme="?attr/actionBarTheme"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:title="Register"
+        app:titleTextAppearance="@style/TextAppearance.AppCompat.Display1"
         app:titleTextColor="@color/white" />
+
+    <ImageView
+        android:id="@+id/navigateBackButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:src="@drawable/ic_back_navigation"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/registerProfilePicture"
@@ -58,9 +71,9 @@
         android:background="@drawable/round_dark_blue_background"
         android:ems="10"
         android:inputType="text"
+        android:paddingStart="8dp"
         app:layout_constraintBottom_toTopOf="@+id/emailEditTextLabel"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/nameEditTextLabel" />
 
@@ -90,6 +103,7 @@
         android:background="@drawable/round_dark_blue_background"
         android:ems="10"
         android:inputType="text|textEmailAddress"
+        android:paddingStart="8dp"
         app:layout_constraintBottom_toTopOf="@+id/passwordEditTextLabel"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -122,6 +136,7 @@
         android:background="@drawable/round_dark_blue_background"
         android:ems="10"
         android:inputType="text|textPassword"
+        android:paddingStart="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/passwordEditTextLabel" />

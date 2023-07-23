@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.viewModels
@@ -62,6 +63,11 @@ class RegisterFragment : Fragment() {
             viewModel.register(txtName, txtEmail, txtPassword)
         }
 
+        val backButton = requireView().findViewById<ImageView>(R.id.navigateBackButton)
+        backButton.setOnClickListener {
+            navigateBackToLogin()
+        }
+
         viewModel.profilePictureUri.observe(viewLifecycleOwner) { profilePictureUri ->
             if (profilePictureUri != Uri.EMPTY) {
                 Glide.with(requireContext())
@@ -72,9 +78,7 @@ class RegisterFragment : Fragment() {
 
         viewModel.registrationSuccess.observe(viewLifecycleOwner) { success ->
             if (success) {
-                val transaction = parentFragmentManager.beginTransaction()
-                transaction.replace(R.id.loginFragmentContainerView, LoginFragment())
-                transaction.commit()
+                navigateBackToLogin()
             }
         }
 
@@ -84,6 +88,12 @@ class RegisterFragment : Fragment() {
                 viewModel.clearToastMessage()
             }
         }
+    }
+
+    private fun navigateBackToLogin() {
+        val transaction = parentFragmentManager.beginTransaction()
+        transaction.replace(R.id.loginFragmentContainerView, LoginFragment())
+        transaction.commit()
     }
 
     companion object {
