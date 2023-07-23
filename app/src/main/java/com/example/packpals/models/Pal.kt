@@ -1,6 +1,9 @@
 package com.example.packpals.models
 
+import com.google.firebase.firestore.DocumentId
+
 data class Pal(
+    @DocumentId
     var id: String? = null,
     val name: String? = null,
     val profilePictureURL: String? = null,

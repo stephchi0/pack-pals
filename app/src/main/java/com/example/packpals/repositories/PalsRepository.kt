@@ -15,12 +15,7 @@ class PalsRepository @Inject constructor (private val palsCollectionRef: Collect
     suspend fun fetchPal(userId: String): Pal? {
         return try{
             val palReturned = palsCollectionRef.document(userId).get().await()
-            val pal = palReturned.toObject(Pal::class.java)
-            if (pal != null) {
-                pal.id = palReturned.id
-            }
-            pal
-
+            palReturned.toObject(Pal::class.java)
         } catch(e: Exception){
             null
         }
@@ -83,8 +78,7 @@ class PalsRepository @Inject constructor (private val palsCollectionRef: Collect
     suspend fun fetchProfile(id: String): Pal? {
         val palEdit = palsCollectionRef.document(id).get().await()
         return if (palEdit.exists()) {
-            val profileData = palEdit.toObject(Pal::class.java)
-            profileData?.copy(id = palEdit.id)
+            palEdit.toObject(Pal::class.java)
         } else {
             null
         }
