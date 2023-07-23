@@ -8,7 +8,6 @@ import android.graphics.BitmapFactory
 import android.graphics.Canvas
 import android.graphics.Paint
 import android.location.Location
-import android.media.Image
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -18,6 +17,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.Navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.example.packpals.R
 import com.example.packpals.models.MapModel
@@ -200,7 +200,9 @@ class MapsFragment : Fragment(), GoogleMap.OnInfoWindowClickListener {
 
     override fun onInfoWindowClick(marker: Marker) {
         Log.i("MapPageActivity", "Info window clicked")
-        findNavController().navigate(R.id.locationDetailsFragment)
+        val bundle = Bundle()
+        bundle.putString("locationTitle", marker.title)
+        findNavController().navigate(R.id.locationDetailsFragment,bundle)
     }
 
     companion object {
