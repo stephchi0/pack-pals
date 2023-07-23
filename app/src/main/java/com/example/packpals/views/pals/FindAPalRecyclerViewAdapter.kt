@@ -13,6 +13,7 @@ import com.example.packpals.databinding.ViewFindAPalItemBinding
 import com.example.packpals.models.Pal
 import com.example.packpals.viewmodels.FindAPalViewModel
 import com.example.packpals.viewmodels.PalsFragmentViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
 /**
  * [RecyclerView.Adapter] that can display a [PlaceholderItem].

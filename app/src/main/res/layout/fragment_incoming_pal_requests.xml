@@ -28,7 +28,8 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/palRequestRecyclerView"
             android:layout_height="match_parent"
-            android:layout_width="match_parent"/>
+            android:layout_width="match_parent"
+            tools:listitem="@layout/view_pal_request_item"/>
 
     </androidx.cardview.widget.CardView>
 

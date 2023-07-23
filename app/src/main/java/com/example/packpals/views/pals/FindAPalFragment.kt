@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.packpals.R
 import com.example.packpals.viewmodels.FindAPalViewModel
 import com.example.packpals.viewmodels.PalsFragmentViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_find_a_pal.view.findAPalRecyclerView
 import kotlinx.android.synthetic.main.fragment_find_a_pal.view.findAPalSubmitButton
 import kotlinx.android.synthetic.main.fragment_find_a_pal.view.findAPalUsernameInput
@@ -17,6 +18,7 @@ import kotlinx.android.synthetic.main.fragment_find_a_pal.view.findAPalUsernameI
 /**
  * Fragment for the Find A Pal screen
  */
+@AndroidEntryPoint
 class FindAPalFragment : Fragment() {
     private val viewModel: FindAPalViewModel by viewModels()
 

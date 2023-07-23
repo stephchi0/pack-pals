@@ -10,10 +10,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.packpals.databinding.FragmentIncomingPalRequestsBinding
 import com.example.packpals.databinding.FragmentPalsBinding
 import com.example.packpals.viewmodels.PalsFragmentViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
 /**
  * Fragment for displaying incoming pal requests
  */
+@AndroidEntryPoint
 class PalsFragment : Fragment() {
 
     val viewModel: PalsFragmentViewModel by viewModels()
