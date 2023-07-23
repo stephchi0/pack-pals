@@ -71,7 +71,8 @@ class NavigationDrawerViewActivity : AppCompatActivity(), NavigationView.OnNavig
         val navController = findNavController(R.id.nav_host_fragment_content_navigation_drawer_view)
         Log.i("NavActivity", item.title as String)
         binding.drawerLayout.closeDrawer(GravityCompat.START);
-        if (item.title == "End Trip") {
+        if (item.title == "Return to Trip Menu") {
+            finish()
         }
         return item.onNavDestinationSelected(navController) || super.onOptionsItemSelected(item)
     }

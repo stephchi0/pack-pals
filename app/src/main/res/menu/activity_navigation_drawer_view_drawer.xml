@@ -30,8 +30,8 @@
             android:title="@string/PackingList"
             android:icon="@mipmap/packing_list"/>
         <item
-            android:id="@+id/endTrip"
-            android:title="@string/EndTrip"
-            android:gravity="right"/>
+            android:id="@+id/tripReturn"
+            android:title="@string/TripReturn"
+            android:icon="@mipmap/returntrip"/>
     </group>
 </menu>
