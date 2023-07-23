@@ -50,5 +50,6 @@
 |        |       |      |    3     |       |     | 07/20/2023 | Items details with auto-fill |
 |        |1      |      |          |       |     | 07/20/2023 |Add profile picture to pal on registration and display profile pictures in add expense page|
 |1       |       |      |          |       |     | 07/20/2023 | refactor homepage, register, and login ui | 
-|        |       |      |          |       |8    | 07/18/2023 | Setting up Map for Itinerary and Photos with Mock Data |
-|        |       |      |          |       |2    | 07/18/2023 | Return to Trip Menu and Location Details navigate passing info |
+|        |       |      |          |       |8    | 07/22/2023 | Setting up Map for Itinerary and Photos with Mock Data |
+|        |       |      |          |       |2    | 07/22/2023 | Return to Trip Menu and Location Details navigate passing info |
+|7       |       |      |          |       |     | 07/22/2023 | implement edit trip functionality |

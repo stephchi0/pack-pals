@@ -11,6 +11,7 @@ import android.widget.ImageButton
 import android.widget.LinearLayout
 import android.widget.PopupMenu
 import android.widget.TextView
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import com.example.packpals.R
 import com.example.packpals.viewmodels.TripsPageViewModel
@@ -19,7 +20,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class TripsListFragment : Fragment() {
-    private val viewModel: TripsPageViewModel by viewModels()
+    private val viewModel: TripsPageViewModel by activityViewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -64,6 +65,11 @@ class TripsListFragment : Fragment() {
                         popup.setOnMenuItemClickListener { menuItem ->
                             val id = menuItem.itemId
                             if(id == R.id.active_trip_edit_item){
+                                viewModel.setCurrentEditTrip(trip)
+                                val transaction = parentFragmentManager.beginTransaction()
+                                transaction.replace(R.id.tripFragmentContainerView, EditTripFragment())
+                                transaction.commit()
+
                             }
                             else if (id ==R.id.active_trip_archive_item){
                                 viewModel.editActive(trip)
@@ -100,6 +106,10 @@ class TripsListFragment : Fragment() {
                         popup.setOnMenuItemClickListener { menuItem ->
                             val id = menuItem.itemId
                             if(id == R.id.past_trip_edit_item){
+                                viewModel.setCurrentEditTrip(trip)
+                                val transaction = parentFragmentManager.beginTransaction()
+                                transaction.replace(R.id.tripFragmentContainerView, EditTripFragment())
+                                transaction.commit()
                             }
                             else if (id ==R.id.past_trip_make_active_item){
                                 viewModel.editActive(trip)
@@ -124,6 +134,7 @@ class TripsListFragment : Fragment() {
 
         val newTripButton = requireView().findViewById<Button>(R.id.addNewTripButton)
         newTripButton.setOnClickListener {
+            viewModel.clearTripItems()
             val transaction = parentFragmentManager.beginTransaction()
             transaction.replace(R.id.tripFragmentContainerView, NewTripFragment())
             transaction.commit()
