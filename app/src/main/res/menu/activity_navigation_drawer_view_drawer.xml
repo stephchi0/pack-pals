@@ -18,10 +18,6 @@
             android:title="@string/Photos"
             android:icon="@mipmap/photos"/>
         <item
-            android:id="@+id/playlistFragment"
-            android:title="@string/Playlist"
-            android:icon="@mipmap/playlist"/>
-        <item
             android:id="@+id/expensesFragment"
             android:title="@string/Expenses"
             android:icon="@mipmap/expenses"/>
