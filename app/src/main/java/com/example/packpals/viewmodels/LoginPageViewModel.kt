@@ -39,8 +39,13 @@ class LoginPageViewModel @Inject constructor(private val authRepo: AuthRepositor
     
     fun login(email: String, password: String) {
         viewModelScope.launch {
-            authRepo.login(email, password)
-            _loginSuccess.value = true
+            val loginResult = authRepo.login(email, password)
+            if (loginResult != null) {
+                _loginSuccess.value = true
+            }
+            else {
+                _toastMessage.value = "Invalid credentials. Please enter valid credentials or register a new account."
+            }
         }
     }
 
