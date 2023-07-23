@@ -78,6 +78,22 @@
             app:destination="@id/tripListFragment" />
     </fragment>
     <fragment
+        android:id="@+id/packingListFragment"
+        android:name="com.example.packpals.views.packinglist.PackingListFragment"
+        android:label="Packing List"
+        tools:layout="@layout/fragment_packing_list" >
+    </fragment>
+    <fragment
+        android:id="@+id/editTripFragment"
+        android:name="com.example.packpals.views.trips.EditTripFragment"
+        android:label="fragment_edit_trip"
+        tools:layout="@layout/fragment_edit_trip" >
+        <action
+            android:id="@+id/action_editTripFragment_to_tripListFragment"
+            app:destination="@id/tripListFragment" />
+    </fragment>
+
+    <fragment
         android:id="@+id/tripListFragment"
         android:name="com.example.packpals.views.trips.TripsListFragment"
         android:label="TripListFragment"
@@ -85,6 +101,9 @@
         <action
             android:id="@+id/action_tripListFragment_to_newTripFragment"
             app:destination="@id/newTripFragment" />
+        <action
+            android:id="@+id/action_tripListFragment_to_editTripFragment"
+            app:destination="@id/editTripFragment" />
     </fragment>
     <fragment
         android:id="@+id/findAPalFragment"

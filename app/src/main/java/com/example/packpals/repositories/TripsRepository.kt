@@ -1,5 +1,7 @@
 package com.example.packpals.repositories
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.example.packpals.models.Trip
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.Filter
@@ -36,6 +38,14 @@ class TripsRepository @Inject constructor (private val tripsCollectionRef: Colle
 
     suspend fun updateTrip(tripId: String, updatedTrip: Trip){
         tripsCollectionRef.document(tripId).set(updatedTrip).await()
+    }
+
+    suspend fun deleteTrip(tripId: String) {
+        try{
+            tripsCollectionRef.document(tripId).delete()
+        } catch(e: Exception){
+
+        }
     }
 
     suspend fun fetchTrip(tripId: String): Trip?{

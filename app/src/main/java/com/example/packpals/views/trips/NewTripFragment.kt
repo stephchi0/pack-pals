@@ -9,6 +9,7 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import com.example.packpals.R
 import com.example.packpals.viewmodels.TripsPageViewModel
@@ -16,7 +17,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class NewTripFragment : Fragment(){
-    private val viewModel: TripsPageViewModel by viewModels()
+    private val viewModel: TripsPageViewModel by activityViewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,17 +37,18 @@ class NewTripFragment : Fragment(){
         val linearLayout = requireView().findViewById<LinearLayout>(R.id.newTripPalsLinearLayout)
         viewModel.palsList.observe(viewLifecycleOwner) { palsList ->
             linearLayout.removeAllViews()
-            for (pal in palsList) {
-                val addPalView = LayoutInflater.from(context).inflate(R.layout.view_new_trip_add_pal, linearLayout, false)
-                addPalView.findViewById<TextView>(R.id.newTripPalName).text = pal.name
-                addPalView.setOnClickListener {
-                    if (pal.id != null) {
-                        viewModel.addRemoveTripPal(pal.id!!)
+            if(palsList != null){
+                for (pal in palsList) {
+                    val addPalView = LayoutInflater.from(context).inflate(R.layout.view_new_trip_add_pal, linearLayout, false)
+                    addPalView.findViewById<TextView>(R.id.newTripPalName).text = pal.name
+                    addPalView.setOnClickListener {
+                        if (pal.id != null) {
+                            viewModel.addRemoveTripPal(pal.id!!)
+                        }
                     }
+                    linearLayout.addView(addPalView)
                 }
-                linearLayout.addView(addPalView)
             }
-
         }
 
         viewModel.currentTripPalIds.observe(viewLifecycleOwner){
