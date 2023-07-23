@@ -13,9 +13,10 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class FindAPalViewModel @Inject constructor(private val palsRepo: PalsRepository,
-                                                private val authRepo: AuthRepository) : ViewModel() {
-    val TAG = FindAPalViewModel::class.java.toString()
+class FindAPalViewModel @Inject constructor(
+    private val palsRepo: PalsRepository,
+    private val authRepo: AuthRepository
+) : ViewModel() {
 
     private val _palRequestQueryResultLiveData = MutableLiveData(emptyList<Pal>())
     val palRequestQueryResultLiveData: LiveData<List<Pal>>

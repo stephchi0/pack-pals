@@ -1,4 +1,3 @@
-# Time Log
 |Michelle|Stephen| Joey | Jonathan | Hojun |Alex |    Date    |Task|
 |:------:|:-----:|:----:|:--------:|:-----:|:---:|:----------:|:---|
 |1       |   1   |  1   |    1     |   1   |1    | 05/23/2023 |Meeting to discuss project ideas|
@@ -40,10 +39,18 @@
 |2       |       |      |          |       |     | 07/16/2023 |complete add trip pals functionality|
 |2       |       |      |          |       |     | 07/16/2023 |setup navdrawer viewmodel|
 |        |   2   |      |          |       |     | 07/17/2023 |add trip selecting to TripsRepository and use selected trip data in expenses|
-|        |       |      |    5     |       |     | 07/17/2023 |Setup repo and viewmodel for itinerary page
-|        |       |      |    3     |       |     | 07/17/2023 |Connected the itinerary page to firebase
-|        |       |      |    5     |       |     | 07/17/2023 |Updated itinerary page UI
-|        |       |      |    4     |       |     | 07/17/2023 |Added weather API to each itinerary item 
-|        |       |  1   |          |       |     | 07/18/2023 |Refactor Find a Pal logic into pal repository 
-|        |       |  4   |          |       |     | 07/19/2023 |Basic add pal by uid functionality
-|        |       |  2   |          |       |     | 07/18/2023 |Refactoring pals list, find a pal viewmodel logic
+|        |       |      |    5     |       |     | 07/17/2023 |Setup repo and viewmodel for itinerary page|
+|        |       |      |    3     |       |     | 07/17/2023 |Connected the itinerary page to firebase|
+|        |       |      |    5     |       |     | 07/17/2023 |Updated itinerary page UI|
+|        |       |      |    4     |       |     | 07/17/2023 |Added weather API to each itinerary item |
+|        |       |  1   |          |       |     | 07/18/2023 |Refactor Find a Pal logic into pal repository |
+|        |       |      |          |       |3    | 07/18/2023 | Add current location to map feature |
+|        |       |      |    4     |       |     | 07/19/2023 | Automatic photo based on location name|             
+|1       |       |      |          |       |     | 07/20/2023 | refactor homepage and login ui | 
+|        |       |      |    3     |       |     | 07/20/2023 | Items details with auto-fill |
+|        |1      |      |          |       |     | 07/20/2023 |Add profile picture to pal on registration and display profile pictures in add expense page|
+|1       |       |      |          |       |     | 07/20/2023 | refactor homepage, register, and login ui | 
+|        |       |      |          |       |8    | 07/18/2023 | Setting up Map for Itinerary and Photos with Mock Data |
+|        |       |      |          |       |2    | 07/18/2023 | Return to Trip Menu and Location Details navigate passing info |
+|        |       |  4   |          |       |     | 07/19/2023 |Basic add pal by uid functionality |
+|        |       |  2   |          |       |     | 07/20/2023 |Refactoring pals list, find a pal viewmodel logic |

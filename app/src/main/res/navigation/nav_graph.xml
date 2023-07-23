@@ -8,7 +8,11 @@
         android:id="@+id/mapFragment"
         android:name="com.example.packpals.views.map.MapsFragment"
         android:label="@string/Map"
-        tools:layout="@layout/fragment_maps" />
+        tools:layout="@layout/fragment_maps" >
+        <action
+            android:id="@+id/action_mapFragment_to_locationDetailsFragment"
+            app:destination="@id/locationDetailsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/expensesFragment"
         android:name="com.example.packpals.views.expenses.ExpenseListFragment"
@@ -34,12 +38,21 @@
         <action
             android:id="@+id/action_itineraryFragment_to_addItineraryItemFragment"
             app:destination="@id/addItineraryItemPageFragment" />
+        <action
+            android:id="@+id/action_itineraryFragment_to_itemDetailsPageFragment"
+            app:destination="@id/itemDetailsPageFragment" />
     </fragment>
     <fragment
         android:id="@+id/addItineraryItemPageFragment"
         android:name="com.example.packpals.views.itinerary.AddItineraryItemFragment"
-        android:label="AddItineraryItem"
+        android:label="@string/AddItineraryItem"
         tools:layout="@layout/fragment_add_itinerary_item" >
+    </fragment>
+    <fragment
+        android:id="@+id/itemDetailsPageFragment"
+        android:name="com.example.packpals.views.itinerary.ItemDetailPageFragment"
+        android:label="ItemDetails"
+        tools:layout="@layout/fragment_item_details_page" >
     </fragment>
     <fragment
         android:id="@+id/profilePageFragment"
@@ -91,4 +104,13 @@
         android:id="@+id/palsFragment"
         android:name="com.example.packpals.views.pals.PalsFragment"
         android:label="@string/Pals" />
+    <fragment
+        android:id="@+id/locationDetailsFragment"
+        android:name="com.example.packpals.views.map.LocationDetails"
+        android:label="{locationTitle}"
+        tools:layout="@layout/fragment_location_details" >
+        <argument
+            android:name="locationTitle"
+            app:argType="string"/>
+    </fragment>
 </navigation>

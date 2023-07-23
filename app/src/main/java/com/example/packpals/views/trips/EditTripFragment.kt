@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.fragment.app.viewModels
@@ -32,13 +33,13 @@ class EditTripFragment : Fragment(){
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val linearLayout = requireView().findViewById<LinearLayout>(R.id.newTripPalsLinearLayout)
+        val linearLayout = requireView().findViewById<LinearLayout>(R.id.editTripPalsLinearLayout)
         viewModel.palsList.observe(viewLifecycleOwner) { palsList ->
             linearLayout.removeAllViews()
             for (pal in viewModel.palsList.value!!) {
-                val addPalView = LayoutInflater.from(context).inflate(R.layout.view_new_expense_add_pal, linearLayout, false) // probably need to change this view, currently has expense specific UI
+                val addPalView = LayoutInflater.from(context).inflate(R.layout.view_new_trip_add_pal, linearLayout, false)
 
-                addPalView.findViewById<TextView>(R.id.palName).text = pal.name
+                addPalView.findViewById<TextView>(R.id.newTripPalName).text = pal.name
                 addPalView.setOnClickListener {
                     if (pal.id != null) {
                         viewModel.addRemoveTripPal(pal.id!!)
@@ -57,6 +58,32 @@ class EditTripFragment : Fragment(){
             val transaction = parentFragmentManager.beginTransaction()
             transaction.replace(R.id.tripFragmentContainerView, TripsListFragment())
             transaction.commit()
+        }
+
+        viewModel.currentTripPalIds.observe(viewLifecycleOwner){
+            updateTripPals()
+        }
+
+        val leaveTripButton = requireView().findViewById<Button>(R.id.leaveTripButton)
+        leaveTripButton.setOnClickListener{
+
+        }
+
+    }
+
+    private fun updateTripPals(){
+        val linearLayout = requireView().findViewById<LinearLayout>(R.id.editTripPalsLinearLayout)
+        for (i in 0 until linearLayout.childCount){
+            val addPalView = linearLayout.getChildAt(i)
+            val checkmarkImageView = addPalView.findViewById<ImageView>(R.id.newTripCheckmarkIcon)
+            val palId = viewModel.palsList.value?.get(i)?.id
+
+            if(viewModel.currentTripPalIds.value?.contains(palId)==true){
+                checkmarkImageView.setImageResource(R.drawable.ic_checked)
+            }
+            else{
+                checkmarkImageView.setImageResource(R.drawable.ic_unchecked)
+            }
         }
     }
 }

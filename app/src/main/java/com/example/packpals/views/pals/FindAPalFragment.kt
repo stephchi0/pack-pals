@@ -9,7 +9,6 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.packpals.R
 import com.example.packpals.viewmodels.FindAPalViewModel
-import com.example.packpals.viewmodels.PalsFragmentViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_find_a_pal.view.findAPalRecyclerView
 import kotlinx.android.synthetic.main.fragment_find_a_pal.view.findAPalSubmitButton
