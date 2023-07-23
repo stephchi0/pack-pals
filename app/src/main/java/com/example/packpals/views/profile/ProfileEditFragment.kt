@@ -67,6 +67,7 @@ class ProfileEditFragment : Fragment() {
             val bioString = bio.text.toString()
 
             viewModel.updateProfile(nameString, genderSelected, bioString)
+            findNavController().navigate(R.id.action_profileEditFragment_to_profilePageFragment)
         }
     }
     companion object {
