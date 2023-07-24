@@ -7,7 +7,7 @@
     android:layout_margin="16dp">
 
     <LinearLayout
-        android:id="@+id/linearLayout2"
+        android:id="@+id/addPicture"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:background="@drawable/round_dark_blue_background"

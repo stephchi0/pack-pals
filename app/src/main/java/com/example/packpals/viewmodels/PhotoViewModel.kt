@@ -1,5 +1,7 @@
 package com.example.packpals.viewmodels
 
+import android.content.Context
+import android.net.Uri
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -31,10 +33,10 @@ class PhotoViewModel @Inject constructor(
             }
         }
     }
-    fun addPhoto(albumId: String, photo: ByteArray) {
+    fun addPhoto(albumId: String, imageUri: Uri, context: Context) {
         viewModelScope.launch(){
             albumId?.let { nonNullId ->
-                albumRepo.addPhoto(nonNullId, photoRepo.addPhotoStorage(albumId, photo))
+                albumRepo.addPhoto(nonNullId, photoRepo.addPhotoStorage(imageUri, context))
             }
         }
     }
