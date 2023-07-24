@@ -41,12 +41,15 @@ class AddItineraryItemFragment : Fragment(){
         val linearLayout = requireView().findViewById<LinearLayout>(R.id.lladdItinerary)
         viewModel.itineraryItemsList.observe(viewLifecycleOwner) { itineraryItems ->
             linearLayout.removeAllViews()
+
+//  Todo: Maybe nearby locations
+
 //            for (item in itineraryItems) {
 //                val itineraryView = LayoutInflater.from(context).inflate(R.layout.view_itenerary_item, linearLayout, false)
 //
 //                itineraryView.findViewById<TextView>(R.id.tvlocation).text = item.location
-////                itineraryView.findViewById<TextView>(R.id.tvdate).text = date
-////                itineraryView.findViewById<TextView>(R.id.tvforecast).text = forecast
+//                itineraryView.findViewById<TextView>(R.id.tvdate).text = date
+//                itineraryView.findViewById<TextView>(R.id.tvforecast).text = forecast
 //                itineraryView.findViewById<ImageView>(R.id.image).setImageResource(R.mipmap.fenugs)
 //
 //                itineraryView.setOnClickListener {

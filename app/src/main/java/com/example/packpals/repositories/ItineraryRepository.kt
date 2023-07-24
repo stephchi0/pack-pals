@@ -18,7 +18,6 @@ class ItineraryRepository @Inject constructor(
         val newItineraryItems = mutableListOf<Itinerary_Item>()
         val newItineraryItemsWithId = mutableListOf<Itinerary_Item>()
 
-        itineraryItems = itineraryCollectionRef.where(tripFilter).get().await().toObjects(Itinerary_Item::class.java)
 
         val snapshot = itineraryCollectionRef.where(tripFilter).get().await()
         for (document in snapshot.documents) {
