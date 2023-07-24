@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import com.example.packpals.R
 import com.example.packpals.views.trips.TripsPageActivity
@@ -54,6 +55,13 @@ class LoginFragment : Fragment() {
                 startActivity(intent)
                 viewModel.reset()
            }
+        }
+
+        viewModel.toastMessage.observe(viewLifecycleOwner) { message ->
+            if (message.isNotEmpty()) {
+                Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+                viewModel.clearToastMessage()
+            }
         }
     }
 
