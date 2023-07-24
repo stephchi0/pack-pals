@@ -5,4 +5,4 @@
     android:layout_height="wrap_content"
     android:adjustViewBounds="true"
     android:scaleType="centerCrop"
-    android:padding="4dp" />
+    android:layout_margin="4dp" />

@@ -12,12 +12,15 @@ import com.bumptech.glide.Glide
 import android.util.Log
 import com.example.packpals.viewmodels.PhotoViewModel
 
-class GalleryAdapter(private val photos: List<String>) : RecyclerView.Adapter<GalleryAdapter.GalleryViewHolder>() {
+class GalleryAdapter(private var photos: List<String>) : RecyclerView.Adapter<GalleryAdapter.GalleryViewHolder>() {
 
     class GalleryViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val galleryImage: ImageView = itemView.findViewById(R.id.galleryPhoto)
     }
-
+    fun updatePhotos(newPhotos: List<String>) {
+        photos = newPhotos
+        notifyDataSetChanged()
+    }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GalleryViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.item_gallery, parent, false)
         return GalleryViewHolder(itemView)
@@ -25,11 +28,11 @@ class GalleryAdapter(private val photos: List<String>) : RecyclerView.Adapter<Ga
 
     override fun onBindViewHolder(holder: GalleryViewHolder, position: Int) {
         val imageUrl = photos[position]
-
-        // Load the image using Glide or your preferred image loading library
         Glide.with(holder.itemView)
             .load(imageUrl)
+            .dontTransform()
             .into(holder.galleryImage)
+        Log.d("Glide", "Working")
     }
 
     override fun getItemCount(): Int {

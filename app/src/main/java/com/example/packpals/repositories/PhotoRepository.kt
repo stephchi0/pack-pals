@@ -4,6 +4,7 @@ import com.example.packpals.models.PhotoAlbum
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.storage.FirebaseStorage
 import android.net.Uri
+import android.util.Log
 
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject

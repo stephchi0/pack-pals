@@ -15,7 +15,7 @@ import android.widget.Button
 import android.widget.LinearLayout
 
 class AlbumAdapter(
-    private val albums: List<PhotoAlbum>,
+    private var albums: List<PhotoAlbum>,
 ) : RecyclerView.Adapter<AlbumAdapter.AlbumViewHolder>() {
 
     private var onAlbumItemClickListener: OnAlbumItemClickListener? = null
@@ -31,6 +31,10 @@ class AlbumAdapter(
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.item_album, parent, false)
         return AlbumViewHolder(itemView)
     }
+    fun updateAlbums(newAlbums: List<PhotoAlbum>) {
+        albums = newAlbums
+        notifyDataSetChanged()
+    }
 
     override fun onBindViewHolder(holder: AlbumViewHolder, position: Int) {
         val album = albums[position]
@@ -40,7 +44,7 @@ class AlbumAdapter(
         galleryRecyclerView.layoutManager = GridLayoutManager(holder.itemView.context, 3)
         galleryRecyclerView.adapter = galleryAdapter
 
-        holder.albumNameText.text = album.albumId
+        holder.albumNameText.text = album.albumName
     }
 
     override fun getItemCount(): Int {
@@ -53,6 +57,7 @@ class AlbumAdapter(
         init {
             button.setOnClickListener {
                 val position = adapterPosition
+                Log.d("button press", "photo button is pressed")
                 if (position != RecyclerView.NO_POSITION) {
                     val album = albums[position]
                     onAlbumItemClickListener?.onAlbumItemClick(album)

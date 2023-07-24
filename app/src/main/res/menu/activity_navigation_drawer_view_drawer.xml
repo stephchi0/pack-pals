@@ -14,7 +14,7 @@
             android:title="@string/Itinerary"
             android:icon="@mipmap/itinerary"/>
         <item
-            android:id="@+id/photosFragment"
+            android:id="@+id/albumFragment"
             android:title="@string/Photos"
             android:icon="@mipmap/photos"/>
         <item
