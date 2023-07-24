@@ -45,6 +45,7 @@
 |        |       |      |    4     |       |     | 07/17/2023 |Added weather API to each itinerary item |
 |        |       |  1   |          |       |     | 07/18/2023 |Refactor Find a Pal logic into pal repository |
 |        |       |      |          |       |3    | 07/18/2023 | Add current location to map feature |
+|1       |1      |  1   |1         |1      |1    | 07/18/2023 |Worked on deliverable 5 (design pattern examples)|
 |        |       |      |    4     |       |     | 07/19/2023 | Automatic photo based on location name|             
 |1       |       |      |          |       |     | 07/20/2023 | refactor homepage and login ui | 
 |        |       |      |    3     |       |     | 07/20/2023 | Items details with auto-fill |
@@ -54,3 +55,8 @@
 |        |       |      |          |       |2    | 07/18/2023 | Return to Trip Menu and Location Details navigate passing info |
 |        |       |  4   |          |       |     | 07/19/2023 |Basic add pal by uid functionality |
 |        |       |  2   |          |       |     | 07/20/2023 |Refactoring pals list, find a pal viewmodel logic |
+|        |       |      |          |       |8    | 07/22/2023 | Setting up Map for Itinerary and Photos with Mock Data |
+|        |       |      |          |       |2    | 07/22/2023 | Return to Trip Menu and Location Details navigate passing info |
+|7       |       |      |          |       |     | 07/22/2023 | implement edit trip functionality |
+|        |4      |      |          |       |     | 07/23/2023 |Update register page UI, add toast messages to register and login pages, update login and register logic, add profile picture to profile page|
+|7       |       |      |          |       |     | 07/22/2023 | implement packing list functionality |

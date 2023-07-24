@@ -36,7 +36,7 @@ class ProfileEditFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel.profile.observe(viewLifecycleOwner) { profile ->
-            // Handle the profile data here, update UI, etc.
+            // TODO: Handle the profile data here, update UI, etc.
         }
         var genderSelected: String? = null
         val genderSpinner: Spinner = requireView().findViewById(R.id.genderSpinner)
@@ -67,6 +67,7 @@ class ProfileEditFragment : Fragment() {
             val bioString = bio.text.toString()
 
             viewModel.updateProfile(nameString, genderSelected, bioString)
+            findNavController().navigate(R.id.action_profileEditFragment_to_profilePageFragment)
         }
     }
     companion object {

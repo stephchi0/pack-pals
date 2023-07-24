@@ -7,7 +7,7 @@ import com.google.firebase.firestore.CollectionReference
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 
-class PalsRepository @Inject constructor(private val palsCollectionRef: CollectionReference) {
+class PalsRepository @Inject constructor (private val palsCollectionRef: CollectionReference) {
 
     companion object {
         val TAG = PalsRepository::class.java.toString()
@@ -16,13 +16,8 @@ class PalsRepository @Inject constructor(private val palsCollectionRef: Collecti
     suspend fun fetchPal(userId: String): Pal? {
         return try {
             val palReturned = palsCollectionRef.document(userId).get().await()
-            val pal = palReturned.toObject(Pal::class.java)
-            if (pal != null) {
-                pal.id = palReturned.id
-            }
-            pal
-
-        } catch (e: Exception) {
+            palReturned.toObject(Pal::class.java)
+        } catch(e: Exception) {
             null
         }
     }
@@ -60,9 +55,9 @@ class PalsRepository @Inject constructor(private val palsCollectionRef: Collecti
 
     suspend fun fetchPals(palIds: List<String>): List<Pal> {
         val tripPals = mutableListOf<Pal>()
-        for (pal in palIds) {
+        for (pal in palIds){
             val palItem = fetchPal(pal)
-            if (palItem != null) {
+            if(palItem != null) {
                 tripPals.add(palItem)
             }
 
@@ -85,14 +80,12 @@ class PalsRepository @Inject constructor(private val palsCollectionRef: Collecti
 
     suspend fun editProfile(id: String, name: String, gender: String?, bio: String?) {
         val palProfile = mapOf("name" to name, "gender" to gender, "bio" to bio)
-        palsCollectionRef.document(id).set(palProfile).await()
+        palsCollectionRef.document(id).update(palProfile).await()
     }
-
     suspend fun fetchProfile(id: String): Pal? {
         val palEdit = palsCollectionRef.document(id).get().await()
         return if (palEdit.exists()) {
-            val profileData = palEdit.toObject(Pal::class.java)
-            profileData?.copy(id = palEdit.id)
+            palEdit.toObject(Pal::class.java)
         } else {
             null
         }

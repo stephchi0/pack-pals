@@ -16,18 +16,8 @@
             android:layout_height="75dp"
             android:orientation="horizontal">
 
-            <com.google.android.material.imageview.ShapeableImageView
-                android:id="@+id/expenseProfilePicture"
-                android:layout_width="55dp"
-                android:layout_height="55dp"
-                android:layout_gravity="center_vertical"
-                android:layout_margin="10dp"
-                android:scaleType="centerCrop"
-                app:shapeAppearanceOverlay="@style/circleIcon"
-                app:srcCompat="@drawable/default_profile_picture" />
-
             <TextView
-                android:id="@+id/palName"
+                android:id="@+id/packingListItemName"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -36,28 +26,9 @@
                 android:textColor="@color/black"
                 android:textSize="20sp" />
 
-            <TextView
-                android:id="@+id/percentSignText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="0"
-                android:text="%"
-                android:textColor="@color/black"
-                android:textSize="16sp"
-                android:visibility="gone" />
-
-            <EditText
-                android:id="@+id/amountOwedExpenseEditText"
-                android:layout_width="70dp"
-                android:layout_height="match_parent"
-                android:layout_marginTop="15dp"
-                android:layout_marginBottom="10dp"
-                android:inputType="number|numberDecimal"
-                android:textSize="16sp"
-                android:visibility="gone" />
 
             <ImageView
-                android:id="@+id/checkmarkIcon"
+                android:id="@+id/packingListItemCheckmarkIcon"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
                 android:layout_gravity="center_vertical"
