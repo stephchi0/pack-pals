@@ -1,8 +1,7 @@
 package com.example.packpals.repositories
-import com.example.packpals.models.Itinerary_Item
-import com.example.packpals.models.Location
-import com.example.packpals.models.SearchResultItem
 import com.google.firebase.firestore.GeoPoint
+import android.content.res.Resources
+import com.example.packpals.R
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.json.Json

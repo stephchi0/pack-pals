@@ -1,25 +1,8 @@
 package com.example.packpals.repositories
-
-import android.content.pm.PackageManager
-import android.content.res.Resources
-import android.os.Bundle
-import com.example.packpals.R
-import com.example.packpals.models.Expense
 import com.example.packpals.models.Itinerary_Item
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.Filter
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.tasks.await
-import kotlinx.coroutines.withContext
-import kotlinx.serialization.json.Json
-import kotlinx.serialization.json.contentOrNull
-import kotlinx.serialization.json.jsonArray
-import kotlinx.serialization.json.jsonObject
-import kotlinx.serialization.json.jsonPrimitive
-import java.io.File
-import java.io.FileInputStream
-import java.net.URL
-import java.util.Properties
 import javax.inject.Inject
 
 
