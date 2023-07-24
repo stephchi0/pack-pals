@@ -7,19 +7,17 @@ import com.example.packpals.models.PhotoAlbum
 import android.widget.TextView
 import com.example.packpals.R
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.GridLayoutManager
 import android.util.Log
 
+class AlbumAdapter(
+    private val albums: List<PhotoAlbum>,
 
-class AlbumAdapter(private val albums: List<PhotoAlbum>) : RecyclerView.Adapter<AlbumAdapter.AlbumViewHolder>() {
+) : RecyclerView.Adapter<AlbumAdapter.AlbumViewHolder>() {
 
     class AlbumViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val albumNameText: TextView = itemView.findViewById(R.id.nameAlbum)
     }
-
-    interface OnAlbumClickListener {
-        fun onAlbumClick(album: PhotoAlbum)
-    }
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AlbumViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.item_album, parent, false)
         return AlbumViewHolder(itemView)
@@ -27,11 +25,16 @@ class AlbumAdapter(private val albums: List<PhotoAlbum>) : RecyclerView.Adapter<
 
     override fun onBindViewHolder(holder: AlbumViewHolder, position: Int) {
         val album = albums[position]
-        holder.albumNameText.text = album.title
+
+        val galleryRecyclerView = holder.itemView.findViewById<RecyclerView>(R.id.galleryRecyclerView)
+        val galleryAdapter = GalleryAdapter(album.photos as List<String>)
+        galleryRecyclerView.layoutManager = GridLayoutManager(holder.itemView.context, 3)
+        galleryRecyclerView.adapter = galleryAdapter
+
+        holder.albumNameText.text = album.albumId
     }
 
     override fun getItemCount(): Int {
-        Log.d("AlbumFragment", "Albums list size: ${albums.size}")
         return albums.size
     }
 }

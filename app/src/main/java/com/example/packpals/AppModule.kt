@@ -4,6 +4,7 @@ import com.example.packpals.repositories.AuthRepository
 import com.example.packpals.repositories.ExpensesRepository
 import com.example.packpals.repositories.ItineraryRepository
 import com.example.packpals.repositories.PalsRepository
+import com.example.packpals.repositories.PhotoRepository
 import com.example.packpals.repositories.StorageRepository
 import com.example.packpals.repositories.TripPhotosRepository
 import com.example.packpals.repositories.TripsRepository
@@ -81,5 +82,11 @@ object AppModule {
     @Provides
     fun provideItineraryRepository(db: FirebaseFirestore): ItineraryRepository {
         return ItineraryRepository(db.collection("itinerary"))
+    }
+
+    @Singleton
+    @Provides
+    fun providePhotoRepository(db: FirebaseFirestore): PhotoRepository {
+        return PhotoRepository(db.collection("photos"))
     }
 }

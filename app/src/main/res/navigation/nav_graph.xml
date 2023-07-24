@@ -28,7 +28,7 @@
     </fragment>
 
     <fragment
-        android:id="@+id/photosFragment"
+        android:id="@+id/albumFragment"
         android:name="com.example.packpals.views.photo.AlbumFragment"
         android:label="@string/Photos"
         tools:layout="@layout/fragment_photo_album" >
