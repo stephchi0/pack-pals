@@ -30,8 +30,6 @@ class TripsPageViewModel @Inject constructor(private val authRepo: AuthRepositor
     private var _currentEditTripItem: MutableLiveData<Trip> = MutableLiveData()
     val currentEditTripItem: LiveData<Trip> get() = _currentEditTripItem
 
-    val dawg: String = "mang"
-
     fun fetchPalsList(){
         val userId = authRepo.getCurrentUID()
         viewModelScope.launch {
@@ -51,7 +49,6 @@ class TripsPageViewModel @Inject constructor(private val authRepo: AuthRepositor
     }
 
     fun addRemoveTripPal(palId: String) {
-
         if(_currentTripPalIds.value!!.contains(palId)){
             _currentTripPalIds.value = currentTripPalIds.value!!.minus(palId)
         }

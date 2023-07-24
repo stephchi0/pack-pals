@@ -55,3 +55,4 @@
 |        |       |      |          |       |2    | 07/22/2023 | Return to Trip Menu and Location Details navigate passing info |
 |7       |       |      |          |       |     | 07/22/2023 | implement edit trip functionality |
 |        |4      |      |          |       |     | 07/23/2023 |Update register page UI, add toast messages to register and login pages, update login and register logic, add profile picture to profile page|
+|7       |       |      |          |       |     | 07/22/2023 | implement packing list functionality |
