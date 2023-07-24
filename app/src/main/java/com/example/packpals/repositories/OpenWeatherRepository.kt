@@ -1,8 +1,6 @@
 package com.example.packpals.repositories
 
-import com.example.packpals.models.Itinerary_Item
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.contentOrNull
@@ -12,10 +10,7 @@ import kotlinx.serialization.json.jsonPrimitive
 import java.net.URL
 import javax.inject.Inject
 
-class OpenWeatherRepository @Inject constructor(){
-
-    //Todo: Dont hardcode
-    val apiKey = ""
+class OpenWeatherRepository @Inject constructor(private val apiKey: String) {
     suspend fun fetchWeatherForLocation(latitude: Double, longitude: Double): String? =
         withContext(Dispatchers.IO) {
 
