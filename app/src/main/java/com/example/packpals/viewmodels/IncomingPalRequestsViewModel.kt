@@ -36,11 +36,25 @@ class IncomingPalRequestsViewModel @Inject constructor(
 
     fun acceptPalRequest(userId: String) {
         viewModelScope.launch {
-            authRepo.getCurrentUID()?.run {
-                if (palsRepo.acceptPalRequest(this, userId)) {
+            authRepo.getCurrentUID()?.let { id ->
+                if (palsRepo.acceptPalRequest(id, userId)) {
                     val newPalRequests = _palRequestsLiveData.value?.toMutableList()
                     newPalRequests?.removeAll { request ->
                         request.id == userId
+                    }
+                    _palRequestsLiveData.value = newPalRequests
+                }
+            }
+        }
+    }
+
+    fun declinePalRequest(requestId: String) {
+        viewModelScope.launch {
+            authRepo.getCurrentUID()?.let { id ->
+                if (palsRepo.declinePalRequest(id, requestId)) {
+                    val newPalRequests = _palRequestsLiveData.value?.toMutableList()
+                    newPalRequests?.removeAll { request ->
+                        request.id == requestId
                     }
                     _palRequestsLiveData.value = newPalRequests
                 }

@@ -12,7 +12,7 @@ import com.example.packpals.models.PalRequest
 class IncomingPalRequestsAdapter(
     private val requestsLiveData: LiveData<List<PalRequest>>,
     lifecycleOwner: LifecycleOwner,
-    acceptButtonListener: (PalRequest) -> Unit
+    private val buttonListener: ButtonListener
 ) : RecyclerView.Adapter<IncomingPalRequestsAdapter.ViewHolder>() {
 
     init {
@@ -27,9 +27,14 @@ class IncomingPalRequestsAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = requestsLiveData.value?.get(position)
-        holder.usernameView.text = item?.name
-        holder.acceptButton.setOnClickListener {  }
+        val request = requestsLiveData.value?.get(position)
+        holder.usernameView.text = request?.name
+        holder.acceptButton.setOnClickListener {
+            request?.let(buttonListener::onAcceptButtonPressed)
+        }
+        holder.declineButton.setOnClickListener {
+            request?.let(buttonListener::onDeclineButtonPressed)
+        }
     }
 
     override fun getItemCount(): Int {
@@ -39,9 +44,16 @@ class IncomingPalRequestsAdapter(
     inner class ViewHolder(binding: ViewPalRequestItemBinding) : RecyclerView.ViewHolder(binding.root) {
         val usernameView: TextView = binding.username
         val acceptButton = binding.acceptButton
+        val declineButton = binding.declineButton
 
         override fun toString(): String {
             return super.toString() + " '" + usernameView.text + "'"
         }
+    }
+
+    interface ButtonListener {
+        fun onAcceptButtonPressed(request: PalRequest)
+
+        fun onDeclineButtonPressed(request: PalRequest)
     }
 }

@@ -21,4 +21,14 @@ class PalsFragmentViewModel @Inject constructor(private val palsRepo: PalsReposi
 
     val palsLiveData: LiveData<List<Pal>>
         get() = _palsLiveData
+
+    init {
+        viewModelScope.launch {
+            authRepo.getCurrentUID()?.let { id ->
+                val userPal = palsRepo.fetchPal(id)
+                val pals = userPal?.pals?.let {palsRepo.fetchPals(it)}
+                pals?.let { _palsLiveData.value = it }
+            }
+        }
+    }
 }

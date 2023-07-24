@@ -2,18 +2,19 @@ package com.example.packpals.repositories
 
 import android.util.Log
 import com.example.packpals.models.Pal
+import com.example.packpals.models.PalRequest
 import com.google.firebase.firestore.CollectionReference
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 
-class PalsRepository @Inject constructor (private val palsCollectionRef: CollectionReference) {
+class PalsRepository @Inject constructor(private val palsCollectionRef: CollectionReference) {
 
     companion object {
         val TAG = PalsRepository::class.java.toString()
     }
 
     suspend fun fetchPal(userId: String): Pal? {
-        return try{
+        return try {
             val palReturned = palsCollectionRef.document(userId).get().await()
             val pal = palReturned.toObject(Pal::class.java)
             if (pal != null) {
@@ -21,7 +22,7 @@ class PalsRepository @Inject constructor (private val palsCollectionRef: Collect
             }
             pal
 
-        } catch(e: Exception){
+        } catch (e: Exception) {
             null
         }
     }
@@ -42,7 +43,7 @@ class PalsRepository @Inject constructor (private val palsCollectionRef: Collect
             val queryResult = palsCollectionRef.whereEqualTo("name", username).get().await()
             queryResult.toObjects(Pal::class.java)
         } catch (e: Exception) {
-            Log.w(TAG, "Error querying pal by username ${username}")
+            Log.w(TAG, "Error querying pal by username $username", e)
             emptyList()
         }
     }
@@ -52,16 +53,16 @@ class PalsRepository @Inject constructor (private val palsCollectionRef: Collect
             val queryResult = palsCollectionRef.whereEqualTo("email", email).get().await()
             queryResult.toObjects(Pal::class.java)
         } catch (e: Exception) {
-            Log.w(TAG, "Error querying pal by email ${email}")
+            Log.w(TAG, "Error querying pal by email ${email}", e)
             emptyList()
         }
     }
 
     suspend fun fetchPals(palIds: List<String>): List<Pal> {
         val tripPals = mutableListOf<Pal>()
-        for (pal in palIds){
+        for (pal in palIds) {
             val palItem = fetchPal(pal)
-            if(palItem != null) {
+            if (palItem != null) {
                 tripPals.add(palItem)
             }
 
@@ -76,10 +77,17 @@ class PalsRepository @Inject constructor (private val palsCollectionRef: Collect
         }
     }
 
+    suspend fun updatePal(pal: Pal) {
+        pal.id?.let { id ->
+            palsCollectionRef.document(id).set(pal).await()
+        }
+    }
+
     suspend fun editProfile(id: String, name: String, gender: String?, bio: String?) {
         val palProfile = mapOf("name" to name, "gender" to gender, "bio" to bio)
         palsCollectionRef.document(id).set(palProfile).await()
     }
+
     suspend fun fetchProfile(id: String): Pal? {
         val palEdit = palsCollectionRef.document(id).get().await()
         return if (palEdit.exists()) {
@@ -90,14 +98,29 @@ class PalsRepository @Inject constructor (private val palsCollectionRef: Collect
         }
     }
 
+    suspend fun sendPalRequest(senderId: String, palId: String): Boolean {
+        return try {
+            val senderPal = fetchPal(senderId)
+            val requestPal = fetchPal(palId)
+            val palRequests = senderPal?.palRequests?.toMutableSet() ?: mutableListOf()
+            palRequests.add(PalRequest(palId, requestPal?.name, requestPal?.profilePictureURL))
+            val newSenderPal = senderPal?.copy(palRequests = palRequests.toList())
+            newSenderPal?.let {
+                updatePal(it)
+            }
+            true
+        } catch (e: Exception) {
+            false
+        }
+    }
+
     suspend fun acceptPalRequest(id: String, newPalId: String): Boolean {
         try {
             // TODO: check if newPalId is in requests
-            // TODO: check if pal exists
-            val palRef = palsCollectionRef.document(id)
-            val pal = palRef.get().await().toObject(Pal::class.java)
+            // TODO: check if pal
+            val pal = fetchPal(id)
             val newPalsList = if (pal?.pals?.contains(newPalId) == true) {
-                listOf(newPalId)
+                pal.pals
             } else {
                 buildList {
                     add(newPalId)
@@ -107,9 +130,39 @@ class PalsRepository @Inject constructor (private val palsCollectionRef: Collect
                 }
             }
 
-            palRef.update("pals", newPalsList).await()
+
+            val newPalRequests = pal?.palRequests?.toMutableList()
+            newPalRequests?.removeAll { request ->
+                request.id == newPalId
+            }
+
+            val newPal = pal?.copy(pals = newPalsList, palRequests = newPalRequests)
+            newPal?.let { updatePal(it) }
+
             return true
         } catch (e: Exception) {
+            Log.w(TAG, "Error declining pal request for user $id from user $newPalId", e)
+            return false
+        }
+    }
+
+    suspend fun declinePalRequest(id: String, newPalId: String): Boolean {
+        try {
+            // TODO: check if newPalId is in requests
+            // TODO: check if pal
+            val pal = fetchPal(id)
+
+            val newPalRequests = pal?.palRequests?.toMutableList()
+            newPalRequests?.removeAll { request ->
+                request.id == newPalId
+            }
+
+            val newPal = pal?.copy(palRequests = newPalRequests)
+            newPal?.let { updatePal(it) }
+
+            return true
+        } catch (e: Exception) {
+            Log.w(TAG, "Error declining pal request for user $id from user $newPalId", e)
             return false
         }
     }

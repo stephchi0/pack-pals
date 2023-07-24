@@ -31,7 +31,9 @@ class FindAPalViewModel @Inject constructor(
 
     fun sendPalRequest(userId: String) {
         viewModelScope.launch {
-            // call palsrepo method here
+            authRepo.getCurrentUID()?.let {
+                palsRepo.sendPalRequest(it, userId)
+            }
         }
     }
 }
