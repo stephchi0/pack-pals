@@ -1,7 +1,10 @@
 package com.example.packpals.repositories
 
 import android.content.pm.PackageManager
+import android.content.res.Resources
 import android.os.Bundle
+import com.example.packpals.R
+import com.example.packpals.models.Expense
 import com.example.packpals.models.Itinerary_Item
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.Filter
@@ -20,53 +23,60 @@ import java.util.Properties
 import javax.inject.Inject
 
 
-class ItineraryRepository @Inject constructor(private val itineraryCollectionRef: CollectionReference) {
+class ItineraryRepository @Inject constructor(
+    private val itineraryCollectionRef: CollectionReference,
+    private val openWeatherRepo: OpenWeatherRepository
+    ) {
+
 
     suspend fun fetchItems(tripId: String): List<Itinerary_Item>? {
         val tripFilter = Filter.equalTo("tripId", tripId)
         var itineraryItems = emptyList<Itinerary_Item>()
+        val newItineraryItems = mutableListOf<Itinerary_Item>()
+        val newItineraryItemsWithId = mutableListOf<Itinerary_Item>()
 
-        try {
-            itineraryItems = itineraryCollectionRef.where(tripFilter).get().await().toObjects(Itinerary_Item::class.java)
-        } catch (e: Exception) {
-            return null
+        itineraryItems = itineraryCollectionRef.where(tripFilter).get().await().toObjects(Itinerary_Item::class.java)
+
+        val snapshot = itineraryCollectionRef.where(tripFilter).get().await()
+        for (document in snapshot.documents) {
+            val item = document.toObject(Itinerary_Item::class.java)
+            if (item != null) {
+                item.itemId = document.id
+                newItineraryItems.add(item)
+            }
         }
 
-        val newItineraryItems = mutableListOf<Itinerary_Item>()
-        itineraryItems.forEach { item ->
-            val weather = fetchWeatherForLocation(item.geopoint?.latitude ?: 0.0, item.geopoint?.longitude ?: 0.0)
+        newItineraryItems.forEach { item ->
+            val weather = openWeatherRepo.fetchWeatherForLocation(item.geopoint?.latitude ?: 0.0, item.geopoint?.longitude ?: 0.0)
             if (weather != null) {
                 val updatedItem = item.copy()
                 updatedItem.addForecast(weather)
-                newItineraryItems.add(updatedItem)
+                newItineraryItemsWithId.add(updatedItem)
             }
         }
 
-        return newItineraryItems
-    }
-
-    private suspend fun fetchWeatherForLocation(latitude: Double, longitude: Double): String? =
-        withContext(Dispatchers.IO) {
-            val properties = Properties()
-            val apiKey = "44988b69e712d97ad5d74b585530ddf4" // TODO: grab from localproperties idk how yet
-            val url = "https://api.openweathermap.org/data/2.5/weather?lat=$latitude&lon=$longitude&appid=$apiKey"
-
-            return@withContext try {
-                val response = URL(url).readText()
-                val ret = parseDescription(response)
-                ret
-            } catch (e: Exception) {
-                null
-            }
-        }
-
-    private fun parseDescription(response: String): String {
-        val json = Json.parseToJsonElement(response).jsonObject
-        val weather = json["weather"]?.jsonArray?.get(0)
-        return weather?.jsonObject?.get("description")?.jsonPrimitive?.contentOrNull ?: ""
+        return newItineraryItemsWithId
     }
 
     suspend fun createItem(item: Itinerary_Item) {
-        itineraryCollectionRef.add(item).await()
+        val itineraryItem = object{
+            val location = item.location
+            val startDate = item.startDate
+            val endDate = item.endDate
+            val geopoint = item.geopoint
+            val tripId = item.tripId
+        }
+        itineraryCollectionRef.add(itineraryItem).await()
+    }
+
+    suspend fun updateItem(item:Itinerary_Item) {
+        val itineraryItem = object{
+            val location = item.location
+            val startDate = item.startDate
+            val endDate = item.endDate
+            val geopoint = item.geopoint
+            val tripId = item.tripId
+        }
+        itineraryCollectionRef.document(item.itemId!!).set(itineraryItem).await()
     }
 }

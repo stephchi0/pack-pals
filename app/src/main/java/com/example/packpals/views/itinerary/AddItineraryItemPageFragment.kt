@@ -5,15 +5,15 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.example.packpals.R
 import com.example.packpals.viewmodels.ItineraryPageViewModel
 
 class AddItineraryPageFragment : Fragment() {
 //    private val viewModel: AddItineraryItemPageViewModel by viewModels()
     private val viewModel : ItineraryPageViewModel by viewModels()
-
-    private lateinit var itineraryItemAdapter: AddItineraryItemAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,6 +46,10 @@ class AddItineraryPageFragment : Fragment() {
 //            rvItineraryItems.adapter = itineraryItemAdapter
 //            rvItineraryItems.layoutManager = LinearLayoutManager(context)
 //        }
+        val addNewItemButton = requireView().findViewById<Button>(R.id.searchButton)
+        addNewItemButton.setOnClickListener {
+            findNavController().navigate(R.id.action_addItineraryItemFragment_to_itinerarySearchPageFragment)
+        }
     }
 
     companion object {

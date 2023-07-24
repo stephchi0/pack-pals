@@ -59,6 +59,7 @@ class ItineraryPageFragment : Fragment() {
 
                 itineraryView.setOnClickListener {
                     viewModel.setCurrentItem(item)
+                    viewModel.setAdd(false)
                     findNavController().navigate(R.id.action_itineraryFragment_to_itemDetailsPageFragment)
                 }
 
