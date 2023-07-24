@@ -21,13 +21,10 @@ import com.example.packpals.R
 import com.example.packpals.viewmodels.ItineraryPageViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.Calendar
-import java.util.Locale
-
 @AndroidEntryPoint
 class ItemDetailPageFragment : Fragment() {
     private val viewModel: ItineraryPageViewModel by activityViewModels()
@@ -99,7 +96,7 @@ class ItemDetailPageFragment : Fragment() {
         }
         val endTimePicker = view.findViewById<Button>(R.id.endTimeField)
         endTimePicker.setOnClickListener{
-            showEndDatePicker()
+            showEndTimePicker()
         }
         val saveButton = view.findViewById<Button>(R.id.saveButton)
         saveButton.setOnClickListener{
