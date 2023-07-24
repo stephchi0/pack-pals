@@ -18,11 +18,18 @@ class IncomingPalRequestsViewModel @Inject constructor(
 ) : ViewModel() {
     val TAG = IncomingPalRequestsViewModel::class.java.toString()
 
-    private val _palRequestsLiveData = MutableLiveData(listOf(
-        PalRequest("0", "Tuff"),
-        PalRequest("1", "Feesh"),
-        PalRequest("2", "Stooge"),
-    ))
+    private val _palRequestsLiveData = MutableLiveData(emptyList<PalRequest>())
+
+    init {
+        viewModelScope.launch {
+            val userPal = authRepo.getCurrentUID()?.let {
+                palsRepo.fetchPal(it)
+            }
+            userPal?.palRequests?.let {
+                _palRequestsLiveData.value = it
+            }
+        }
+    }
 
     val palRequestsLiveData: LiveData<List<PalRequest>>
         get() = _palRequestsLiveData
@@ -30,7 +37,13 @@ class IncomingPalRequestsViewModel @Inject constructor(
     fun acceptPalRequest(userId: String) {
         viewModelScope.launch {
             authRepo.getCurrentUID()?.run {
-                palsRepo.acceptPalRequest(this, userId)
+                if (palsRepo.acceptPalRequest(this, userId)) {
+                    val newPalRequests = _palRequestsLiveData.value?.toMutableList()
+                    newPalRequests?.removeAll { request ->
+                        request.id == userId
+                    }
+                    _palRequestsLiveData.value = newPalRequests
+                }
             }
         }
     }

@@ -27,7 +27,10 @@ class IncomingPalRequestsFragment : Fragment() {
         val viewBinding = FragmentIncomingPalRequestsBinding.inflate(inflater, container, false)
 
         viewBinding.palRequestRecyclerView.layoutManager = LinearLayoutManager(context)
-        viewBinding.palRequestRecyclerView.adapter = IncomingPalRequestsAdapter(viewModel.palRequestsLiveData, this)
+        viewBinding.palRequestRecyclerView.adapter =
+            IncomingPalRequestsAdapter(viewModel.palRequestsLiveData, this) { request ->
+            viewModel.acceptPalRequest(request.id)
+        }
 
         return viewBinding.root
     }

@@ -6,8 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.packpals.databinding.FragmentIncomingPalRequestsBinding
+import com.example.packpals.R
 import com.example.packpals.databinding.FragmentPalsBinding
 import com.example.packpals.viewmodels.PalsFragmentViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -29,6 +30,16 @@ class PalsFragment : Fragment() {
 
         viewBinding.palRecyclerView.layoutManager = LinearLayoutManager(context)
 //        viewBinding.palRequestRecyclerView.adapter = IncomingPalRequestsAdapter(viewModel.palRequestsLiveData, this)
+
+        val navController = this.findNavController()
+
+        viewBinding.findAPalNavButton.setOnClickListener {
+            navController.navigate(R.id.action_palsFragment_to_findAPalFragment)
+        }
+
+        viewBinding.incomingRequestsNavButton.setOnClickListener {
+            navController.navigate(R.id.action_palsFragment_to_incomingPalRequestsFragment)
+        }
 
         return viewBinding.root
     }

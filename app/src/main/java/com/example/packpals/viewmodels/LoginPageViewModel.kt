@@ -50,7 +50,16 @@ class LoginPageViewModel @Inject constructor(private val authRepo: AuthRepositor
                         profilePictureURL = storageRepo.uploadProfilePicture(newUserId, _profilePictureUri).toString()
                     }
 
-                    var newPal = Pal(newUserId, name, profilePictureURL, listOf(), listOf(), null, null, null)
+                    var newPal = Pal(
+                        id = newUserId,
+                        name = name,
+                        email = null,
+                        profilePictureURL = profilePictureURL,
+                        pals = listOf(),
+                        palRequests = listOf(),
+                        gender = null,
+                        age = null,
+                        bio = null)
                     palsRepo.createPal(newPal)
 
                     _registrationSuccess.value = true
