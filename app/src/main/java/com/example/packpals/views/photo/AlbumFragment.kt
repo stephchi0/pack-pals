@@ -1,15 +1,12 @@
 package com.example.packpals.views.photo
 
 import android.Manifest
-import android.util.Log;
-import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.provider.MediaStore
 import androidx.fragment.app.Fragment
-import com.example.packpals.views.photo.GalleryAdapter
 import android.view.LayoutInflater
 import android.view.View
 import com.example.packpals.models.PhotoAlbum
@@ -17,13 +14,11 @@ import android.view.ViewGroup
 import android.widget.EditText
 import com.example.packpals.R
 import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.TextView
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.navigation.fragment.findNavController
 import com.example.packpals.viewmodels.PhotoViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -31,7 +26,6 @@ import dagger.hilt.android.AndroidEntryPoint
 class AlbumFragment : Fragment(), AlbumAdapter.OnAlbumItemClickListener {
     private val viewModel: PhotoViewModel by viewModels()
 
-    private val PERMISSION_REQUEST_CODE = 123
     private val GALLERY_PICK_REQUEST_CODE = 456
     private var selectedAlbumId: String? = null
 
@@ -66,7 +60,12 @@ class AlbumFragment : Fragment(), AlbumAdapter.OnAlbumItemClickListener {
         val albumName = view.findViewById<EditText>(R.id.albumName)
         createAlbumButton.setOnClickListener {
             val albumName = albumName.text.toString()
-            showCreateAlbumDialog(albumName)
+            if (albumName.isNullOrEmpty()) {
+                Toast.makeText(requireContext(), "Album name empty. Please enter an album name.", Toast.LENGTH_SHORT).show()
+            }
+            else {
+                showCreateAlbumDialog(albumName)
+            }
         }
     }
     override fun onAlbumItemClick(album: PhotoAlbum) {

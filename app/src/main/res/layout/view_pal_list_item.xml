@@ -23,7 +23,7 @@
                 android:id="@+id/profilePic"
                 android:layout_width="80dp"
                 android:layout_height="87dp"
-                android:src="@drawable/preview_find_a_pal"
+                android:src="@drawable/default_profile_picture"
                 android:scaleType="centerCrop"/>
 
         </androidx.cardview.widget.CardView>

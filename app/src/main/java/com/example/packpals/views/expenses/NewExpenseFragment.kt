@@ -42,7 +42,7 @@ class NewExpenseFragment : Fragment() {
 
         viewModel.toastMessage.observe(viewLifecycleOwner) { message ->
             if (message.isNotEmpty()) {
-                Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
                 viewModel.clearToastMessage()
             }
         }

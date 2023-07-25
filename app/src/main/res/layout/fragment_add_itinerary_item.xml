@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context=".views.itinerary.AddItineraryPageFragment"
+    tools:context=".views.itinerary.AddItineraryFragment"
     >
 
     <EditText
@@ -13,7 +13,7 @@
         android:layout_width="366dp"
         android:layout_height="47dp"
         android:layout_marginTop="272dp"
-        android:background="@drawable/rounded_corner_light_purple2"
+        android:background="@drawable/round_light_blue_background"
         android:ems="10"
         android:hint="  Type in a location..."
         android:inputType="text"
@@ -28,7 +28,7 @@
         android:layout_width="147dp"
         android:layout_height="46dp"
         android:layout_marginTop="24dp"
-        android:background="@drawable/rounded_corner_salmon"
+        android:background="@drawable/round_red_background"
         android:text="Search"
         android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"

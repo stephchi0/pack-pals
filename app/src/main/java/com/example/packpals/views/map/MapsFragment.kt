@@ -181,7 +181,7 @@ class MapsFragment : Fragment(), GoogleMap.OnInfoWindowClickListener {
             val canvas = Canvas(bmp)
             val font = Paint()
             font.textSize = 40F
-            canvas.drawBitmap(BitmapFactory.decodeResource(getResources(),R.mipmap.marker),110F,50F,null)
+            canvas.drawBitmap(BitmapFactory.decodeResource(getResources(),R.drawable.ic_marker),110F,50F,null)
             itineraryItem.location?.let {
                 canvas.drawText(
                     it,

@@ -8,26 +8,26 @@
         <item
             android:id="@+id/mapFragment"
             android:title="@string/Map"
-            android:icon="@mipmap/location"/>
+            android:icon="@drawable/ic_location"/>
         <item
             android:id="@+id/itineraryPageFragment"
             android:title="@string/Itinerary"
-            android:icon="@mipmap/itinerary"/>
+            android:icon="@drawable/ic_itinerary"/>
         <item
             android:id="@+id/albumFragment"
             android:title="@string/Photos"
-            android:icon="@mipmap/photos"/>
+            android:icon="@drawable/ic_photos"/>
         <item
             android:id="@+id/expensesFragment"
             android:title="@string/Expenses"
-            android:icon="@mipmap/expenses"/>
+            android:icon="@drawable/ic_expenses"/>
         <item
             android:id="@+id/packingListFragment"
             android:title="@string/PackingList"
-            android:icon="@mipmap/packing_list"/>
+            android:icon="@drawable/ic_packing_list"/>
         <item
             android:id="@+id/tripReturn"
             android:title="@string/TripReturn"
-            android:icon="@mipmap/returntrip"/>
+            android:icon="@drawable/ic_return_trip"/>
     </group>
 </menu>

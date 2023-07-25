@@ -26,7 +26,6 @@ class ExpensesPageViewModel @Inject constructor(private val authRepo: AuthReposi
     val expensesList: LiveData<List<Expense>> get() = _expensesList
 
 
-    // TODO: use better way to handle events instead of boolean livedata
     private val _updateNewExpenseInputs: MutableLiveData<Boolean> = MutableLiveData(false)
     val updateNewExpenseInputs: LiveData<Boolean> get() = _updateNewExpenseInputs
 
@@ -88,18 +87,9 @@ class ExpensesPageViewModel @Inject constructor(private val authRepo: AuthReposi
     }
 
     fun settleExpense(expense: Expense) {
-        val expenseId = expense.expenseId
+        val expenseId = expense.id
         if (expenseId != null) {
-            val updatedExpense = Expense(
-                expense.title,
-                expense.date,
-                expense.tripId,
-                expense.amountPaid,
-                expense.payerId,
-                expense.debtorIds,
-                expense.amountsOwed,
-                !(expense.settled ?: false)
-            )
+            val updatedExpense = expense.copy(settled = !(expense.settled ?: false))
             viewModelScope.launch {
                 expensesRepo.updateExpense(expenseId, updatedExpense)
                 fetchExpenses()
@@ -126,7 +116,7 @@ class ExpensesPageViewModel @Inject constructor(private val authRepo: AuthReposi
         _amountsOwedMap.value = expense.amountsOwed!!
         _debtorIdsSet.value = expense.debtorIds!!.toSet()
 
-        _editExpenseId = expense.expenseId ?: ""
+        _editExpenseId = expense.id ?: ""
         _createExpenseSuccess.value = false
         _updateNewExpenseInputs.value = true
     }
@@ -164,14 +154,14 @@ class ExpensesPageViewModel @Inject constructor(private val authRepo: AuthReposi
     fun saveExpense(title: String) {
         viewModelScope.launch {
             val newExpense = Expense(
-                title,
-                Date(),
-                tripsRepo.selectedTrip.tripId,
-                _totalCost.value,
-                authRepo.getCurrentUID(),
-                _debtorIdsSet.value?.toList(),
-                splitExpense(_totalCost.value!!, _amountsOwedMap.value!!.toMutableMap(), _splitMethod.value!!),
-                false
+                title = title,
+                date = Date(),
+                tripId = tripsRepo.selectedTrip.tripId,
+                amountPaid = _totalCost.value,
+                payerId = authRepo.getCurrentUID(),
+                debtorIds = _debtorIdsSet.value?.toList(),
+                amountsOwed = splitExpense(_totalCost.value!!, _amountsOwedMap.value!!.toMutableMap(), _splitMethod.value!!),
+                settled = false
             )
 
             if (validateExpense(newExpense)) {

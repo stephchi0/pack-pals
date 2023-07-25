@@ -5,7 +5,7 @@
         android:id="@+id/action_settings"
         android:title="@string/Profile"
         app:showAsAction="ifRoom"
-        android:icon="@mipmap/pack_pals">
+        android:icon="@drawable/ic_pack_pals">
         <menu>
             <item
                 android:id="@+id/profilePageFragment"

@@ -17,15 +17,7 @@ class ExpensesRepository @Inject constructor(private val expensesCollectionRef: 
         )
         return try {
             val snapshot = expensesCollectionRef.where(expensesFilter).get().await()
-            val result = mutableListOf<Expense>()
-            for (document in snapshot.documents) {
-                val expense = document.toObject(Expense::class.java)
-                if (expense != null) {
-                    expense.expenseId = document.id
-                    result.add(expense)
-                }
-            }
-            result.sortedByDescending { it.date }
+            snapshot.toObjects(Expense::class.java).sortedByDescending { it.date }
         } catch (e: Exception) {
             null
         }
