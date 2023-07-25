@@ -31,13 +31,14 @@ class FindAPalFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_find_a_pal, container, false)
 
         val recyclerView = view.findAPalRecyclerView
-        val queryResultLiveData = viewModel.palRequestQueryResultLiveData
-        recyclerView.adapter = FindAPalRecyclerViewAdapter(queryResultLiveData, this) { pal ->
-            pal.id?.let {
-                viewModel.sendPalRequest(it)
-            }
+        val adapter = FindAPalRecyclerViewAdapter { pal ->
+            pal.id?.let { viewModel.sendPalRequest(it) }
         }
+        recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(context)
+
+        val queryResultLiveData = viewModel.palRequestQueryResultLiveData
+        queryResultLiveData.observe(viewLifecycleOwner) { adapter.submitList(it) }
 
         view.searchInput.setOnEditorActionListener { _, actionId, _ ->
             return@setOnEditorActionListener when (actionId) {

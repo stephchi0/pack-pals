@@ -5,19 +5,21 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.packpals.databinding.ViewPalRequestItemBinding
+import com.example.packpals.models.Pal
 import com.example.packpals.models.PalRequest
 
 class IncomingPalRequestsAdapter(
-    private val requestsLiveData: LiveData<List<PalRequest>>,
-    lifecycleOwner: LifecycleOwner,
     private val buttonListener: ButtonListener
-) : RecyclerView.Adapter<IncomingPalRequestsAdapter.ViewHolder>() {
+) : ListAdapter<PalRequest, IncomingPalRequestsAdapter.ViewHolder>(DIFF_CALLBACK) {
+    companion object {
+        val DIFF_CALLBACK = object : DiffUtil.ItemCallback<PalRequest>() {
+            override fun areItemsTheSame(oldRequest: PalRequest, newRequest: PalRequest) = oldRequest.id == newRequest.id
 
-    init {
-        requestsLiveData.observe(lifecycleOwner) {
-            notifyDataSetChanged()
+            override fun areContentsTheSame(oldRequest: PalRequest, newRequest: PalRequest) = oldRequest == newRequest
         }
     }
 
@@ -27,7 +29,7 @@ class IncomingPalRequestsAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val request = requestsLiveData.value?.get(position)
+        val request = getItem(position)
         holder.usernameView.text = request?.name
         holder.acceptButton.setOnClickListener {
             request?.let(buttonListener::onAcceptButtonPressed)
@@ -35,10 +37,6 @@ class IncomingPalRequestsAdapter(
         holder.declineButton.setOnClickListener {
             request?.let(buttonListener::onDeclineButtonPressed)
         }
-    }
-
-    override fun getItemCount(): Int {
-        return requestsLiveData.value?.size ?: 0
     }
 
     inner class ViewHolder(binding: ViewPalRequestItemBinding) : RecyclerView.ViewHolder(binding.root) {
