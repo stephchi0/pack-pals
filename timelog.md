@@ -45,7 +45,7 @@
 |        |        |      |    4     |       |      | 07/17/2023 |Added weather API to each itinerary item |
 |        |        |  1   |          |       |      | 07/18/2023 |Refactor Find a Pal logic into pal repository |
 |        |        |      |          |       |  3   | 07/18/2023 | Add current location to map feature |
-|   1    |   1    |  1   |    1     |1      |  1   | 07/18/2023 |Worked on deliverable 5 (design pattern examples)|
+|   1    |   1    |  1   |    1     |   1   |  1   | 07/18/2023 |Worked on deliverable 5 (design pattern examples)|
 |        |        |      |          |   4   |      | 07/18/2023 |setup UI for photo album
 |        |        |      |    4     |       |      | 07/19/2023 | Automatic photo based on location name|             
 |   1    |        |      |          |       |      | 07/20/2023 | refactor homepage and login ui | 
@@ -64,8 +64,9 @@
 |        |   2    |      |          |       |      | 07/23/2023 |Update profile page UI and finish profile edit functionality|
 |        |        |      |          |   4   |      | 07/23/2023 | implement picture uploading and displaying functionality|
 |   2    |        |      |          |       |      | 07/24/2023 | fix bug in packing list |
-|        |        |      |          |   3   |      | 07/24/2023 | refactor photo album functionality
+|        |        |      |          |   3   |      | 07/24/2023 | refactor photo album functionality|
 |        |        |      |    5     |       |      | 07/25/2023 | Link Itinerary with tripId |
 |        |        |      |          |       |  4   | 07/25/2023 | Itinerary Connecting to Maps Also fixing Drawer Title |
 |        |        |      |          |   1   |      | 07/25/2023 | creating photo album based on itinerary addition functionality|
 |        |   6    |      |          |       |      | 07/25/2023 |Adjust expense list, profile, photo album, and add trip page UIs, QA, delete unnecessary files, add expense totalling functionality|
+|        |        |      |          |   2   |      | 07/25/2023 |Updated photo album UI|

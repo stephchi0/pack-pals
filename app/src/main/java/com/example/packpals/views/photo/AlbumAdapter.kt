@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.GridLayoutManager
 import android.util.Log
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.LinearLayout
 
 class AlbumAdapter(
@@ -53,11 +54,10 @@ class AlbumAdapter(
 
     inner class AlbumViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val albumNameText: TextView = itemView.findViewById(R.id.nameAlbum)
-        val button: LinearLayout = itemView.findViewById(R.id.addPicture)
+        val button: ImageView = itemView.findViewById(R.id.pictureAdd)
         init {
             button.setOnClickListener {
                 val position = adapterPosition
-                Log.d("button press", "photo button is pressed")
                 if (position != RecyclerView.NO_POSITION) {
                     val album = albums[position]
                     onAlbumItemClickListener?.onAlbumItemClick(album)
