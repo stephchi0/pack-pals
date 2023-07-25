@@ -57,7 +57,7 @@ class ItineraryPageFragment : Fragment() {
                         .load(item.photo_reference)
                         .into(itineraryView.findViewById(R.id.image))
                 }else{
-                    itineraryView.findViewById<ImageView>(R.id.image).setImageResource(R.mipmap.fenugs)
+                    itineraryView.findViewById<ImageView>(R.id.image).setImageResource(R.drawable.ic_itinerary)
                 }
 
 

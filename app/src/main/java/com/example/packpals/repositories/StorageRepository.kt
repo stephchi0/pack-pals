@@ -1,8 +1,15 @@
 package com.example.packpals.repositories
 
+import android.content.Context
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.net.Uri
+import android.util.Log
+import androidx.core.content.ContentProviderCompat.requireContext
 import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
 import kotlinx.coroutines.tasks.await
+import java.io.ByteArrayOutputStream
 import java.util.UUID
 import javax.inject.Inject
 
@@ -23,5 +30,29 @@ class StorageRepository @Inject constructor (private val storage: FirebaseStorag
         } catch (e: Exception) {
             null
         }
+    }
+
+    suspend fun addPhotoStorage(photoImage: Uri, context: Context): Uri {
+
+        Log.d("storage repo now", "addPhoto")
+        val imageStream = context.contentResolver.openInputStream(photoImage)
+        val imageBitmap = BitmapFactory.decodeStream(imageStream)
+
+        val baos = ByteArrayOutputStream()
+
+        imageBitmap.compress(Bitmap.CompressFormat.JPEG, 80, baos)
+
+        val data: ByteArray = baos.toByteArray()
+
+        val photoFileName =
+            "photo_${System.currentTimeMillis()}.jpg"
+        val photoStorageRef: StorageReference =
+            storage.reference.child("photos").child(photoFileName)
+
+        Log.d("storage", photoFileName)
+        photoStorageRef.putBytes(data).await()
+        Log.d("storageURL", photoStorageRef.downloadUrl.await().toString())
+
+        return photoStorageRef.downloadUrl.await()
     }
 }

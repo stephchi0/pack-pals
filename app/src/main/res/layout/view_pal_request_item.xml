@@ -4,7 +4,8 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_margin="8dp"
-    app:cardCornerRadius="20dp">
+    app:cardCornerRadius="20dp"
+    android:elevation="4dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -17,13 +18,13 @@
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
             app:cardCornerRadius="50dp"
-            android:elevation="16dp">
+            android:elevation="4dp">
 
             <ImageView
                 android:id="@+id/profilePic"
-                android:layout_width="80dp"
-                android:layout_height="87dp"
-                android:src="@drawable/preview_find_a_pal"
+                android:layout_width="60dp"
+                android:layout_height="64dp"
+                android:src="@drawable/default_profile_picture"
                 android:scaleType="centerCrop" />
 
         </androidx.cardview.widget.CardView>
@@ -33,24 +34,26 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:textSize="32dp"
+            android:textSize="28dp"
             android:text="Username" />
 
         <ImageButton
             android:id="@+id/declineButton"
-            android:layout_width="56dp"
-            android:layout_height="56dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:layout_marginRight="8dp"
             android:background="@android:color/transparent"
-            android:src="@drawable/ic_close_circle" />
+            android:src="@drawable/ic_close_circle"
+            android:scaleType="centerCrop"/>
 
         <ImageButton
             android:id="@+id/acceptButton"
-            android:layout_width="56dp"
-            android:layout_height="56dp"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
             android:layout_marginRight="8dp"
             android:background="@android:color/transparent"
-            android:src="@drawable/ic_checked" />
+            android:src="@drawable/ic_checked"
+            android:scaleType="centerCrop"/>
 
     </LinearLayout>
 

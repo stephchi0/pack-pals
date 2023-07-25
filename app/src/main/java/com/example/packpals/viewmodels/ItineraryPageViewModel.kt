@@ -25,7 +25,7 @@
         private val tripsRepo: TripsRepository,
         private val placesRepo: PlacesRepository,
         private val itineraryRepo: ItineraryRepository,
-        private val openWeatherRepo : OpenWeatherRepository
+        private val openWeatherRepo : OpenWeatherRepository,
     ) : ViewModel() {
 
         private val _itineraryItemsList: MutableLiveData<List<Itinerary_Item>> = MutableLiveData(
@@ -61,7 +61,6 @@
         }
 
         fun fetchItineraryItems() {
-            // TODO: not hardcore this later
             val tripId = tripsRepo.selectedTrip.tripId
             if (tripId != null) {
                 viewModelScope.launch {
@@ -117,7 +116,6 @@
             item.addAddress(secondary)
 
             val tripId = tripsRepo.selectedTrip.tripId
-            //Todo: dont hardcore this later
             item.addTripId(tripId!!)
 
             val geo = placesRepo.locationDetailsFromString(main)

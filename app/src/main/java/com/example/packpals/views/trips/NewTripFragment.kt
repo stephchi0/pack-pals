@@ -66,6 +66,13 @@ class NewTripFragment : Fragment(){
             transaction.replace(R.id.tripFragmentContainerView, TripsListFragment())
             transaction.commit()
         }
+
+        val backButton = requireView().findViewById<ImageView>(R.id.createTripBackButton)
+        backButton.setOnClickListener {
+            val transaction = parentFragmentManager.beginTransaction()
+            transaction.replace(R.id.tripFragmentContainerView, TripsListFragment())
+            transaction.commit()
+        }
     }
 
     private fun updateTripPals(){

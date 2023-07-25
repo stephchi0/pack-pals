@@ -19,6 +19,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.packpals.R
 import com.example.packpals.viewmodels.ItineraryPageViewModel
+import com.example.packpals.viewmodels.PhotoViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import java.time.LocalDate
@@ -29,6 +30,7 @@ import java.util.Calendar
 class ItemDetailPageFragment : Fragment() {
     private val viewModel: ItineraryPageViewModel by activityViewModels()
     private var startDate: LocalDate? = null
+    private val photoViewModel: PhotoViewModel by activityViewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -106,6 +108,9 @@ class ItemDetailPageFragment : Fragment() {
         saveButton.setOnClickListener{
             lifecycleScope.launch{
                 viewModel.createItem(view.findViewById<TextView>(R.id.nameField).text as String)
+                if (viewModel.add.value == true){
+                    photoViewModel.createAlbum(view.findViewById<TextView>(R.id.nameField).text as String)
+                }
                 viewModel.fetchItineraryItems()
                 findNavController().navigate(R.id.action_itemDetailsPageFragment_to_itineraryPageFragment)
             }

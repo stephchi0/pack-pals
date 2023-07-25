@@ -26,7 +26,7 @@
         android:layout_height="631dp"
         android:layout_gravity="center_horizontal"
         android:layout_marginBottom="24dp"
-        android:background="@drawable/rounded_corner_light_purple2"
+        android:background="@drawable/round_light_blue_background"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -52,11 +52,11 @@
         android:layout_width="295dp"
         android:layout_height="51dp"
         android:layout_marginBottom="40dp"
-        android:background="@drawable/rounded_corner_light_purple"
+        android:background="@drawable/round_dark_blue_background"
         android:text="Add Item"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -10,7 +10,5 @@ data class Pal(
     val profilePictureURL: String? = null,
     val pals: List<String>? = null, // list of pal ids
     val palRequests: List<PalRequest>? = null, // list of incoming pal requests
-    val gender: String? = null,
-    val age: Int? = null,
     val bio: String? = null,
 )

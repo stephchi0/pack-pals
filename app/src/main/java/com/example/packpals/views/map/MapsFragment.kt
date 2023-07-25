@@ -17,11 +17,12 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.navigation.Navigation.findNavController
 import androidx.navigation.fragment.findNavController
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.packpals.R
-import com.example.packpals.models.MapModel
-import com.example.packpals.viewmodels.MapViewModel
+import com.example.packpals.models.Itinerary_Item
+import com.example.packpals.viewmodels.ItineraryPageViewModel
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -45,7 +46,8 @@ class MapsFragment : Fragment(), GoogleMap.OnInfoWindowClickListener {
     private var locationPermissionGranted = false
     private val sydney = LatLng(-34.0, 151.0)
     private var cameraPosition: CameraPosition? = null
-    private val viewModel: MapViewModel by activityViewModels()
+    private val viewModel: ItineraryPageViewModel by activityViewModels()
+    private var markerMap: HashMap<Marker, Itinerary_Item> = HashMap<Marker, Itinerary_Item>()
 
     private val callback = OnMapReadyCallback { googleMap ->
         /**
@@ -58,9 +60,9 @@ class MapsFragment : Fragment(), GoogleMap.OnInfoWindowClickListener {
         updateLocationUI()
         // Get the current location of the device and set the position of the map.
         getDeviceLocation()
-        googleMap.setInfoWindowAdapter(InfoWindowAdapter(requireContext()))
-        viewModel.locationLiveData.observe(viewLifecycleOwner) { itineraryLocations ->
-            plotItineraryMarkers(itineraryLocations)
+        viewModel.itineraryItemsList.observe(viewLifecycleOwner) { itineraryItems ->
+            plotItineraryMarkers(itineraryItems)
+            googleMap.setInfoWindowAdapter(InfoWindowAdapter(requireContext(),markerMap))
         }
 
         googleMap.setOnInfoWindowClickListener(this)
@@ -71,7 +73,7 @@ class MapsFragment : Fragment(), GoogleMap.OnInfoWindowClickListener {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        viewModel.locationLiveData.observe(viewLifecycleOwner) {
+        viewModel.itineraryItemsList.observe(viewLifecycleOwner) {
             Log.i("MapPageActivity", it?.fold("Location IDs:") { acc, cur -> "$acc ${cur.location}" } ?: "[ERROR]")
         }
 
@@ -170,14 +172,16 @@ class MapsFragment : Fragment(), GoogleMap.OnInfoWindowClickListener {
         }
     }
 
-    private fun plotItineraryMarkers(itineraryLocations : List<MapModel.ModelLocation>) {
+    private fun plotItineraryMarkers(itineraryLocations : List<Itinerary_Item>) {
+        markerMap.clear()
+        map?.clear()
         for (itineraryItem in itineraryLocations) {
             val conf = Bitmap.Config.ARGB_8888
             val bmp = Bitmap.createBitmap(300, 150, conf)
             val canvas = Canvas(bmp)
             val font = Paint()
             font.textSize = 40F
-            canvas.drawBitmap(BitmapFactory.decodeResource(getResources(),R.mipmap.marker),110F,50F,null)
+            canvas.drawBitmap(BitmapFactory.decodeResource(getResources(),R.drawable.ic_marker),110F,50F,null)
             itineraryItem.location?.let {
                 canvas.drawText(
                     it,
@@ -195,13 +199,24 @@ class MapsFragment : Fragment(), GoogleMap.OnInfoWindowClickListener {
                 .icon(BitmapDescriptorFactory.fromBitmap(bmp))
                 .anchor(0.5F, 1F)
             )
+            if (marker != null) {
+                itineraryItem.itemId?.let { markerMap.put(marker, itineraryItem) }
+            }
         }
     }
 
     override fun onInfoWindowClick(marker: Marker) {
         Log.i("MapPageActivity", "Info window clicked")
+        val itineraryItem = markerMap.get(marker)
         val bundle = Bundle()
-        bundle.putString("locationTitle", marker.title)
+        if (itineraryItem != null) {
+            bundle.putString("locationTitle", itineraryItem.location)
+            bundle.putString("locationForecast", itineraryItem.forecast)
+            bundle.putString("locationStartDate", itineraryItem.startDate.toString())
+            bundle.putString("locationEndDate", itineraryItem.endDate.toString())
+            bundle.putString("locationPhoto", itineraryItem.photo_reference)
+            bundle.putString("locationId", itineraryItem.itemId)
+        }
         findNavController().navigate(R.id.locationDetailsFragment,bundle)
     }
 
