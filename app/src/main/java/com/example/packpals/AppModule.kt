@@ -110,8 +110,8 @@ object AppModule {
 
     @Singleton
     @Provides
-    fun provideItineraryRepository(db: FirebaseFirestore, openWeatherRepo: OpenWeatherRepository): ItineraryRepository {
-        return ItineraryRepository(db.collection("itinerary"), openWeatherRepo)
+    fun provideItineraryRepository(db: FirebaseFirestore, openWeatherRepo: OpenWeatherRepository, @Named("openWeatherApiKey") apiKey: String): ItineraryRepository {
+        return ItineraryRepository(db.collection("itinerary"), OpenWeatherRepository(apiKey))
     }
 
     @Singleton
