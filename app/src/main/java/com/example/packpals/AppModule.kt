@@ -9,7 +9,6 @@ import com.example.packpals.repositories.PhotoRepository
 import com.example.packpals.repositories.PalsRepository
 import com.example.packpals.repositories.PlacesRepository
 import com.example.packpals.repositories.StorageRepository
-import com.example.packpals.repositories.TripPhotosRepository
 import com.example.packpals.repositories.TripsRepository
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -82,12 +81,6 @@ object AppModule {
     @Provides
     fun provideTripsRepository(db: FirebaseFirestore): TripsRepository {
         return TripsRepository(db.collection("trips"))
-    }
-
-    @Singleton
-    @Provides
-    fun provideTripPhotosRepository(db: FirebaseFirestore): TripPhotosRepository {
-        return TripPhotosRepository(db.collection("trip_photos"))
     }
 
     @Singleton

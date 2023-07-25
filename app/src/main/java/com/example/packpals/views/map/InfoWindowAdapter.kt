@@ -32,7 +32,7 @@ class InfoWindowAdapter(
                 .load(itineraryItem.photo_reference)
                 .into(windowImage)
         } else {
-            windowImage.setImageResource(R.mipmap.fenugs)
+            windowImage.setImageResource(R.drawable.ic_itinerary)
         }
     }
 
