@@ -75,6 +75,35 @@ class ExpensesPageViewModel @Inject constructor(private val authRepo: AuthReposi
         }
     }
 
+    fun getTotalExpenses(): Map<String, Double> {
+        val currentUserId = getUserId()
+        val totalExpensesMap = (_palsList.value
+            ?.filterNot{ it.id == currentUserId }
+            ?.associate { key -> (key.id ?: "") to 0.0 }
+            ?: emptyMap()) as MutableMap<String, Double>
+
+        for (expense in expensesList.value ?: emptyList()) {
+            val payerId = expense.payerId
+            val amountsOwed = expense.amountsOwed
+
+            if (expense.settled == true || payerId.isNullOrEmpty() || amountsOwed.isNullOrEmpty()) {
+                continue
+            }
+
+            if (payerId == currentUserId) {
+                for ((debtorId, amountOwed) in amountsOwed) {
+                    val newTotalExpense = (totalExpensesMap[debtorId] ?: 0.0) + amountOwed
+                    totalExpensesMap[debtorId] = newTotalExpense
+                }
+            }
+            else {
+                val newTotalExpense = (totalExpensesMap[payerId] ?: 0.0) - (amountsOwed[currentUserId] ?: 0.0)
+                totalExpensesMap[payerId] = newTotalExpense
+            }
+        }
+        return totalExpensesMap
+    }
+
     private fun fetchPalsList() {
         val userId = authRepo.getCurrentUID()
         val palIds = tripsRepo.selectedTrip.tripPalIds?.toMutableList()
