@@ -95,10 +95,10 @@ class PalsRepository @Inject constructor (private val palsCollectionRef: Collect
         return try {
             val senderPal = fetchPal(senderId)
             val requestPal = fetchPal(palId)
-            val palRequests = senderPal?.palRequests?.toMutableSet() ?: mutableListOf()
-            palRequests.add(PalRequest(palId, requestPal?.name, requestPal?.profilePictureURL))
-            val newSenderPal = senderPal?.copy(palRequests = palRequests.toList())
-            newSenderPal?.let {
+            val palRequests = requestPal?.palRequests?.toMutableSet() ?: mutableListOf()
+            palRequests.add(PalRequest(senderId, senderPal?.name, senderPal?.profilePictureURL))
+            val newRequestPal = requestPal?.copy(palRequests = palRequests.toList())
+            newRequestPal?.let {
                 updatePal(it)
             }
             true

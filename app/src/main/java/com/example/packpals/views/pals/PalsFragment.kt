@@ -29,7 +29,10 @@ class PalsFragment : Fragment() {
         val viewBinding = FragmentPalsBinding.inflate(inflater, container, false)
 
         viewBinding.palRecyclerView.layoutManager = LinearLayoutManager(context)
-        viewBinding.palRecyclerView.adapter = PalsListAdapter(viewModel.palsLiveData, this)
+        val adapter = PalsListAdapter()
+        viewBinding.palRecyclerView.adapter = adapter
+
+        viewModel.palsLiveData.observe(viewLifecycleOwner) { adapter.submitList(it) }
 
         val navController = this.findNavController()
 
