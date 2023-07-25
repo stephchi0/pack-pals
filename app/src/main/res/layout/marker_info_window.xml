@@ -40,9 +40,9 @@
 
         <ImageView
             android:id="@+id/location_image"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:srcCompat="@mipmap/fenugs" />
+            android:layout_width="150dp"
+            android:layout_height="100dp"
+            android:scaleType="centerCrop"/>
 
     </LinearLayout>
 </LinearLayout>

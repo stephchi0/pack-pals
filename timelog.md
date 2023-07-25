@@ -61,3 +61,4 @@
 |        |2       |      |          |       |     | 07/23/2023 |Update profile page UI and finish profile edit functionality|
 |2       |        |      |          |       |     | 07/24/2023 | fix bug in packing list |
 |        |        |      |    5     |       |     | 07/25/2023 | Link Itinerary with tripId |
+|        |        |      |          |       |4    | 07/25/2023 | Itinerary Connecting to Maps Also fixing Drawer Title |
