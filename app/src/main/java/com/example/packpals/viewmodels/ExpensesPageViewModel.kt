@@ -26,7 +26,6 @@ class ExpensesPageViewModel @Inject constructor(private val authRepo: AuthReposi
     val expensesList: LiveData<List<Expense>> get() = _expensesList
 
 
-    // TODO: use better way to handle events instead of boolean livedata
     private val _updateNewExpenseInputs: MutableLiveData<Boolean> = MutableLiveData(false)
     val updateNewExpenseInputs: LiveData<Boolean> get() = _updateNewExpenseInputs
 
