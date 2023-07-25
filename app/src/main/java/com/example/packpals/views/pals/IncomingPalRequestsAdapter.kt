@@ -9,7 +9,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.packpals.databinding.ViewPalRequestItemBinding
 import com.example.packpals.models.PalRequest
 
-class IncomingPalRequestsAdapter(private val requestsLiveData: LiveData<List<PalRequest>>, lifecycleOwner: LifecycleOwner) : RecyclerView.Adapter<IncomingPalRequestsAdapter.ViewHolder>() {
+class IncomingPalRequestsAdapter(
+    private val requestsLiveData: LiveData<List<PalRequest>>,
+    lifecycleOwner: LifecycleOwner,
+    private val buttonListener: ButtonListener
+) : RecyclerView.Adapter<IncomingPalRequestsAdapter.ViewHolder>() {
 
     init {
         requestsLiveData.observe(lifecycleOwner) {
@@ -23,8 +27,14 @@ class IncomingPalRequestsAdapter(private val requestsLiveData: LiveData<List<Pal
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = requestsLiveData.value?.get(position)
-        holder.usernameView.text = item?.name
+        val request = requestsLiveData.value?.get(position)
+        holder.usernameView.text = request?.name
+        holder.acceptButton.setOnClickListener {
+            request?.let(buttonListener::onAcceptButtonPressed)
+        }
+        holder.declineButton.setOnClickListener {
+            request?.let(buttonListener::onDeclineButtonPressed)
+        }
     }
 
     override fun getItemCount(): Int {
@@ -33,9 +43,17 @@ class IncomingPalRequestsAdapter(private val requestsLiveData: LiveData<List<Pal
 
     inner class ViewHolder(binding: ViewPalRequestItemBinding) : RecyclerView.ViewHolder(binding.root) {
         val usernameView: TextView = binding.username
+        val acceptButton = binding.acceptButton
+        val declineButton = binding.declineButton
 
         override fun toString(): String {
             return super.toString() + " '" + usernameView.text + "'"
         }
+    }
+
+    interface ButtonListener {
+        fun onAcceptButtonPressed(request: PalRequest)
+
+        fun onDeclineButtonPressed(request: PalRequest)
     }
 }

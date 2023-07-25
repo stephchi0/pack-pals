@@ -57,3 +57,4 @@
 |        |   4    |      |          |       |     | 07/23/2023 |Update register page UI, add toast messages to register and login pages, update login and register logic, add profile picture to profile page|
 |7       |        |      |          |       |     | 07/22/2023 | implement packing list functionality |
 |        |        |      |    11    |       |     | 07/23/2023 | Itinerary serach, add, edit functionality|
+|        |        |  10  |          |       |     | 07/22/2023 | finishing pal request system, ui polish for pals, pal requests, find a pal |

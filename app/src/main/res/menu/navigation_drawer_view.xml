@@ -16,6 +16,9 @@
             <item
                 android:id="@+id/incomingPalRequestsFragment"
                 android:title="@string/IncomingPalRequests"/>
+            <item
+                android:id="@+id/palsFragment"
+                android:title="@string/Pals"/>
         </menu>
     </item>
 </menu>

@@ -13,11 +13,9 @@ import java.net.URL
 import javax.inject.Inject
 
 class PlacesRepository @Inject constructor(
-    private val openWeatherRepo: OpenWeatherRepository
+    private val openWeatherRepo: OpenWeatherRepository,
+    private val key: String
     ){
-//    val key = Resources.getSystem().getString(R.string.MAPS_API_KEY)
-    //Todo: dont hardcode
-    val key ="AIzaSyDYk8Xsk4AEFJ89f5M4I8ulMmOaSwLOUwA"
 
     // Returns the photo reference id from a given place name
     suspend fun photoIdFromName(name:String, maxWidth: Int = 200, maxLength: Int= 200): String? = 
