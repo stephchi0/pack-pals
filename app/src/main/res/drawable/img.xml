@@ -1,8 +1,0 @@
-<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:drawable="@drawable/preview_find_a_pal">
-        <bitmap
-            android:gravity="center"
-            android:mipMap="true"
-            android:src="@drawable/circle_white" />
-    </item>
-</layer-list>
