@@ -26,6 +26,7 @@
             android:paddingEnd="8sp"
             android:paddingBottom="8sp"
             android:text="Search Result"
+            android:singleLine="true"
             android:textAlignment="viewStart"
             android:textAllCaps="false"
             android:textColor="@color/white"
@@ -39,6 +40,7 @@
             android:layout_height="wrap_content"
             android:paddingLeft="16dp"
             android:text="Address"
+            android:singleLine="true"
             android:textColor="@color/black"
             android:textSize="18sp"
             android:textStyle="italic" />
