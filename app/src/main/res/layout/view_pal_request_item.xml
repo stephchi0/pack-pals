@@ -22,9 +22,9 @@
             <ImageView
                 android:id="@+id/profilePic"
                 android:layout_width="80dp"
-                android:layout_height="87dp"
-                android:src="@drawable/preview_find_a_pal"
-                android:scaleType="centerCrop" />
+                android:layout_height="80dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/default_profile_picture" />
 
         </androidx.cardview.widget.CardView>
 

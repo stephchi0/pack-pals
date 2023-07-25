@@ -23,7 +23,7 @@
             android:layout_height="wrap_content"
             android:text="Search Results"
             android:textColor="@color/white"
-            android:background="@color/light_purple"
+            android:background="@color/dark_blue"
             android:paddingLeft="10dp"
             android:textSize="20sp" />
 

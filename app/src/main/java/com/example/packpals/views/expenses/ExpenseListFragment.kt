@@ -68,7 +68,13 @@ class ExpenseListFragment : Fragment() {
                     )
                 }
                 else {
-                    amountOwedView.text = String.format("You owe: $%.2f", expense.amountsOwed!![userId]) // TODO: add payer's name
+                    val payer = viewModel.palsList.value?.find { pal -> pal.id == expense.payerId }
+                    if (payer != null) {
+                        amountOwedView.text = String.format("You owe %s: $%.2f", payer.name, expense.amountsOwed!![userId])
+                    }
+                    else {
+                        amountOwedView.text = String.format("You owe: $%.2f", expense.amountsOwed!![userId])
+                    }
                     editImageView.visibility = View.INVISIBLE
                     checkmarkImageView.visibility = View.INVISIBLE
                 }
