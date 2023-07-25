@@ -68,4 +68,4 @@
 |        |        |      |    5     |       |      | 07/25/2023 | Link Itinerary with tripId |
 |        |        |      |          |       |  4   | 07/25/2023 | Itinerary Connecting to Maps Also fixing Drawer Title |
 |        |        |      |          |   1   |      | 07/25/2023 | creating photo album based on itinerary addition functionality|
-|        |   3    |      |          |       |      | 07/25/2023 |Adjust expense list, profile, and photo album page UIs, QA, delete unnecessary files|
+|        |   4    |      |          |       |      | 07/25/2023 |Adjust expense list, profile, photo album, and add trip page UIs, QA, delete unnecessary files|
