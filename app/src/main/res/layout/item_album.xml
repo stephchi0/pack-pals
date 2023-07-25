@@ -23,23 +23,23 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/nameAlbum"
-            android:layout_width="170dp"
-            android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
-            android:hint="New Album Name"
-            android:textColor="@android:color/black"
-            android:textStyle="bold"
-            android:textSize="20sp"
-            android:layout_marginLeft="4dp"/>
+            <TextView
+                android:id="@+id/nameAlbum"
+                android:layout_width="170dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="4dp"
+                android:background="@android:color/transparent"
+                android:hint="New Album Name"
+                android:textColor="@android:color/black"
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
             <ImageView
                 android:id="@+id/pictureAdd"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_marginStart="150dp"
-                app:srcCompat="@mipmap/ic_add" />
+                app:srcCompat="@drawable/ic_add" />
         </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView

@@ -22,8 +22,8 @@
 
         <EditText
             android:id="@+id/albumName"
-            android:layout_width="170dp"
-            android:layout_height="wrap_content"
+            android:layout_width="173dp"
+            android:layout_height="40dp"
             android:background="@android:color/transparent"
             android:hint="New Album Name"
             android:textColor="@android:color/white" />
