@@ -14,6 +14,7 @@ import android.widget.TextView
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import com.example.packpals.R
+import com.example.packpals.models.PackingListItem
 import com.example.packpals.viewmodels.PackingListViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -46,9 +47,9 @@ class PackingListFragment : Fragment() {
             groupListLayout.removeAllViews()
             for (item in packingList){
                 if(item.group==true){
-                    val itemView = LayoutInflater.from(context).inflate(R.layout.view_packing_list_item,groupListLayout,false)
-                    val checkmarkImageView = itemView.findViewById<ImageView>(R.id.packingListItemCheckmarkIcon)
-                    itemView.findViewById<TextView>(R.id.packingListItemName).text = item.title
+                    val grouoItemView = LayoutInflater.from(context).inflate(R.layout.view_packing_list_item,groupListLayout,false)
+                    val checkmarkImageView = grouoItemView.findViewById<ImageView>(R.id.packingListItemCheckmarkIcon)
+                    grouoItemView.findViewById<TextView>(R.id.packingListItemName).text = item.title
                     if(item.packed ==true){
                         checkmarkImageView.setImageResource(R.drawable.ic_checked)
                     }
@@ -56,13 +57,13 @@ class PackingListFragment : Fragment() {
                         checkmarkImageView.setImageResource(R.drawable.ic_unchecked)
                     }
 
-                    itemView.setOnClickListener {
+                    checkmarkImageView.setOnClickListener {
                         if (item != null) {
                             viewModel.editPacked(item)
                             viewModel.fetchPackingList()
                         }
                     }
-                    groupListLayout.addView(itemView)
+                    groupListLayout.addView(grouoItemView)
                     updateGroupPackingList()
                 }
             }
@@ -83,7 +84,7 @@ class PackingListFragment : Fragment() {
                         checkmarkImageView.setImageResource(R.drawable.ic_unchecked)
                     }
 
-                    itemView.setOnClickListener {
+                    checkmarkImageView.setOnClickListener {
                         if (item != null) {
                             viewModel.editPacked(item)
                             viewModel.fetchPackingList()
@@ -102,7 +103,6 @@ class PackingListFragment : Fragment() {
                 viewModel.createPackingListItem(groupTextView.text.toString(),true)
             }
             viewModel.fetchPackingList()
-
         }
 
         val addIndividualItemButton = requireView().findViewById<ImageButton>(R.id.addToMyListButton)
@@ -112,7 +112,6 @@ class PackingListFragment : Fragment() {
                 viewModel.createPackingListItem(individualTextView.text.toString(),false)
             }
             viewModel.fetchPackingList()
-
         }
     }
 
@@ -121,8 +120,17 @@ class PackingListFragment : Fragment() {
         for(i in 0 until groupListLayout.childCount){
             val itemView = groupListLayout.getChildAt(i)
             val checkmarkImageView = itemView.findViewById<ImageView>(R.id.packingListItemCheckmarkIcon)
-            val item = viewModel.packingList.value?.get(i)?.packed
-            if(item == true){
+            val packingList = viewModel.packingList.value
+            val groupItems = mutableListOf<PackingListItem>()
+            if (packingList != null) {
+                for (item in packingList){
+                    if(item.group==true){
+                        groupItems.add(item)
+                    }
+                }
+            }
+
+            if(groupItems[i].packed == true){
                 checkmarkImageView.setImageResource(R.drawable.ic_checked)
             }
             else{
@@ -136,8 +144,16 @@ class PackingListFragment : Fragment() {
         for(i in 0 until individualListLayout.childCount){
             val itemView = individualListLayout.getChildAt(i)
             val checkmarkImageView = itemView.findViewById<ImageView>(R.id.packingListItemCheckmarkIcon)
-            val item = viewModel.packingList.value?.get(i)?.packed
-            if(item == true){
+            val packingList = viewModel.packingList.value
+            val myItems = mutableListOf<PackingListItem>()
+            if (packingList != null) {
+                for (item in packingList){
+                    if(item.group==false){
+                        myItems.add(item)
+                    }
+                }
+            }
+            if(myItems[i].packed == true){
                 checkmarkImageView.setImageResource(R.drawable.ic_checked)
             }
             else{
