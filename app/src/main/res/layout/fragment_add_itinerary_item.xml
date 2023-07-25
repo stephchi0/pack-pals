@@ -7,41 +7,19 @@
     android:background="@color/white"
     tools:context=".views.itinerary.AddItineraryPageFragment"
     >
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:background="@color/light_purple"
-        android:minHeight="?attr/actionBarSize"
-        android:theme="?attr/actionBarTheme"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="MissingClass">
-
-        <TextView
-            android:id="@+id/toolbar_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="Trip Name"
-            android:textColor="@color/white"
-            android:textSize="30sp" />
-
-    </androidx.appcompat.widget.Toolbar>
 
     <EditText
         android:id="@+id/searchText"
         android:layout_width="366dp"
         android:layout_height="47dp"
-        android:layout_marginTop="76dp"
+        android:layout_marginTop="272dp"
         android:background="@drawable/rounded_corner_light_purple2"
         android:ems="10"
-        android:inputType="text"
         android:hint="  Type in a location..."
+        android:inputType="text"
         android:paddingLeft="10dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.511"
+        app:layout_constraintHorizontal_bias="0.488"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -49,59 +27,25 @@
         android:id="@+id/searchButton"
         android:layout_width="147dp"
         android:layout_height="46dp"
-        android:layout_marginTop="144dp"
+        android:layout_marginTop="24dp"
         android:background="@drawable/rounded_corner_salmon"
         android:text="Search"
         android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/toolbar" />
-
-    <Button
-        android:id="@+id/button3"
-        android:layout_width="147dp"
-        android:layout_height="46dp"
-        android:layout_marginTop="212dp"
-        android:background="@drawable/rounded_corner_light_purple"
-        android:text="View Map"
-        android:textColor="@color/white"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/toolbar" />
+        app:layout_constraintTop_toBottomOf="@+id/searchText" />
 
     <TextView
-        android:id="@+id/textView22"
+        android:id="@+id/textView13"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="284dp"
-        android:text="Nearby Locations"
+        android:layout_marginBottom="8dp"
+        android:text="Search:"
         android:textColor="@color/black"
-        android:textSize="25dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <LinearLayout
-        android:layout_width="367dp"
-        android:layout_height="369dp"
-        android:background="@drawable/rounded_corner_light_purple2"
-        android:orientation="vertical"
-        android:layout_marginTop="330dp"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/searchText"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.489"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <LinearLayout
-                android:id="@+id/lladdItinerary"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical" />
-        </ScrollView>
-    </LinearLayout>
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
