@@ -1,12 +1,10 @@
 package com.example.packpals.views
 
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
-import androidx.activity.viewModels
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
@@ -41,10 +39,15 @@ class NavigationDrawerViewActivity : AppCompatActivity(), NavigationView.OnNavig
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         appBarConfiguration = AppBarConfiguration(setOf( R.id.mapFragment, R.id.itineraryPageFragment,
-            R.id.expensesFragment, R.id.profilePageFragment, R.id.palsFragment), drawerLayout)
+            R.id.expensesFragment, R.id.profilePageFragment, R.id.palsFragment, R.id.packingListFragment), drawerLayout)
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
         setNavigationViewListener(navView)
+
+        val headerView = navView.getHeaderView(0)
+        val tripTitleText = headerView.findViewById(R.id.trip_title) as TextView
+        val tripTitle = intent.getStringExtra("tripTitle")
+        tripTitleText.text = tripTitle
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -70,7 +73,7 @@ class NavigationDrawerViewActivity : AppCompatActivity(), NavigationView.OnNavig
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         val navController = findNavController(R.id.nav_host_fragment_content_navigation_drawer_view)
         Log.i("NavActivity", item.title as String)
-        binding.drawerLayout.closeDrawer(GravityCompat.START);
+        binding.drawerLayout.closeDrawer(GravityCompat.START)
         if (item.title == "Return to Trip Menu") {
             finish()
         }
