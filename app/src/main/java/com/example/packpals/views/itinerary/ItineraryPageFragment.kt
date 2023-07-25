@@ -41,7 +41,6 @@ class ItineraryPageFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val linearLayout = requireView().findViewById<LinearLayout>(R.id.lliterinerary)
-        val progressBar = requireView().findViewById<ProgressBar>(R.id.progressBar)
 
         progressBar.visibility = View.VISIBLE
         viewModel.itineraryItemsList.observe(viewLifecycleOwner) { itineraryItems ->
@@ -71,7 +70,6 @@ class ItineraryPageFragment : Fragment() {
 
                 linearLayout.addView(itineraryView)
             }
-            progressBar.visibility = View.GONE
         }
 
         val addNewItemButton = requireView().findViewById<Button>(R.id.addItemButton)
