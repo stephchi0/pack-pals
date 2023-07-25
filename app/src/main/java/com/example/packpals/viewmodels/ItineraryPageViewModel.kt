@@ -25,7 +25,7 @@
         private val tripsRepo: TripsRepository,
         private val placesRepo: PlacesRepository,
         private val itineraryRepo: ItineraryRepository,
-        private val openWeatherRepo : OpenWeatherRepository
+        private val openWeatherRepo : OpenWeatherRepository,
     ) : ViewModel() {
 
         private val _itineraryItemsList: MutableLiveData<List<Itinerary_Item>> = MutableLiveData(

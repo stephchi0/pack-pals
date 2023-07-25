@@ -61,5 +61,6 @@
 |    7     |         |      |          |       |    | 07/22/2023 | implement packing list functionality |
 |          |         |      |    11    |       |    | 07/23/2023 | Itinerary serach, add, edit functionality|
 |          |    4    |      |          |       |    | 07/23/2023 |Update register page UI, add toast messages to register and login pages, update login and register logic, add profile picture to profile page|
-|          |         |      |          |   4   |    | 07/23/2023 | implement picture uploading and displaying functionality                                                                                                                       |
-|          |         |      |          |   3   |    | 07/24/2023 | refactor photo album functionality                   
+|          |         |      |          |   4   |    | 07/23/2023 | implement picture uploading and displaying functionality|                                                                                 
+|          |         |      |          |   3   |    | 07/24/2023 | refactor photo album functionality
+|          |         |      |          |   1   |    | 07/25/2023 | creating photo album based on itinerary addition functionality|                   

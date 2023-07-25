@@ -8,7 +8,7 @@
     <LinearLayout
         android:id="@+id/addPicture"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="wrap_content"
         android:background="@drawable/round_dark_blue_background"
         android:orientation="horizontal"
         android:padding="8dp"
