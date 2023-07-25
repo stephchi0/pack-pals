@@ -30,6 +30,14 @@
             android:id="@+id/action_newExpenseFragment_to_expensesFragment"
             app:destination="@id/expensesFragment" />
     </fragment>
+
+    <fragment
+        android:id="@+id/albumFragment"
+        android:name="com.example.packpals.views.photo.AlbumFragment"
+        android:label="@string/Photos"
+        tools:layout="@layout/fragment_photo_album" >
+    </fragment>
+
     <fragment
         android:id="@+id/itineraryPageFragment"
         android:name="com.example.packpals.views.itinerary.ItineraryPageFragment"

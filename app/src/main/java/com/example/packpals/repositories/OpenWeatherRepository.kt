@@ -12,10 +12,7 @@ import kotlinx.serialization.json.jsonPrimitive
 import java.net.URL
 import javax.inject.Inject
 
-class OpenWeatherRepository @Inject constructor(){
-
-    //Todo: Dont hardcode
-    val apiKey = ""
+class OpenWeatherRepository @Inject constructor(private val apiKey: String) {
     suspend fun fetchWeatherForLocation(latitude: Double, longitude: Double): String? =
         withContext(Dispatchers.IO) {
 

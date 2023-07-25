@@ -14,7 +14,6 @@ class ItineraryRepository @Inject constructor(
 
     suspend fun fetchItems(tripId: String): List<Itinerary_Item>? {
         val tripFilter = Filter.equalTo("tripId", tripId)
-        var itineraryItems = emptyList<Itinerary_Item>()
         val newItineraryItems = mutableListOf<Itinerary_Item>()
         val newItineraryItemsWithId = mutableListOf<Itinerary_Item>()
 
@@ -47,6 +46,7 @@ class ItineraryRepository @Inject constructor(
             val endDate = item.endDate
             val geopoint = item.geopoint
             val tripId = item.tripId
+            val address = item.address
         }
         itineraryCollectionRef.add(itineraryItem).await()
     }
@@ -58,6 +58,7 @@ class ItineraryRepository @Inject constructor(
             val endDate = item.endDate
             val geopoint = item.geopoint
             val tripId = item.tripId
+            val address = item.address
         }
         itineraryCollectionRef.document(item.itemId!!).set(itineraryItem).await()
     }

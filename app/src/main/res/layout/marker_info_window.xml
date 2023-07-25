@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:background="@mipmap/info_background"
+    android:background="@drawable/info_background"
     android:paddingLeft="10dp"
     android:paddingRight="15dp"
     android:paddingTop="10dp"
@@ -40,9 +40,9 @@
 
         <ImageView
             android:id="@+id/location_image"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:srcCompat="@mipmap/fenugs" />
+            android:layout_width="150dp"
+            android:layout_height="100dp"
+            android:scaleType="centerCrop"/>
 
     </LinearLayout>
 </LinearLayout>

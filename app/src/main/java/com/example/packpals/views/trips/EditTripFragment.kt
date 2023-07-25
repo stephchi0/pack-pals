@@ -39,7 +39,7 @@ class EditTripFragment : Fragment(){
             requireView().findViewById<TextView>(R.id.editTripNameInput).text =
                 viewModel.currentEditTripItem.value?.title ?: ""
         }
-        //println(viewModel.currentEditTripItem.title)
+
         viewModel.palsList.observe(viewLifecycleOwner) { palsList ->
             linearLayout.removeAllViews()
             for (pal in viewModel.palsList.value!!) {
@@ -84,7 +84,6 @@ class EditTripFragment : Fragment(){
             val userId = viewModel.getUserId()
             val selectedTrip = viewModel.getCurrentEditTrip()
             if (selectedTrip != null) {
-                print("hello")
                 viewModel.leaveTrip(userId,selectedTrip)
             }
             //return back to tripslist
