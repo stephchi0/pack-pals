@@ -42,7 +42,6 @@ class ItineraryPageFragment : Fragment() {
 
         val linearLayout = requireView().findViewById<LinearLayout>(R.id.lliterinerary)
 
-        progressBar.visibility = View.VISIBLE
         viewModel.itineraryItemsList.observe(viewLifecycleOwner) { itineraryItems ->
             linearLayout.removeAllViews()
             for (item in itineraryItems) {
