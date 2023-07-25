@@ -5,6 +5,7 @@ import com.example.packpals.repositories.ExpensesRepository
 import com.example.packpals.repositories.ItineraryRepository
 import com.example.packpals.repositories.OpenWeatherRepository
 import com.example.packpals.repositories.PackingListRepository
+import com.example.packpals.repositories.PhotoRepository
 import com.example.packpals.repositories.PalsRepository
 import com.example.packpals.repositories.PlacesRepository
 import com.example.packpals.repositories.StorageRepository
@@ -117,5 +118,11 @@ object AppModule {
     @Provides
     fun providePackingListRepository(db: FirebaseFirestore): PackingListRepository {
         return PackingListRepository(db.collection("packing_list"))
+    }
+
+    @Singleton
+    @Provides
+    fun providePhotoRepository(db: FirebaseFirestore): PhotoRepository {
+        return PhotoRepository(db.collection("photos"))
     }
 }
