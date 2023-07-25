@@ -5,16 +5,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.EditText
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.packpals.R
 import com.example.packpals.viewmodels.ItineraryPageViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class AddItineraryItemFragment : Fragment(){
@@ -38,19 +41,29 @@ class AddItineraryItemFragment : Fragment(){
         val linearLayout = requireView().findViewById<LinearLayout>(R.id.lladdItinerary)
         viewModel.itineraryItemsList.observe(viewLifecycleOwner) { itineraryItems ->
             linearLayout.removeAllViews()
-            for (item in itineraryItems) {
-                val itineraryView = LayoutInflater.from(context).inflate(R.layout.view_itenerary_item, linearLayout, false)
 
-                itineraryView.findViewById<TextView>(R.id.tvlocation).text = item.location
+//  Todo: Maybe nearby locations
+
+//            for (item in itineraryItems) {
+//                val itineraryView = LayoutInflater.from(context).inflate(R.layout.view_itenerary_item, linearLayout, false)
+//
+//                itineraryView.findViewById<TextView>(R.id.tvlocation).text = item.location
 //                itineraryView.findViewById<TextView>(R.id.tvdate).text = date
 //                itineraryView.findViewById<TextView>(R.id.tvforecast).text = forecast
-                itineraryView.findViewById<ImageView>(R.id.image).setImageResource(R.mipmap.fenugs)
-
-                itineraryView.setOnClickListener {
-                    // fill in later
-                }
-
-                linearLayout.addView(itineraryView)
+//                itineraryView.findViewById<ImageView>(R.id.image).setImageResource(R.mipmap.fenugs)
+//
+//                itineraryView.setOnClickListener {
+//                    // fill in later
+//                }
+//
+//                linearLayout.addView(itineraryView)
+//            }
+        }
+        val addNewItemButton = requireView().findViewById<Button>(R.id.searchButton)
+        addNewItemButton.setOnClickListener {
+            lifecycleScope.launch{
+                viewModel.searchResults(view.findViewById<EditText>(R.id.searchText).text.toString())
+                findNavController().navigate(R.id.action_addItineraryItemFragment_to_itinerarySearchPageFragment)
             }
         }
     }

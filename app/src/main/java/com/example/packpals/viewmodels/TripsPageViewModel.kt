@@ -24,8 +24,11 @@ class TripsPageViewModel @Inject constructor(private val authRepo: AuthRepositor
     private val _palsList: MutableLiveData<List<Pal>> = MutableLiveData()
     val palsList: LiveData<List<Pal>> get() = _palsList
 
-    private val _currentTripPalIds: MutableLiveData<Set<String>> = MutableLiveData(emptySet())
+    private var _currentTripPalIds: MutableLiveData<Set<String>> = MutableLiveData(emptySet())
     val currentTripPalIds: LiveData<Set<String>> get() = _currentTripPalIds
+
+    private var _currentEditTripItem: MutableLiveData<Trip> = MutableLiveData()
+    val currentEditTripItem: LiveData<Trip> get() = _currentEditTripItem
 
     fun fetchPalsList(){
         val userId = authRepo.getCurrentUID()
@@ -86,6 +89,21 @@ class TripsPageViewModel @Inject constructor(private val authRepo: AuthRepositor
          }
     }
 
+    fun clearTripItems(){
+        _currentTripPalIds= MutableLiveData(emptySet())
+    }
+
+    fun editTrip(title:String){
+        val tripPalIdsSet = _currentTripPalIds.value
+        if (tripPalIdsSet != null) {
+            viewModelScope.launch {
+                val updatedTrip = Trip(title, authRepo.getCurrentUID(), tripPalIdsSet.toList(),true)
+                _currentEditTripItem.value?.tripId?.let { tripsRepo.updateTrip(it, updatedTrip) }
+                fetchTrips()
+            }
+        }
+    }
+
     fun createTrip(title: String) {
         val tripPalIdsSet = _currentTripPalIds.value
         if (tripPalIdsSet != null) {
@@ -99,5 +117,51 @@ class TripsPageViewModel @Inject constructor(private val authRepo: AuthRepositor
 
     fun selectTrip(selectedTrip: Trip) {
         tripsRepo.selectTrip(selectedTrip)
+    }
+
+    fun setCurrentEditTrip (trip: Trip){
+        //set the trip and palslist
+        _currentEditTripItem.value = trip
+        _currentTripPalIds.value = trip.tripPalIds?.toSet()
+    }
+
+    fun getCurrentEditTrip(): Trip? {
+        return currentEditTripItem.value
+    }
+
+    fun leaveTrip(userId: String, trip: Trip){
+        viewModelScope.launch{
+            val tripInfo = trip.tripId?.let { tripsRepo.fetchTrip(it) }
+            if(tripInfo!=null){
+                val creator = tripInfo.tripCreatorId
+                if (creator==userId){
+                    //reassign to a random trip pal if there are trip pals, else delete the trip
+                    val tripPals = tripInfo.tripPalIds
+                    if(tripPals!=null){
+                        val randomPal = tripPals.shuffled()[0]
+                        //remove the random pal from the trip pals because now they're the creator
+                        tripPals?.toMutableList()?.remove(randomPal)
+                        val updatedTrip = Trip(trip.title, randomPal,tripPals,trip.active!!,trip.tripId)
+                        tripsRepo.updateTrip(trip.tripId!!, updatedTrip)
+                    }
+                    else{
+                        tripsRepo.deleteTrip(trip.tripId!!)
+                    }
+                }
+                else{
+                    //remove from trip pals list
+                    val tripInfo = trip.tripId?.let { tripsRepo.fetchTrip(it) }
+                    if(tripInfo!=null) {
+                        val tripPals = tripInfo.tripPalIds
+                        if (tripPals ==null ){
+                            tripsRepo.deleteTrip(trip.tripId!!)
+                        }
+                        tripPals?.toMutableList()?.remove(userId)
+                        val updatedTrip = Trip(trip.title,trip.tripCreatorId, tripPals,trip.active,trip.tripId)
+                        tripsRepo.updateTrip(trip.tripId!!, updatedTrip)
+                    }
+                }
+            }
+        }
     }
 }

@@ -8,6 +8,7 @@
     <string name="FindAPal">Find A Pal</string>
     <string name="AddItineraryItem">Add Itinerary Item</string>
     <string name="ItemDetails">Item Details</string>
+    <string name="FindALocation">Find a Location</string>
     <string name="Playlist">Playlist</string>
     <string name="Expenses">Expenses</string>
     <string name="NewExpense">Edit Expense</string>
@@ -29,6 +30,7 @@
     <string name="IncomingPalRequests">Pal Requests</string>
     <string name="EndTrip">End Trip</string>
     <string name="Trip">Trip</string>
+    <string name="TripReturn">Return to Trip Menu</string>
     <string-array name="split_by_spinner_values">
         <item>Equally</item>
         <item>Percent</item>

@@ -2,9 +2,11 @@ package com.example.packpals.views.map
 
 import android.Manifest
 import android.annotation.SuppressLint
-import android.content.pm.ApplicationInfo
-import android.content.pm.PackageItemInfo
 import android.content.pm.PackageManager
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.graphics.Canvas
+import android.graphics.Paint
 import android.location.Location
 import android.os.Bundle
 import android.util.Log
@@ -14,8 +16,11 @@ import android.view.ViewGroup
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
+import androidx.navigation.Navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import com.example.packpals.R
+import com.example.packpals.models.MapModel
 import com.example.packpals.viewmodels.MapViewModel
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
@@ -23,13 +28,16 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.Marker
+import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.libraries.places.api.Places
 import com.google.android.libraries.places.api.net.PlacesClient
 
 
-class MapsFragment : Fragment() {
+class MapsFragment : Fragment(), GoogleMap.OnInfoWindowClickListener {
     private var map: GoogleMap? = null
     private lateinit var placesClient: PlacesClient
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
@@ -37,6 +45,7 @@ class MapsFragment : Fragment() {
     private var locationPermissionGranted = false
     private val sydney = LatLng(-34.0, 151.0)
     private var cameraPosition: CameraPosition? = null
+    private val viewModel: MapViewModel by activityViewModels()
 
     private val callback = OnMapReadyCallback { googleMap ->
         /**
@@ -49,6 +58,12 @@ class MapsFragment : Fragment() {
         updateLocationUI()
         // Get the current location of the device and set the position of the map.
         getDeviceLocation()
+        googleMap.setInfoWindowAdapter(InfoWindowAdapter(requireContext()))
+        viewModel.locationLiveData.observe(viewLifecycleOwner) { itineraryLocations ->
+            plotItineraryMarkers(itineraryLocations)
+        }
+
+        googleMap.setOnInfoWindowClickListener(this)
     }
 
     override fun onCreateView(
@@ -56,9 +71,8 @@ class MapsFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val model : MapViewModel by viewModels { MapViewModel.Factory }
-        model.getLocations().observe(viewLifecycleOwner) {
-            Log.i("MapPageActivity", it?.fold("Location IDs:") { acc, cur -> "$acc ${cur.value?.id}" } ?: "[ERROR]")
+        viewModel.locationLiveData.observe(viewLifecycleOwner) {
+            Log.i("MapPageActivity", it?.fold("Location IDs:") { acc, cur -> "$acc ${cur.location}" } ?: "[ERROR]")
         }
 
         return inflater.inflate(R.layout.fragment_maps, container, false)
@@ -72,6 +86,20 @@ class MapsFragment : Fragment() {
         Places.initialize(requireActivity().getApplicationContext(), getString(R.string.MAPS_API_KEY))
         placesClient = Places.createClient(requireContext())
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(requireContext())
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
+        locationPermissionGranted = false
+        when (requestCode) { PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION -> {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.isNotEmpty() &&
+                    grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    locationPermissionGranted = true
+                }
+            }
+            else -> super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        }
+        updateLocationUI()
     }
 
     private fun getLocationPermission() {
@@ -89,19 +117,6 @@ class MapsFragment : Fragment() {
         }
     }
 
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
-        locationPermissionGranted = false
-        when (requestCode) { PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION -> {
-                // If request is cancelled, the result arrays are empty.
-                if (grantResults.isNotEmpty() &&
-                    grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    locationPermissionGranted = true
-                }
-            }
-            else -> super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        }
-        updateLocationUI()
-    }
     @SuppressLint("MissingPermission")
     private fun updateLocationUI() {
         if (map == null) {
@@ -153,6 +168,41 @@ class MapsFragment : Fragment() {
         } catch (e: SecurityException) {
             Log.e("Exception: %s", e.message, e)
         }
+    }
+
+    private fun plotItineraryMarkers(itineraryLocations : List<MapModel.ModelLocation>) {
+        for (itineraryItem in itineraryLocations) {
+            val conf = Bitmap.Config.ARGB_8888
+            val bmp = Bitmap.createBitmap(300, 150, conf)
+            val canvas = Canvas(bmp)
+            val font = Paint()
+            font.textSize = 40F
+            canvas.drawBitmap(BitmapFactory.decodeResource(getResources(),R.mipmap.marker),110F,50F,null)
+            itineraryItem.location?.let {
+                canvas.drawText(
+                    it,
+                    0F,
+                    30F,
+                    font
+                )
+            }
+            val marker = map?.addMarker(
+            MarkerOptions()
+                .position(LatLng(itineraryItem.geopoint!!.latitude,itineraryItem.geopoint!!.longitude))
+                .title(itineraryItem.location)
+                .snippet("Forecast: " + itineraryItem.forecast)
+                .icon(BitmapDescriptorFactory.defaultMarker())
+                .icon(BitmapDescriptorFactory.fromBitmap(bmp))
+                .anchor(0.5F, 1F)
+            )
+        }
+    }
+
+    override fun onInfoWindowClick(marker: Marker) {
+        Log.i("MapPageActivity", "Info window clicked")
+        val bundle = Bundle()
+        bundle.putString("locationTitle", marker.title)
+        findNavController().navigate(R.id.locationDetailsFragment,bundle)
     }
 
     companion object {

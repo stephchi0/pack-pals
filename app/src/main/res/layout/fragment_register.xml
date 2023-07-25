@@ -9,77 +9,83 @@
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/RegisterToolbar"
-        android:layout_width="411dp"
-        android:layout_height="73dp"
+        android:layout_width="match_parent"
+        android:layout_height="72dp"
         android:background="@color/dark_blue"
+        android:gravity="center_vertical"
         android:minHeight="?attr/actionBarSize"
+        android:paddingStart="48dp"
         android:theme="?attr/actionBarTheme"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:title="Register"
+        app:titleTextAppearance="@style/TextAppearance.AppCompat.Display1"
         app:titleTextColor="@color/white" />
 
-    <EditText
-        android:id="@+id/editTextRegisterEmailAddress"
-        android:layout_width="269dp"
-        android:layout_height="48dp"
-        android:background="@drawable/round_dark_blue_background"
-        android:ems="10"
-        android:inputType="text|textEmailAddress"
-        app:layout_constraintBottom_toTopOf="@+id/emailEditTextLabel3"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.51"
+    <ImageView
+        android:id="@+id/navigateBackButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:src="@drawable/ic_back_navigation"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/emailEditTextLabel" />
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
-        android:id="@+id/editTextRegisterName"
-        android:layout_width="269dp"
-        android:layout_height="48dp"
-        android:background="@drawable/round_dark_blue_background"
-        android:ems="10"
-        android:inputType="text"
-        app:layout_constraintBottom_toTopOf="@+id/emailEditTextLabel"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/nameEditTextLabel" />
-
-    <EditText
-        android:id="@+id/editTextRegisterPassword"
-        android:layout_width="269dp"
-        android:layout_height="48dp"
-        android:background="@drawable/round_dark_blue_background"
-        android:ems="10"
-        android:inputType="text|textPassword"
-        app:layout_constraintBottom_toTopOf="@+id/uploadProfilePictureButton"
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/registerProfilePicture"
+        android:layout_width="160dp"
+        android:layout_height="160dp"
+        android:layout_gravity="center_vertical"
+        android:layout_marginTop="24dp"
+        android:scaleType="centerCrop"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/emailEditTextLabel3" />
+        app:layout_constraintTop_toBottomOf="@+id/RegisterToolbar"
+        app:shapeAppearanceOverlay="@style/circleIcon"
+        app:srcCompat="@drawable/default_profile_picture" />
 
-    <Button
-        android:id="@+id/registerButton"
-        android:layout_width="166dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="124dp"
-        android:layout_marginEnd="121dp"
-        android:layout_marginBottom="50dp"
-        android:background="@drawable/round_red_background"
-        android:text="Sign Up"
-        android:textColor="#FFFFFF"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <TextView
+        android:id="@+id/nameEditTextLabel"
+        android:layout_width="0dp"
+        android:layout_height="32dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="24dp"
+        android:text="Name"
+        android:textColor="@color/black"
+        android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/uploadProfilePictureButton" />
+        app:layout_constraintTop_toBottomOf="@id/registerProfilePicture" />
+
+    <EditText
+        android:id="@+id/editTextRegisterName"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="24dp"
+        android:background="@drawable/round_dark_blue_background"
+        android:ems="10"
+        android:inputType="text"
+        android:paddingStart="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/emailEditTextLabel"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/nameEditTextLabel" />
 
     <TextView
         android:id="@+id/emailEditTextLabel"
-        android:layout_width="214dp"
+        android:layout_width="0dp"
         android:layout_height="30dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="24dp"
         android:text="Email address"
+        android:textColor="@color/black"
         android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/editTextRegisterEmailAddress"
         app:layout_constraintEnd_toEndOf="parent"
@@ -87,25 +93,32 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextRegisterName" />
 
-    <TextView
-        android:id="@+id/nameEditTextLabel"
-        android:layout_width="64dp"
-        android:layout_height="32dp"
-        android:layout_marginTop="30dp"
-        android:text="Name"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/editTextRegisterName"
+    <EditText
+        android:id="@+id/editTextRegisterEmailAddress"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="24dp"
+        android:background="@drawable/round_dark_blue_background"
+        android:ems="10"
+        android:inputType="text|textEmailAddress"
+        android:paddingStart="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/passwordEditTextLabel"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.22"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/RegisterToolbar"
-        app:layout_constraintVertical_bias="0.43" />
+        app:layout_constraintTop_toBottomOf="@+id/emailEditTextLabel" />
 
     <TextView
-        android:id="@+id/emailEditTextLabel3"
-        android:layout_width="107dp"
+        android:id="@+id/passwordEditTextLabel"
+        android:layout_width="0dp"
         android:layout_height="32dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="24dp"
         android:text="Password"
+        android:textColor="@color/black"
         android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/editTextRegisterPassword"
         app:layout_constraintEnd_toEndOf="parent"
@@ -113,13 +126,31 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextRegisterEmailAddress" />
 
+    <EditText
+        android:id="@+id/editTextRegisterPassword"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="24dp"
+        android:background="@drawable/round_dark_blue_background"
+        android:ems="10"
+        android:inputType="text|textPassword"
+        android:paddingStart="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/passwordEditTextLabel" />
+
     <Button
-        android:id="@+id/uploadProfilePictureButton"
-        android:layout_width="236dp"
-        android:layout_height="41dp"
-        android:layout_marginTop="30dp"
-        android:text="Upload Profile Picture"
-        app:layout_constraintBottom_toTopOf="@+id/registerButton"
+        android:id="@+id/registerButton"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="48dp"
+        android:layout_marginEnd="48dp"
+        android:background="@drawable/round_red_background"
+        android:text="Sign Up"
+        android:textColor="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextRegisterPassword" />

@@ -8,7 +8,11 @@
         android:id="@+id/mapFragment"
         android:name="com.example.packpals.views.map.MapsFragment"
         android:label="@string/Map"
-        tools:layout="@layout/fragment_maps" />
+        tools:layout="@layout/fragment_maps" >
+        <action
+            android:id="@+id/action_mapFragment_to_locationDetailsFragment"
+            app:destination="@id/locationDetailsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/expensesFragment"
         android:name="com.example.packpals.views.expenses.ExpenseListFragment"
@@ -49,14 +53,29 @@
     <fragment
         android:id="@+id/addItineraryItemPageFragment"
         android:name="com.example.packpals.views.itinerary.AddItineraryItemFragment"
-        android:label="@string/AddItineraryItem"
+        android:label="@string/FindALocation"
         tools:layout="@layout/fragment_add_itinerary_item" >
+        <action
+            android:id="@+id/action_addItineraryItemFragment_to_itinerarySearchPageFragment"
+            app:destination="@id/itinerarySearchPageFragment" />
     </fragment>
     <fragment
         android:id="@+id/itemDetailsPageFragment"
         android:name="com.example.packpals.views.itinerary.ItemDetailPageFragment"
         android:label="ItemDetails"
         tools:layout="@layout/fragment_item_details_page" >
+        <action
+            android:id="@+id/action_itemDetailsPageFragment_to_itineraryPageFragment"
+            app:destination="@id/itineraryPageFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/itinerarySearchPageFragment"
+        android:name="com.example.packpals.views.itinerary.ItinerarySearchPageFragment"
+        android:label="@string/FindALocation"
+        tools:layout="@layout/fragment_itinerary_results" >
+        <action
+            android:id="@+id/action_itinerarySearchPageFragment_to_itineraryDetailsPageFragment"
+            app:destination="@id/itemDetailsPageFragment" />
     </fragment>
     <fragment
         android:id="@+id/profilePageFragment"
@@ -86,6 +105,22 @@
             app:destination="@id/tripListFragment" />
     </fragment>
     <fragment
+        android:id="@+id/packingListFragment"
+        android:name="com.example.packpals.views.packinglist.PackingListFragment"
+        android:label="Packing List"
+        tools:layout="@layout/fragment_packing_list" >
+    </fragment>
+    <fragment
+        android:id="@+id/editTripFragment"
+        android:name="com.example.packpals.views.trips.EditTripFragment"
+        android:label="fragment_edit_trip"
+        tools:layout="@layout/fragment_edit_trip" >
+        <action
+            android:id="@+id/action_editTripFragment_to_tripListFragment"
+            app:destination="@id/tripListFragment" />
+    </fragment>
+
+    <fragment
         android:id="@+id/tripListFragment"
         android:name="com.example.packpals.views.trips.TripsListFragment"
         android:label="TripListFragment"
@@ -93,6 +128,9 @@
         <action
             android:id="@+id/action_tripListFragment_to_newTripFragment"
             app:destination="@id/newTripFragment" />
+        <action
+            android:id="@+id/action_tripListFragment_to_editTripFragment"
+            app:destination="@id/editTripFragment" />
     </fragment>
     <fragment
         android:id="@+id/findAPalFragment"
@@ -104,4 +142,13 @@
         android:name="com.example.packpals.views.pals.IncomingPalRequestsFragment"
         android:label="@string/IncomingPalRequests"
         tools:layout="@layout/fragment_incoming_pal_requests" />
+    <fragment
+        android:id="@+id/locationDetailsFragment"
+        android:name="com.example.packpals.views.map.LocationDetails"
+        android:label="{locationTitle}"
+        tools:layout="@layout/fragment_location_details" >
+        <argument
+            android:name="locationTitle"
+            app:argType="string"/>
+    </fragment>
 </navigation>

@@ -181,7 +181,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
-            android:text=""
+            android:hint="Enter text"
             android:textColor="@android:color/white" />
 
     </LinearLayout>
@@ -231,16 +231,13 @@
     </LinearLayout>
 
     <ImageView
-        android:id="@+id/profileImage"
-        android:layout_width="179dp"
-        android:layout_height="135dp"
-        android:layout_marginStart="116dp"
+        android:id="@+id/imageView"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="116dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@mipmap/user_profile" />
+        app:srcCompat="@drawable/default_profile_picture" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

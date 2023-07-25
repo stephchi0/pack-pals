@@ -2,6 +2,7 @@ package com.example.packpals.views.login
 
 import android.app.Activity
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -9,10 +10,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageView
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.viewModels
+import com.bumptech.glide.Glide
 import com.example.packpals.R
 import com.example.packpals.viewmodels.LoginPageViewModel
+import com.google.android.material.imageview.ShapeableImageView
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -42,8 +47,8 @@ class RegisterFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val uploadProfilePictureButton = requireView().findViewById<Button>(R.id.uploadProfilePictureButton)
-        uploadProfilePictureButton.setOnClickListener {
+        val uploadProfilePictureImageView = requireView().findViewById<ShapeableImageView>(R.id.registerProfilePicture)
+        uploadProfilePictureImageView.setOnClickListener {
             val intent = Intent(Intent.ACTION_PICK)
             intent.type = "image/*"
             selectImage.launch(intent)
@@ -58,14 +63,37 @@ class RegisterFragment : Fragment() {
             viewModel.register(txtName, txtEmail, txtPassword)
         }
 
-        viewModel.registrationSuccess.observe(viewLifecycleOwner) {
-            if (it == true) {
-                val transaction = parentFragmentManager.beginTransaction()
-                transaction.replace(R.id.loginFragmentContainerView, LoginFragment())
-                transaction.commit()
-                viewModel.reset()
+        val backButton = requireView().findViewById<ImageView>(R.id.navigateBackButton)
+        backButton.setOnClickListener {
+            navigateBackToLogin()
+        }
+
+        viewModel.profilePictureUri.observe(viewLifecycleOwner) { profilePictureUri ->
+            if (profilePictureUri != Uri.EMPTY) {
+                Glide.with(requireContext())
+                    .load(profilePictureUri)
+                    .into(uploadProfilePictureImageView)
             }
         }
+
+        viewModel.registrationSuccess.observe(viewLifecycleOwner) { success ->
+            if (success) {
+                navigateBackToLogin()
+            }
+        }
+
+        viewModel.toastMessage.observe(viewLifecycleOwner) { message ->
+            if (message.isNotEmpty()) {
+                Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+                viewModel.clearToastMessage()
+            }
+        }
+    }
+
+    private fun navigateBackToLogin() {
+        val transaction = parentFragmentManager.beginTransaction()
+        transaction.replace(R.id.loginFragmentContainerView, LoginFragment())
+        transaction.commit()
     }
 
     companion object {

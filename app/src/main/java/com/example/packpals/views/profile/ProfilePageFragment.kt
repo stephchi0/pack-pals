@@ -10,6 +10,7 @@ import android.widget.TextView
 import android.widget.ImageView
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.bumptech.glide.Glide
 import com.example.packpals.R
 import com.example.packpals.R.id
 import com.example.packpals.viewmodels.ProfilePageViewModel
@@ -23,6 +24,7 @@ class ProfilePageFragment : Fragment() {
     private lateinit var joinedDate : TextView
     private lateinit var genderAge : TextView
     private lateinit var palId: TextView
+    private lateinit var profilePicture: ImageView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,6 +46,7 @@ class ProfilePageFragment : Fragment() {
         joinedDate = requireView().findViewById(R.id.joinedView)
         genderAge = requireView().findViewById(R.id.genderAgeView)
         palId = requireView().findViewById(R.id.idView)
+        profilePicture = requireView().findViewById(R.id.profilePageProfilePicture)
 
         viewModel.profile.observe(viewLifecycleOwner) { profile ->
             profile?.let {
@@ -51,6 +54,11 @@ class ProfilePageFragment : Fragment() {
                 genderAge.text = profile.gender
                 bio.text = profile.bio
                 palId.text = profile.id
+                if (!profile.profilePictureURL.isNullOrEmpty()) {
+                    Glide.with(requireContext())
+                        .load(profile.profilePictureURL)
+                        .into(profilePicture)
+                }
             }
         }
         viewModel.fetchProfile()

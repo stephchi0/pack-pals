@@ -18,12 +18,12 @@ class AuthRepository @Inject constructor (private val auth: FirebaseAuth) {
         }
     }
 
-    suspend fun register(email: String, password: String): String? {
+    suspend fun register(email: String, password: String): Result<String> {
         return try {
             val result = auth.createUserWithEmailAndPassword(email, password).await()
-            return result.user?.uid
+            return Result.success(result.user!!.uid)
         } catch (e: Exception) {
-            null
+            return Result.failure(e)
         }
     }
 }
