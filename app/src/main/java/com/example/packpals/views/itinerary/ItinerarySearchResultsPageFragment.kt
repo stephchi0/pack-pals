@@ -44,10 +44,6 @@ class ItinerarySearchPageFragment: Fragment() {
 
                 searchView.findViewById<Button>(R.id.predictionButton).text = item.mainText
                 searchView.findViewById<TextView>(R.id.address).text = item.secondaryText
-//                searchView.setOnClickListener {
-//                    viewModel.setCurrentItem(item)
-//                    findNavController().navigate(R.id.action_itineraryFragment_to_itemDetailsPageFragment)
-//                }
                 searchView.findViewById<Button>(R.id.predictionButton).setOnClickListener {
                     lifecycleScope.launch{
                         viewModel.setSearchedItem(item.mainText!!, item.secondaryText!!)

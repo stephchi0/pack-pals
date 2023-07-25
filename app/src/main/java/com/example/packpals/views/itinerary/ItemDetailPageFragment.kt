@@ -58,7 +58,11 @@ class ItemDetailPageFragment : Fragment() {
             tvForecastField.text = item.forecast
 
             tvLocationField.setOnClickListener{
-                showEditDialog()
+                showNameEditDialog()
+            }
+
+            tvAddressField.setOnClickListener{
+                showAddressEditDialog()
             }
         }
 
@@ -113,15 +117,35 @@ class ItemDetailPageFragment : Fragment() {
         }
 
     }
-    private fun showEditDialog() {
+    private fun showNameEditDialog() {
         val editText = EditText(requireContext())
+        editText.setText(view?.findViewById<TextView>(R.id.nameField)?.text)
+
+        AlertDialog.Builder(requireContext())
+            .setTitle("Edit Text")
+            .setView(editText)
+            .setMessage(view?.findViewById<TextView>(R.id.nameField)?.text)
+            .setPositiveButton("Save") { dialog, _ ->
+                val newText = editText.text.toString()
+                view?.findViewById<TextView>(R.id.nameField)?.text = newText
+                dialog.dismiss()
+            }
+            .setNegativeButton("Cancel") { dialog, _ ->
+                dialog.dismiss()
+            }
+            .show()
+    }
+
+    private fun showAddressEditDialog() {
+        val editText = EditText(requireContext())
+        editText.setText(view?.findViewById<TextView>(R.id.addressField)?.text)
 
         AlertDialog.Builder(requireContext())
             .setTitle("Edit Text")
             .setView(editText)
             .setPositiveButton("Save") { dialog, _ ->
                 val newText = editText.text.toString()
-                view?.findViewById<TextView>(R.id.nameField)?.text = newText
+                view?.findViewById<TextView>(R.id.addressField)?.text = newText
                 dialog.dismiss()
             }
             .setNegativeButton("Cancel") { dialog, _ ->
