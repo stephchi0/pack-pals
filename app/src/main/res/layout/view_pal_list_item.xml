@@ -4,7 +4,8 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_margin="8dp"
-    app:cardCornerRadius="20dp">
+    app:cardCornerRadius="20dp"
+    android:elevation="4dp">
 
     <LinearLayout
         android:layout_height="wrap_content"
@@ -21,8 +22,8 @@
 
             <ImageView
                 android:id="@+id/profilePic"
-                android:layout_width="80dp"
-                android:layout_height="87dp"
+                android:layout_width="60dp"
+                android:layout_height="64dp"
                 android:src="@drawable/default_profile_picture"
                 android:scaleType="centerCrop"/>
 
@@ -33,7 +34,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:textSize="32dp"
+            android:textSize="24dp"
             android:text="Username" />
 
     </LinearLayout>
