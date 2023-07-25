@@ -15,7 +15,7 @@ import javax.inject.Inject
 class OpenWeatherRepository @Inject constructor(){
 
     //Todo: Dont hardcode
-    val apiKey = ""
+    val apiKey = "44988b69e712d97ad5d74b585530ddf4"
     suspend fun fetchWeatherForLocation(latitude: Double, longitude: Double): String? =
         withContext(Dispatchers.IO) {
 

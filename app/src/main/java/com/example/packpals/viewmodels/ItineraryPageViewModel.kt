@@ -62,7 +62,7 @@
 
         fun fetchItineraryItems() {
             // TODO: not hardcore this later
-            val tripId = "SxXsH6jHElrx3oocliFY"
+            val tripId = tripsRepo.selectedTrip.tripId
             if (tripId != null) {
                 viewModelScope.launch {
                     val result = itineraryRepo.fetchItems(tripId)
@@ -101,6 +101,8 @@
             _currentItem.value?.addStartDate(sDate)
             _currentItem.value?.addEndDate(eDate)
 
+            _currentItem.value?.tripId = tripsRepo.selectedTrip.tripId
+
             if(_add.value == true){
                 itineraryRepo.createItem(_currentItem.value!!)
             }else{
@@ -114,8 +116,9 @@
             item.addLocation(main)
             item.addAddress(secondary)
 
+            val tripId = tripsRepo.selectedTrip.tripId
             //Todo: dont hardcore this later
-            item.addTripId("SxXsH6jHElrx3oocliFY")
+            item.addTripId(tripId!!)
 
             val geo = placesRepo.locationDetailsFromString(main)
             item.addGeoPoint(geo!!)
@@ -158,12 +161,16 @@
         @RequiresApi(Build.VERSION_CODES.O)
         fun setEndTime(hour:Int, minute: Int){
             val temp = _endDate.value
-            _startDate.value = LocalDateTime.of(temp?.year!!, temp?.monthValue!!, temp?.dayOfMonth!!, hour, minute)
+            _endDate.value = LocalDateTime.of(temp?.year!!, temp?.monthValue!!, temp?.dayOfMonth!!, hour, minute)
         }
 
         suspend fun searchResults(search:String){
             val predictions = placesRepo.autocompleteResults(search)
             _searchResultsList.value = predictions!!
+        }
+
+        fun getCurrentTripId(): String? {
+            return tripsRepo.selectedTrip.title
         }
 
 

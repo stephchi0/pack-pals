@@ -17,7 +17,7 @@ class PlacesRepository @Inject constructor(
     ){
 //    val key = Resources.getSystem().getString(R.string.MAPS_API_KEY)
     //Todo: dont hardcode
-    val key =""
+    val key ="AIzaSyDYk8Xsk4AEFJ89f5M4I8ulMmOaSwLOUwA"
 
     // Returns the photo reference id from a given place name
     suspend fun photoIdFromName(name:String, maxWidth: Int = 200, maxLength: Int= 200): String? = 

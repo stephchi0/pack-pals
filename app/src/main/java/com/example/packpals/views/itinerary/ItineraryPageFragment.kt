@@ -8,14 +8,17 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.LinearLayout
+import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.example.packpals.R
 import com.example.packpals.viewmodels.ItineraryPageViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 
 @AndroidEntryPoint
@@ -38,6 +41,9 @@ class ItineraryPageFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val linearLayout = requireView().findViewById<LinearLayout>(R.id.lliterinerary)
+        val progressBar = requireView().findViewById<ProgressBar>(R.id.progressBar)
+
+        progressBar.visibility = View.VISIBLE
         viewModel.itineraryItemsList.observe(viewLifecycleOwner) { itineraryItems ->
             linearLayout.removeAllViews()
             for (item in itineraryItems) {
@@ -65,12 +71,18 @@ class ItineraryPageFragment : Fragment() {
 
                 linearLayout.addView(itineraryView)
             }
+            progressBar.visibility = View.GONE
         }
 
         val addNewItemButton = requireView().findViewById<Button>(R.id.addItemButton)
         addNewItemButton.setOnClickListener {
             findNavController().navigate(R.id.action_itineraryFragment_to_addItineraryItemFragment)
         }
+
+
+        requireView().findViewById<TextView>(R.id.title).text = viewModel.getCurrentTripId() + " Itinerary"
+
+
     }
 
     companion object {
