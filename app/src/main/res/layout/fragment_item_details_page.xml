@@ -295,7 +295,7 @@
         android:layout_width="147dp"
         android:layout_height="46dp"
         android:layout_marginBottom="44dp"
-        android:background="@drawable/rounded_corner_salmon"
+        android:background="@drawable/round_red_background"
         android:text="Save Item"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
