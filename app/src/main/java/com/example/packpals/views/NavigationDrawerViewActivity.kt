@@ -39,7 +39,7 @@ class NavigationDrawerViewActivity : AppCompatActivity(), NavigationView.OnNavig
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         appBarConfiguration = AppBarConfiguration(setOf( R.id.mapFragment, R.id.itineraryPageFragment,
-            R.id.expensesFragment, R.id.profilePageFragment, R.id.palsFragment, R.id.packingListFragment), drawerLayout)
+            R.id.expensesFragment, R.id.profilePageFragment, R.id.palsFragment, R.id.packingListFragment, R.id.albumFragment), drawerLayout)
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
         setNavigationViewListener(navView)
