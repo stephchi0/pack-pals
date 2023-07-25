@@ -58,3 +58,4 @@
 |7       |        |      |          |       |     | 07/22/2023 | implement packing list functionality |
 |        |        |      |    11    |       |     | 07/23/2023 | Itinerary serach, add, edit functionality|
 |        |        |  10  |          |       |     | 07/22/2023 | finishing pal request system, ui polish for pals, pal requests, find a pal |
+|        |        |      |          |       |4    | 07/22/2023 | Itinerary Connecting to Maps Also fixing Drawer Title |
