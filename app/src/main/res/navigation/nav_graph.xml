@@ -143,6 +143,17 @@
         android:label="@string/IncomingPalRequests"
         tools:layout="@layout/fragment_incoming_pal_requests" />
     <fragment
+        android:id="@+id/palsFragment"
+        android:name="com.example.packpals.views.pals.PalsFragment"
+        android:label="@string/Pals" >
+        <action
+            android:id="@+id/action_palsFragment_to_incomingPalRequestsFragment"
+            app:destination="@id/incomingPalRequestsFragment" />
+        <action
+            android:id="@+id/action_palsFragment_to_findAPalFragment"
+            app:destination="@id/findAPalFragment" />
+    </fragment>
+    <fragment
         android:id="@+id/locationDetailsFragment"
         android:name="com.example.packpals.views.map.LocationDetails"
         android:label="{locationTitle}"
