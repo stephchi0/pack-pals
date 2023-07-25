@@ -21,12 +21,6 @@ class ProfilePageViewModel @Inject constructor(
     private val _profile: MutableLiveData<Pal?> = MutableLiveData();
     val profile : LiveData<Pal?> get() = _profile;
 
-    private val _previousName: MutableLiveData<String> = MutableLiveData()
-    private val _previousBio: MutableLiveData<String> = MutableLiveData()
-
-    val previousName: LiveData<String> get() = _previousName
-    val previousBio: LiveData<String> get() = _previousBio
-
     fun fetchProfile() {
         viewModelScope.launch(){
             val id:String? = authRepo.getCurrentUID();
