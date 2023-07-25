@@ -31,21 +31,22 @@
     </androidx.appcompat.widget.Toolbar>
 
     <EditText
-        android:id="@+id/editTextText4"
+        android:id="@+id/searchText"
         android:layout_width="366dp"
         android:layout_height="47dp"
         android:layout_marginTop="76dp"
         android:background="@drawable/rounded_corner_light_purple2"
         android:ems="10"
         android:inputType="text"
-        android:text="  Type in a location..."
+        android:hint="  Type in a location..."
+        android:paddingLeft="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.511"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/searchButton"
         android:layout_width="147dp"
         android:layout_height="46dp"
         android:layout_marginTop="144dp"

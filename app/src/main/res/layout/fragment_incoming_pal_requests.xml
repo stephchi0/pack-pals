@@ -22,13 +22,14 @@
         app:layout_constraintTop_toBottomOf="@id/palRequestTitle"
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_margin="16dp"
-        app:cardBackgroundColor="#DADEFF"
+        app:cardBackgroundColor="@color/light_blue"
         app:cardCornerRadius="20dp">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/palRequestRecyclerView"
             android:layout_height="match_parent"
-            android:layout_width="match_parent"/>
+            android:layout_width="match_parent"
+            tools:listitem="@layout/view_pal_request_item"/>
 
     </androidx.cardview.widget.CardView>
 

@@ -45,14 +45,29 @@
     <fragment
         android:id="@+id/addItineraryItemPageFragment"
         android:name="com.example.packpals.views.itinerary.AddItineraryItemFragment"
-        android:label="@string/AddItineraryItem"
+        android:label="@string/FindALocation"
         tools:layout="@layout/fragment_add_itinerary_item" >
+        <action
+            android:id="@+id/action_addItineraryItemFragment_to_itinerarySearchPageFragment"
+            app:destination="@id/itinerarySearchPageFragment" />
     </fragment>
     <fragment
         android:id="@+id/itemDetailsPageFragment"
         android:name="com.example.packpals.views.itinerary.ItemDetailPageFragment"
         android:label="ItemDetails"
         tools:layout="@layout/fragment_item_details_page" >
+        <action
+            android:id="@+id/action_itemDetailsPageFragment_to_itineraryPageFragment"
+            app:destination="@id/itineraryPageFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/itinerarySearchPageFragment"
+        android:name="com.example.packpals.views.itinerary.ItinerarySearchPageFragment"
+        android:label="@string/FindALocation"
+        tools:layout="@layout/fragment_itinerary_results" >
+        <action
+            android:id="@+id/action_itinerarySearchPageFragment_to_itineraryDetailsPageFragment"
+            app:destination="@id/itemDetailsPageFragment" />
     </fragment>
     <fragment
         android:id="@+id/profilePageFragment"
@@ -119,6 +134,17 @@
         android:name="com.example.packpals.views.pals.IncomingPalRequestsFragment"
         android:label="@string/IncomingPalRequests"
         tools:layout="@layout/fragment_incoming_pal_requests" />
+    <fragment
+        android:id="@+id/palsFragment"
+        android:name="com.example.packpals.views.pals.PalsFragment"
+        android:label="@string/Pals" >
+        <action
+            android:id="@+id/action_palsFragment_to_incomingPalRequestsFragment"
+            app:destination="@id/incomingPalRequestsFragment" />
+        <action
+            android:id="@+id/action_palsFragment_to_findAPalFragment"
+            app:destination="@id/findAPalFragment" />
+    </fragment>
     <fragment
         android:id="@+id/locationDetailsFragment"
         android:name="com.example.packpals.views.map.LocationDetails"
