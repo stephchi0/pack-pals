@@ -17,10 +17,12 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class ProfilePageFragment : Fragment() {
     private val viewModel: ProfilePageViewModel by viewModels()
-    private lateinit var name: TextView
-    private lateinit var bio: TextView
-    private lateinit var palId: TextView
-    private lateinit var profilePicture: ImageView
+    private lateinit var nameTextView: TextView
+    private lateinit var bioTextView: TextView
+    private lateinit var palIdTextView: TextView
+    private lateinit var profilePictureImageView: ImageView
+    private lateinit var numberOfTripsCompletedTextView: TextView
+    private lateinit var numberOfPalsTextView: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,22 +39,28 @@ class ProfilePageFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        name = requireView().findViewById(R.id.nameView123)
-        bio = requireView().findViewById(R.id.bioView)
-        palId = requireView().findViewById(R.id.idView)
-        profilePicture = requireView().findViewById(R.id.profilePageProfilePicture)
+        nameTextView = requireView().findViewById(R.id.nameView123)
+        bioTextView = requireView().findViewById(R.id.bioView)
+        palIdTextView = requireView().findViewById(R.id.idView)
+        profilePictureImageView = requireView().findViewById(R.id.profilePageProfilePicture)
+        numberOfTripsCompletedTextView = requireView().findViewById(R.id.numberOfTripsCompletedTextView)
+        numberOfPalsTextView = requireView().findViewById(R.id.numberOfPalsTextView)
 
         viewModel.profile.observe(viewLifecycleOwner) { profile ->
             profile?.let {
-                name.text = profile.name
-                bio.text = profile.bio
-                palId.text = profile.id
+                nameTextView.text = profile.name
+                bioTextView.text = profile.bio
+                palIdTextView.text = profile.id
+                numberOfPalsTextView.text = (profile.pals?.size ?: 0).toString()
                 if (!profile.profilePictureURL.isNullOrEmpty()) {
                     Glide.with(requireContext())
                         .load(profile.profilePictureURL)
-                        .into(profilePicture)
+                        .into(profilePictureImageView)
                 }
             }
+        }
+        viewModel.numberOfTripsCompleted.observe(viewLifecycleOwner) { numberOfTripsCompleted ->
+            numberOfTripsCompletedTextView.text = numberOfTripsCompleted.toString()
         }
 
         val buttonEdit: ImageView = requireView().findViewById(R.id.button_edit)
