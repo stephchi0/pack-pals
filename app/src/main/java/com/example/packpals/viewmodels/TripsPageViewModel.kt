@@ -65,7 +65,7 @@ class TripsPageViewModel @Inject constructor(private val authRepo: AuthRepositor
     fun editActive(trip: Trip){
         val tripId = trip.tripId
         if (tripId != null){
-            val updatedTrip = Trip(trip.title,  trip.tripCreatorId,trip.tripPalIds,!trip.active!!,trip.tripId)
+            val updatedTrip = Trip(trip.title,  trip.tripCreatorId,trip.tripPalIds,!trip.active!! ,trip.tripId)
             viewModelScope.launch{
                 tripsRepo.updateTrip(tripId,updatedTrip)
                 fetchTrips()

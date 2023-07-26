@@ -23,6 +23,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.packpals.R
 import com.example.packpals.models.Itinerary_Item
 import com.example.packpals.viewmodels.ItineraryPageViewModel
+import com.example.packpals.views.itinerary.ItineraryPageFragment
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory

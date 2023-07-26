@@ -101,6 +101,7 @@ class TripsListFragment : Fragment() {
                         viewModel.selectTrip(trip)
 
                         val intent = Intent(activity, NavigationDrawerViewActivity::class.java)
+                        intent.putExtra("tripTitle", trip.title)
                         startActivity(intent)
                     }
                     pastMenuButton.setOnClickListener{

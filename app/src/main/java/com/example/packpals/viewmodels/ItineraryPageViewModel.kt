@@ -14,7 +14,6 @@
     import com.example.packpals.repositories.TripsRepository
     import dagger.hilt.android.lifecycle.HiltViewModel
     import kotlinx.coroutines.launch
-    import java.time.LocalDate
     import java.time.LocalDateTime
     import java.time.ZoneId
     import java.util.Date
@@ -170,6 +169,5 @@
         fun getCurrentTripId(): String? {
             return tripsRepo.selectedTrip.title
         }
-
 
     }

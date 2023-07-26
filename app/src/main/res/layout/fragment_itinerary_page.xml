@@ -7,24 +7,12 @@
     android:background="@color/white"
     tools:context=".views.itinerary.ItineraryPageFragment">
 
-    <TextView
-        android:id="@+id/title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:text="Itinerary"
-        android:textColor="@color/black"
-        android:textSize="24dp"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout6"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent" />
-
     <LinearLayout
         android:id="@+id/linearLayout6"
         android:layout_width="371dp"
         android:layout_height="631dp"
         android:layout_gravity="center_horizontal"
+        android:layout_marginTop="15dp"
         android:layout_marginBottom="24dp"
         android:background="@drawable/round_light_blue_background"
         android:orientation="vertical"
@@ -49,14 +37,27 @@
 
     <Button
         android:id="@+id/addItemButton"
-        android:layout_width="295dp"
-        android:layout_height="51dp"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
         android:layout_marginBottom="40dp"
         android:background="@drawable/round_dark_blue_background"
         android:text="Add Item"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/notificationButton"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/notificationButton"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="40dp"
+        android:background="@drawable/round_dark_blue_background"
+        android:text=" Set Notifications "
+        android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toEndOf="@+id/addItemButton" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 
