@@ -20,32 +20,26 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.LinearLayout
-import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.example.packpals.R
-import com.example.packpals.databinding.FragmentItineraryPageBinding
 import com.example.packpals.viewmodels.ItineraryPageViewModel
 import com.example.packpals.views.Notification
 import com.example.packpals.views.channelID
-import com.example.packpals.views.map.MapsFragment
 import com.example.packpals.views.messageExtra
 import com.example.packpals.views.notificationID
 import com.example.packpals.views.titleExtra
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
+import kotlin.random.Random
 
 @AndroidEntryPoint
 class ItineraryPageFragment : Fragment() {
@@ -145,7 +139,7 @@ class ItineraryPageFragment : Fragment() {
 
         val pendingIntent = PendingIntent.getBroadcast(
             requireContext(),
-            notificationID,
+            (0..Int.MAX_VALUE).random(),
             intent,
             PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
         )

@@ -70,3 +70,4 @@
 |        |        |      |          |   1   |      | 07/25/2023 | creating photo album based on itinerary addition functionality|
 |        |   6    |      |          |       |      | 07/25/2023 |Adjust expense list, profile, photo album, and add trip page UIs, QA, delete unnecessary files, add expense totalling functionality|
 |        |        |      |          |   2   |      | 07/25/2023 |Updated photo album UI|
+|        |        |      |          |       |  9   | 07/25/2023 |Worked on notifications with Itinerary|
