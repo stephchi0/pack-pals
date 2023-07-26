@@ -118,28 +118,27 @@ class PalsRepository @Inject constructor (private val palsCollectionRef: Collect
 
     suspend fun acceptPalRequest(id: String, newPalId: String): Boolean {
         try {
-            // TODO: check if newPalId is in requests
-            // TODO: check if pal
-            val pal = fetchPal(id)
-            val newPalsList = if (pal?.pals?.contains(newPalId) == true) {
-                pal.pals
-            } else {
-                buildList {
-                    add(newPalId)
-                    pal?.pals?.let {
-                        addAll(it)
-                    }
-                }
+            val sendingPal = fetchPal(id)
+            val receivingPal = fetchPal(newPalId)
+
+            if (sendingPal?.pals == null || receivingPal?.pals == null
+                || sendingPal.pals.contains(newPalId)
+                || receivingPal.pals.contains(id) || receivingPal.palRequests == null) {
+                return false
             }
 
-
-            val newPalRequests = pal?.palRequests?.toMutableList()
-            newPalRequests?.removeAll { request ->
-                request.id == newPalId
+            val newSendingPalsList = sendingPal.pals + newPalId
+            val newReceivingPalsList = receivingPal.pals + id
+            val newReceivingPalRequests = receivingPal.palRequests.toMutableList()
+            newReceivingPalRequests.removeAll { request ->
+                request.id == id
             }
 
-            val newPal = pal?.copy(pals = newPalsList, palRequests = newPalRequests)
-            newPal?.let { updatePal(it) }
+            val newSendingPal = sendingPal.copy(pals = newSendingPalsList)
+            val newReceivingPal = receivingPal.copy(pals = newReceivingPalsList, palRequests = newReceivingPalRequests)
+
+            updatePal(newSendingPal)
+            updatePal(newReceivingPal)
 
             return true
         } catch (e: Exception) {
@@ -150,8 +149,6 @@ class PalsRepository @Inject constructor (private val palsCollectionRef: Collect
 
     suspend fun declinePalRequest(id: String, newPalId: String): Boolean {
         try {
-            // TODO: check if newPalId is in requests
-            // TODO: check if pal
             val pal = fetchPal(id)
 
             val newPalRequests = pal?.palRequests?.toMutableList()
