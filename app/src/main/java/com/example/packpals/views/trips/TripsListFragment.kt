@@ -2,7 +2,6 @@ package com.example.packpals.views.trips
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -13,10 +12,10 @@ import android.widget.LinearLayout
 import android.widget.PopupMenu
 import android.widget.TextView
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import com.example.packpals.R
 import com.example.packpals.viewmodels.TripsPageViewModel
 import com.example.packpals.views.NavigationDrawerViewActivity
+import com.example.packpals.views.login.LoginPageActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -136,6 +135,13 @@ class TripsListFragment : Fragment() {
             val transaction = parentFragmentManager.beginTransaction()
             transaction.replace(R.id.tripFragmentContainerView, NewTripFragment())
             transaction.commit()
+        }
+
+        val logoutButton = requireView().findViewById<Button>(R.id.logoutButton)
+        logoutButton.setOnClickListener {
+            viewModel.logout()
+            val intent = Intent(activity, LoginPageActivity::class.java)
+            startActivity(intent)
         }
     }
 }

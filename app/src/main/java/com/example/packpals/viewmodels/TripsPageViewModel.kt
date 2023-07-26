@@ -172,4 +172,8 @@ class TripsPageViewModel @Inject constructor(private val authRepo: AuthRepositor
             }
         }
     }
+
+    fun logout() {
+        authRepo.logout()
+    }
 }
