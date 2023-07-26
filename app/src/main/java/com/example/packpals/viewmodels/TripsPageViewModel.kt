@@ -94,11 +94,12 @@ class TripsPageViewModel @Inject constructor(private val authRepo: AuthRepositor
     }
 
     fun editTrip(title:String){
+        val currentEditTrip = _currentEditTripItem.value
         val tripPalIdsSet = _currentTripPalIds.value
-        if (tripPalIdsSet != null) {
+        if (currentEditTrip != null && tripPalIdsSet != null) {
             viewModelScope.launch {
-                val updatedTrip = Trip(title, authRepo.getCurrentUID(), tripPalIdsSet.toList(),true)
-                _currentEditTripItem.value?.tripId?.let { tripsRepo.updateTrip(it, updatedTrip) }
+                val updatedTrip = currentEditTrip.copy(title = title, tripPalIds = tripPalIdsSet.toList())
+                currentEditTrip.tripId?.let { tripsRepo.updateTrip(it, updatedTrip) }
                 fetchTrips()
             }
         }

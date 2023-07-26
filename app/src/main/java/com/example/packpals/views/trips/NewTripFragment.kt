@@ -10,9 +10,10 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
+import com.bumptech.glide.Glide
 import com.example.packpals.R
 import com.example.packpals.viewmodels.TripsPageViewModel
+import com.google.android.material.imageview.ShapeableImageView
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -41,6 +42,13 @@ class NewTripFragment : Fragment(){
                 for (pal in palsList) {
                     val addPalView = LayoutInflater.from(context).inflate(R.layout.view_new_trip_add_pal, linearLayout, false)
                     addPalView.findViewById<TextView>(R.id.newTripPalName).text = pal.name
+                    if (!pal.profilePictureURL.isNullOrEmpty()) {
+                        Glide
+                            .with(requireContext())
+                            .load(pal.profilePictureURL)
+                            .into(addPalView.findViewById<ShapeableImageView>(R.id.newTripProfilePicture))
+                    }
+
                     addPalView.setOnClickListener {
                         if (pal.id != null) {
                             viewModel.addRemoveTripPal(pal.id!!)

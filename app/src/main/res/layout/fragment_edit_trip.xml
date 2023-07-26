@@ -12,74 +12,85 @@
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/editTripToolbar"
         android:layout_width="match_parent"
-        android:layout_height="73dp"
-        android:layout_marginBottom="20dp"
+        android:layout_height="?attr/actionBarSize"
         android:background="@color/dark_blue"
         android:minHeight="?attr/actionBarSize"
+        android:paddingStart="48dp"
         android:theme="?attr/actionBarTheme"
-        app:layout_constraintBottom_toTopOf="@+id/editTripNameInput"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:title="Edit Trip"
         app:titleTextColor="@color/white" />
 
+    <ImageView
+        android:id="@+id/editTripBackButton"
+        android:layout_width="wrap_content"
+        android:layout_height="24dp"
+        android:layout_marginStart="16dp"
+        android:src="@drawable/ic_back_navigation"
+        app:layout_constraintBottom_toBottomOf="@+id/editTripToolbar"
+        app:layout_constraintStart_toStartOf="@+id/editTripToolbar"
+        app:layout_constraintTop_toTopOf="@+id/editTripToolbar" />
+
     <Button
         android:id="@+id/saveChangesButton"
-        android:layout_width="302dp"
-        android:layout_height="49dp"
-        android:layout_marginBottom="10dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="16dp"
         android:background="@drawable/round_red_background"
         android:text="Save Changes"
         android:textColor="@color/white"
         app:layout_constraintBottom_toTopOf="@+id/leaveTripButton"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.494"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTripPalsScrollView" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
         android:id="@+id/editTripNameInput"
-        android:layout_width="340dp"
+        android:layout_width="0dp"
         android:layout_height="40dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="32dp"
         android:background="@drawable/round_light_blue_background"
         android:ems="10"
         android:inputType="text"
+        android:padding="8dp"
         android:text="Trip Name"
         android:textAlignment="textStart"
         android:textColor="#000000"
-        app:layout_constraintBottom_toTopOf="@+id/tripPalsLabel"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.478"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTripToolbar" />
 
     <TextView
         android:id="@+id/tripPalsLabel"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="27dp"
+        android:layout_marginStart="32dp"
         android:layout_marginTop="20dp"
+        android:layout_marginEnd="32dp"
         android:text="Trip Pals"
         android:textColor="@color/black"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/editTripPalsScrollView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.126"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTripNameInput" />
 
     <ScrollView
         android:id="@+id/editTripPalsScrollView"
-        android:layout_width="330dp"
-        android:layout_height="450dp"
-        android:layout_marginBottom="20dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="16dp"
         android:background="@drawable/round_light_blue_background"
         android:isScrollContainer="false"
         app:layout_constraintBottom_toTopOf="@+id/saveChangesButton"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.512"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tripPalsLabel">
 
@@ -93,17 +104,13 @@
     <Button
         android:id="@+id/leaveTripButton"
         android:layout_width="wrap_content"
-        android:layout_height="20dp"
-        android:layout_marginStart="152dp"
-        android:layout_marginTop="1dp"
-        android:layout_marginEnd="160dp"
-        android:layout_marginBottom="20dp"
+        android:layout_height="24dp"
+        android:layout_marginBottom="24dp"
         android:background="@drawable/round_grey_background"
         android:text="Leave Trip"
         android:textAllCaps="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/saveChangesButton" />
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

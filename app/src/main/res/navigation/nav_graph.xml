@@ -62,7 +62,7 @@
     <fragment
         android:id="@+id/itemDetailsPageFragment"
         android:name="com.example.packpals.views.itinerary.ItemDetailPageFragment"
-        android:label="ItemDetails"
+        android:label="@string/ItemDetails"
         tools:layout="@layout/fragment_item_details_page" >
         <action
             android:id="@+id/action_itemDetailsPageFragment_to_itineraryPageFragment"

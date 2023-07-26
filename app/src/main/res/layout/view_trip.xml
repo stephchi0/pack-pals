@@ -11,9 +11,9 @@
         android:id="@+id/tripLinearLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:focusableInTouchMode="true"
         android:clickable="true"
         android:focusable="true"
+        android:focusableInTouchMode="true"
         android:orientation="horizontal">
 
         <TextView
@@ -23,6 +23,7 @@
             android:layout_marginLeft="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
+            android:layout_weight="1"
             android:text="TextView"
             android:textColor="@color/black"
             android:textSize="16sp" />
@@ -31,6 +32,7 @@
             android:id="@+id/trip_triple_dot_menu"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:layout_marginRight="8dp"
             android:background="@color/white"
             android:clickable="true"
             app:srcCompat="@drawable/ic_vert_black_dots" />

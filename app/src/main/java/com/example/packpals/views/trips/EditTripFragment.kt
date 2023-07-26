@@ -11,8 +11,10 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import com.bumptech.glide.Glide
 import com.example.packpals.R
 import com.example.packpals.viewmodels.TripsPageViewModel
+import com.google.android.material.imageview.ShapeableImageView
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -46,6 +48,12 @@ class EditTripFragment : Fragment(){
                 val addPalView = LayoutInflater.from(context).inflate(R.layout.view_new_trip_add_pal, linearLayout, false)
                 val checkmarkImageView = addPalView.findViewById<ImageView>(R.id.newTripCheckmarkIcon)
                 addPalView.findViewById<TextView>(R.id.newTripPalName).text = pal.name
+                if (!pal.profilePictureURL.isNullOrEmpty()) {
+                    Glide
+                        .with(requireContext())
+                        .load(pal.profilePictureURL)
+                        .into(addPalView.findViewById<ShapeableImageView>(R.id.newTripProfilePicture))
+                }
                 if(viewModel.currentTripPalIds.value?.contains(pal.id)==true){
                     checkmarkImageView.setImageResource(R.drawable.ic_checked)
                 }
@@ -92,6 +100,12 @@ class EditTripFragment : Fragment(){
             transaction.commit()
         }
 
+        val backButton = requireView().findViewById<ImageView>(R.id.editTripBackButton)
+        backButton.setOnClickListener {
+            val transaction = parentFragmentManager.beginTransaction()
+            transaction.replace(R.id.tripFragmentContainerView, TripsListFragment())
+            transaction.commit()
+        }
     }
 
     private fun updateTripPals(){
