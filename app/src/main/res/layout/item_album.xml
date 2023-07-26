@@ -27,7 +27,7 @@
                 android:id="@+id/nameAlbum"
                 android:layout_width="170dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="4dp"
+                android:layout_weight="1"
                 android:background="@android:color/transparent"
                 android:hint="New Album Name"
                 android:textColor="@android:color/black"
@@ -38,7 +38,6 @@
                 android:id="@+id/pictureAdd"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_marginStart="150dp"
                 app:srcCompat="@drawable/ic_add" />
         </LinearLayout>
 
@@ -46,7 +45,7 @@
             android:id="@+id/galleryRecyclerView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="8dp"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             app:layout_constraintTop_toBottomOf="@+id/addPicture"
             app:spanCount="3" />
