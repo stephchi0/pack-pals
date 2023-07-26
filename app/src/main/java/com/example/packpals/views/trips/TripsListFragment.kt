@@ -129,12 +129,6 @@ class TripsListFragment : Fragment() {
             }
         }
 
-        val viewCurrentTripButton = requireView().findViewById<Button>(R.id.viewCurrentTripButton)
-        viewCurrentTripButton.setOnClickListener {
-            val intent = Intent(activity, NavigationDrawerViewActivity::class.java)
-            startActivity(intent)
-        }
-
         val newTripButton = requireView().findViewById<Button>(R.id.addNewTripButton)
         newTripButton.setOnClickListener {
             viewModel.clearTripItems()
