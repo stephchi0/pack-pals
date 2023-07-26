@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -32,7 +33,12 @@ class FindAPalFragment : Fragment() {
 
         val recyclerView = view.findAPalRecyclerView
         val adapter = FindAPalRecyclerViewAdapter { pal ->
-            pal.id?.let { viewModel.sendPalRequest(it) }
+            pal.id?.let {
+                viewModel.sendPalRequest(it) { success ->
+                    val text = if (success) "Request sent" else "Request failed"
+                    Toast.makeText(context, text, Toast.LENGTH_SHORT).show()
+                }
+            }
         }
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(context)

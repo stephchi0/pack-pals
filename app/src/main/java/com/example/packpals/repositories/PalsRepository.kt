@@ -98,18 +98,21 @@ class PalsRepository @Inject constructor (private val palsCollectionRef: Collect
     }
 
     suspend fun sendPalRequest(senderId: String, palId: String): Boolean {
-        return try {
+        try {
             val senderPal = fetchPal(senderId)
             val requestPal = fetchPal(palId)
+            if (senderPal?.pals?.contains(requestPal?.id) == true) {
+                return false
+            }
             val palRequests = requestPal?.palRequests?.toMutableSet() ?: mutableListOf()
             palRequests.add(PalRequest(senderId, senderPal?.name, senderPal?.profilePictureURL))
             val newRequestPal = requestPal?.copy(palRequests = palRequests.toList())
             newRequestPal?.let {
                 updatePal(it)
             }
-            true
+            return true
         } catch (e: Exception) {
-            false
+            return false
         }
     }
 
