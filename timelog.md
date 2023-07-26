@@ -72,3 +72,4 @@
 |        |        |      |          |   2   |      | 07/25/2023 |Updated photo album UI|
 |        |        |  4   |          |       |      | 07/25/2023 | search on find a pal|
 |        |        |  4   |          |       |      | 07/25/2023 | pals page, find a pal, pal requests UI polish|
+|2       |        |      |          |       |      | 07/25/2023 | fix leave trip bug, adjust trips list UI|
