@@ -78,10 +78,16 @@ class PalsRepository @Inject constructor (private val palsCollectionRef: Collect
         }
     }
 
-    suspend fun editProfile(id: String, name: String, gender: String?, bio: String?) {
-        val palProfile = mapOf("name" to name, "gender" to gender, "bio" to bio)
+    suspend fun editProfile(id: String, name: String, bio: String?, profilePictureURL: String?) {
+        var palProfile = mapOf("name" to name, "bio" to bio)
+
+        if (!profilePictureURL.isNullOrEmpty()) {
+            palProfile = mapOf("name" to name, "bio" to bio, "profilePictureURL" to profilePictureURL)
+        }
+
         palsCollectionRef.document(id).update(palProfile).await()
     }
+
     suspend fun fetchProfile(id: String): Pal? {
         val palEdit = palsCollectionRef.document(id).get().await()
         return if (palEdit.exists()) {

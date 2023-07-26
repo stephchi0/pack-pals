@@ -5,9 +5,10 @@ import com.example.packpals.repositories.ExpensesRepository
 import com.example.packpals.repositories.ItineraryRepository
 import com.example.packpals.repositories.OpenWeatherRepository
 import com.example.packpals.repositories.PackingListRepository
+import com.example.packpals.repositories.PhotoRepository
 import com.example.packpals.repositories.PalsRepository
+import com.example.packpals.repositories.PlacesRepository
 import com.example.packpals.repositories.StorageRepository
-import com.example.packpals.repositories.TripPhotosRepository
 import com.example.packpals.repositories.TripsRepository
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -20,11 +21,26 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import javax.inject.Named
 import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
 object AppModule {
+    @Provides
+    @Singleton
+    @Named("openWeatherApiKey")
+    fun provideOpenWeatherApiKey(): String {
+        return BuildConfig.OPEN_WEATHER_API_KEY
+    }
+
+    @Provides
+    @Singleton
+    @Named("placesApiKey")
+    fun providePlacesApiKey(): String {
+        return BuildConfig.PLACES_API_KEY
+    }
+
     @Singleton
     @Provides
     fun provideFirebaseFirestore(): FirebaseFirestore {
@@ -69,25 +85,37 @@ object AppModule {
 
     @Singleton
     @Provides
-    fun provideTripPhotosRepository(db: FirebaseFirestore): TripPhotosRepository {
-        return TripPhotosRepository(db.collection("trip_photos"))
-    }
-
-    @Singleton
-    @Provides
     fun provideExpensesRepository(db: FirebaseFirestore): ExpensesRepository {
         return ExpensesRepository(db.collection("expenses"))
     }
 
     @Singleton
     @Provides
-    fun provideItineraryRepository(db: FirebaseFirestore): ItineraryRepository {
-        return ItineraryRepository(db.collection("itinerary"), OpenWeatherRepository())
+    fun provideOpenWeatherRepository(@Named("openWeatherApiKey") apiKey: String): OpenWeatherRepository {
+        return OpenWeatherRepository(apiKey)
+    }
+
+    @Singleton
+    @Provides
+    fun providePlacesRepository(openWeatherRepo: OpenWeatherRepository, @Named("placesApiKey") apiKey: String): PlacesRepository {
+        return PlacesRepository(openWeatherRepo, apiKey)
+    }
+
+    @Singleton
+    @Provides
+    fun provideItineraryRepository(db: FirebaseFirestore, openWeatherRepo: OpenWeatherRepository, @Named("openWeatherApiKey") apiKey: String): ItineraryRepository {
+        return ItineraryRepository(db.collection("itinerary"), OpenWeatherRepository(apiKey))
     }
 
     @Singleton
     @Provides
     fun providePackingListRepository(db: FirebaseFirestore): PackingListRepository {
         return PackingListRepository(db.collection("packing_list"))
+    }
+
+    @Singleton
+    @Provides
+    fun providePhotoRepository(db: FirebaseFirestore): PhotoRepository {
+        return PhotoRepository(db.collection("photos"))
     }
 }

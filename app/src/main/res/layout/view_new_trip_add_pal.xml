@@ -24,7 +24,7 @@
                 android:layout_margin="10dp"
                 android:scaleType="centerCrop"
                 app:shapeAppearanceOverlay="@style/circleIcon"
-                app:srcCompat="@drawable/preview_find_a_pal" />
+                app:srcCompat="@drawable/default_profile_picture" />
 
             <TextView
                 android:id="@+id/newTripPalName"

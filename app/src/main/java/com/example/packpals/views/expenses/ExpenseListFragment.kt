@@ -9,6 +9,7 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
@@ -36,6 +37,34 @@ class ExpenseListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val totalExpensesButton = requireView().findViewById<Button>(R.id.totalExpensesButton)
+        totalExpensesButton.setOnClickListener {
+            val dialogView = LayoutInflater.from(context).inflate(R.layout.dialog_total_expenses, null, false)
+            val dialogTextView = dialogView.findViewById<TextView>(R.id.totalExpensesTextView)
+
+            val totalExpensesOwed = viewModel.getTotalExpenses()
+            var totalExpensesText = ""
+            for (pal in viewModel.palsList.value ?: emptyList()) {
+                val amountOwed = totalExpensesOwed[pal.id] ?: 0.0
+                if (amountOwed >= 0.0) {
+                    totalExpensesText += String.format("\n%s owes you: $%.2f\n", pal.name, amountOwed)
+                }
+                else {
+                    totalExpensesText += String.format("\nYou owe %s: $%.2f\n", pal.name, -amountOwed)
+                }
+            }
+            dialogTextView.text = totalExpensesText
+
+            val builder = AlertDialog.Builder(requireContext())
+            builder.setView(dialogView)
+                .setTitle("Total Expenses Owed")
+                .setPositiveButton("Close") {
+                        dialog, _ -> dialog.dismiss()
+                }
+
+            builder.create().show()
+        }
 
         val linearLayout = requireView().findViewById<LinearLayout>(R.id.expensesLinearLayout)
         viewModel.expensesList.observe(viewLifecycleOwner) { expensesList ->
@@ -68,7 +97,13 @@ class ExpenseListFragment : Fragment() {
                     )
                 }
                 else {
-                    amountOwedView.text = String.format("You owe: $%.2f", expense.amountsOwed!![userId]) // TODO: add payer's name
+                    val payer = viewModel.palsList.value?.find { pal -> pal.id == expense.payerId }
+                    if (payer != null) {
+                        amountOwedView.text = String.format("You owe %s: $%.2f", payer.name, expense.amountsOwed!![userId])
+                    }
+                    else {
+                        amountOwedView.text = String.format("You owe: $%.2f", expense.amountsOwed!![userId])
+                    }
                     editImageView.visibility = View.INVISIBLE
                     checkmarkImageView.visibility = View.INVISIBLE
                 }

@@ -19,19 +19,19 @@
             android:id="@+id/predictionButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/rounded_corner_salmon"
+            android:background="@drawable/round_red_background"
             android:drawableEnd="@drawable/ic_add"
             android:paddingStart="16sp"
             android:paddingTop="8sp"
             android:paddingEnd="8sp"
             android:paddingBottom="8sp"
             android:text="Search Result"
+            android:singleLine="true"
             android:textAlignment="viewStart"
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:textSize="18sp"
-            android:textStyle="bold">
-        </Button>
+            android:textStyle="bold"></Button>
 
         <TextView
             android:id="@+id/address"
@@ -39,6 +39,7 @@
             android:layout_height="wrap_content"
             android:paddingLeft="16dp"
             android:text="Address"
+            android:singleLine="true"
             android:textColor="@color/black"
             android:textSize="18sp"
             android:textStyle="italic" />

@@ -19,6 +19,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.packpals.R
 import com.example.packpals.viewmodels.ItineraryPageViewModel
+import com.example.packpals.viewmodels.PhotoViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import java.time.LocalDate
@@ -29,6 +30,7 @@ import java.util.Calendar
 class ItemDetailPageFragment : Fragment() {
     private val viewModel: ItineraryPageViewModel by activityViewModels()
     private var startDate: LocalDate? = null
+    private val photoViewModel: PhotoViewModel by activityViewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,7 +58,11 @@ class ItemDetailPageFragment : Fragment() {
             tvForecastField.text = item.forecast
 
             tvLocationField.setOnClickListener{
-                showEditDialog()
+                showNameEditDialog()
+            }
+
+            tvAddressField.setOnClickListener{
+                showAddressEditDialog()
             }
         }
 
@@ -102,21 +108,44 @@ class ItemDetailPageFragment : Fragment() {
         saveButton.setOnClickListener{
             lifecycleScope.launch{
                 viewModel.createItem(view.findViewById<TextView>(R.id.nameField).text as String)
+                if (viewModel.add.value == true){
+                    photoViewModel.createAlbum(view.findViewById<TextView>(R.id.nameField).text as String)
+                }
                 viewModel.fetchItineraryItems()
                 findNavController().navigate(R.id.action_itemDetailsPageFragment_to_itineraryPageFragment)
             }
         }
 
     }
-    private fun showEditDialog() {
+    private fun showNameEditDialog() {
         val editText = EditText(requireContext())
+        editText.setText(view?.findViewById<TextView>(R.id.nameField)?.text)
+
+        AlertDialog.Builder(requireContext())
+            .setTitle("Edit Text")
+            .setView(editText)
+            .setMessage(view?.findViewById<TextView>(R.id.nameField)?.text)
+            .setPositiveButton("Save") { dialog, _ ->
+                val newText = editText.text.toString()
+                view?.findViewById<TextView>(R.id.nameField)?.text = newText
+                dialog.dismiss()
+            }
+            .setNegativeButton("Cancel") { dialog, _ ->
+                dialog.dismiss()
+            }
+            .show()
+    }
+
+    private fun showAddressEditDialog() {
+        val editText = EditText(requireContext())
+        editText.setText(view?.findViewById<TextView>(R.id.addressField)?.text)
 
         AlertDialog.Builder(requireContext())
             .setTitle("Edit Text")
             .setView(editText)
             .setPositiveButton("Save") { dialog, _ ->
                 val newText = editText.text.toString()
-                view?.findViewById<TextView>(R.id.nameField)?.text = newText
+                view?.findViewById<TextView>(R.id.addressField)?.text = newText
                 dialog.dismiss()
             }
             .setNegativeButton("Cancel") { dialog, _ ->

@@ -8,14 +8,17 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.LinearLayout
+import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.example.packpals.R
 import com.example.packpals.viewmodels.ItineraryPageViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 
 @AndroidEntryPoint
@@ -38,6 +41,7 @@ class ItineraryPageFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val linearLayout = requireView().findViewById<LinearLayout>(R.id.lliterinerary)
+
         viewModel.itineraryItemsList.observe(viewLifecycleOwner) { itineraryItems ->
             linearLayout.removeAllViews()
             for (item in itineraryItems) {
@@ -45,7 +49,7 @@ class ItineraryPageFragment : Fragment() {
 
                 itineraryView.findViewById<TextView>(R.id.tvlocation).text = item.location
                 itineraryView.findViewById<TextView>(R.id.tvforecast).text = item.forecast
-                itineraryView.findViewById<TextView>(R.id.tvdate).text = SimpleDateFormat("MM/dd/yyyy").format(item.startDate)
+                itineraryView.findViewById<TextView>(R.id.tvdate).text = SimpleDateFormat("MM/dd/yyyy - HH:ss").format(item.startDate)
 
                 if(item.photo_reference != null){
                     Glide
@@ -53,7 +57,7 @@ class ItineraryPageFragment : Fragment() {
                         .load(item.photo_reference)
                         .into(itineraryView.findViewById(R.id.image))
                 }else{
-                    itineraryView.findViewById<ImageView>(R.id.image).setImageResource(R.mipmap.fenugs)
+                    itineraryView.findViewById<ImageView>(R.id.image).setImageResource(R.drawable.ic_itinerary)
                 }
 
 
@@ -71,6 +75,11 @@ class ItineraryPageFragment : Fragment() {
         addNewItemButton.setOnClickListener {
             findNavController().navigate(R.id.action_itineraryFragment_to_addItineraryItemFragment)
         }
+
+
+        requireView().findViewById<TextView>(R.id.title).text = viewModel.getCurrentTripId() + " Itinerary"
+
+
     }
 
     companion object {

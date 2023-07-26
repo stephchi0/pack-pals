@@ -1,27 +1,20 @@
 package com.example.packpals.views.itinerary
 
-import android.app.DatePickerDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.EditText
-import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import com.bumptech.glide.Glide
 import com.example.packpals.R
 import com.example.packpals.viewmodels.ItineraryPageViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-import org.w3c.dom.Text
-import java.text.SimpleDateFormat
-import java.util.Calendar
 
 @AndroidEntryPoint
 class ItinerarySearchPageFragment: Fragment() {
@@ -51,10 +44,6 @@ class ItinerarySearchPageFragment: Fragment() {
 
                 searchView.findViewById<Button>(R.id.predictionButton).text = item.mainText
                 searchView.findViewById<TextView>(R.id.address).text = item.secondaryText
-//                searchView.setOnClickListener {
-//                    viewModel.setCurrentItem(item)
-//                    findNavController().navigate(R.id.action_itineraryFragment_to_itemDetailsPageFragment)
-//                }
                 searchView.findViewById<Button>(R.id.predictionButton).setOnClickListener {
                     lifecycleScope.launch{
                         viewModel.setSearchedItem(item.mainText!!, item.secondaryText!!)
