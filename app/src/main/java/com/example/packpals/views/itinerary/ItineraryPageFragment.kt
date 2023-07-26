@@ -79,8 +79,7 @@ class ItineraryPageFragment : Fragment() {
                     for (item in itineraryItems.value!!) {
                         if (item.startDate?.time!! > Date().time) {
                             scheduleNotification(
-                                viewModel.getCurrentTripId()!!,
-                                "Location: " + item.location + "\n" +
+                                viewModel.getCurrentTripId()!! + " Location: " + item.location,
                                         "Weather: " + item.forecast + "\n" +
                                         "Time: " + getHourAndMinutes(item.startDate!!) +
                                         " - " + getHourAndMinutes(item.endDate!!),

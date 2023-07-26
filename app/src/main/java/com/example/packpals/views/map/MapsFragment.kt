@@ -8,22 +8,22 @@ import android.graphics.BitmapFactory
 import android.graphics.Canvas
 import android.graphics.Paint
 import android.location.Location
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.setFragmentResultListener
 import androidx.navigation.fragment.findNavController
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.packpals.R
 import com.example.packpals.models.Itinerary_Item
 import com.example.packpals.viewmodels.ItineraryPageViewModel
-import com.example.packpals.views.itinerary.ItineraryPageFragment
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -44,9 +44,9 @@ class MapsFragment : Fragment(), GoogleMap.OnInfoWindowClickListener {
     private lateinit var placesClient: PlacesClient
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
     private var lastKnownLocation: Location? = null
+    private var cameraPosition: CameraPosition? = null
     private var locationPermissionGranted = false
     private val sydney = LatLng(-34.0, 151.0)
-    private var cameraPosition: CameraPosition? = null
     private val viewModel: ItineraryPageViewModel by activityViewModels()
     private var markerMap: HashMap<Marker, Itinerary_Item> = HashMap<Marker, Itinerary_Item>()
 
@@ -77,7 +77,9 @@ class MapsFragment : Fragment(), GoogleMap.OnInfoWindowClickListener {
         viewModel.itineraryItemsList.observe(viewLifecycleOwner) {
             Log.i("MapPageActivity", it?.fold("Location IDs:") { acc, cur -> "$acc ${cur.location}" } ?: "[ERROR]")
         }
-
+        setFragmentResultListener("requestKey") { requestKey, bundle ->
+            cameraPosition = bundle.getParcelable(KEY_CAMERA_POSITION)
+        }
         return inflater.inflate(R.layout.fragment_maps, container, false)
     }
 
@@ -154,7 +156,9 @@ class MapsFragment : Fragment(), GoogleMap.OnInfoWindowClickListener {
                     if (task.isSuccessful) {
                         // Set the map's camera position to the current location of the device.
                         lastKnownLocation = task.result
-                        if (lastKnownLocation != null) {
+                        if (cameraPosition != null ) {
+                            map?.moveCamera(CameraUpdateFactory.newCameraPosition(cameraPosition!!))
+                        } else if (lastKnownLocation != null) {
                             map?.moveCamera(CameraUpdateFactory.newLatLngZoom(
                                 LatLng(lastKnownLocation!!.latitude,
                                     lastKnownLocation!!.longitude), DEFAULT_ZOOM.toFloat()))
@@ -216,14 +220,24 @@ class MapsFragment : Fragment(), GoogleMap.OnInfoWindowClickListener {
             bundle.putString("locationStartDate", itineraryItem.startDate.toString())
             bundle.putString("locationEndDate", itineraryItem.endDate.toString())
             bundle.putString("locationPhoto", itineraryItem.photo_reference)
-            bundle.putString("locationId", itineraryItem.itemId)
+            bundle.putParcelable(KEY_CAMERA_POSITION, map?.cameraPosition)
         }
         findNavController().navigate(R.id.locationDetailsFragment,bundle)
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        map?.let { map ->
+            outState.putParcelable(KEY_CAMERA_POSITION, map.cameraPosition)
+            outState.putParcelable(KEY_LOCATION, lastKnownLocation)
+        }
+        super.onSaveInstanceState(outState)
     }
 
     companion object {
         private val TAG = "MAPPING"
         private const val DEFAULT_ZOOM = 15
         private const val PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1
+        private const val KEY_CAMERA_POSITION = "camera_position"
+        private const val KEY_LOCATION = "location"
     }
 }
