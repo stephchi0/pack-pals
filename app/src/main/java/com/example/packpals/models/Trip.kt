@@ -5,5 +5,5 @@ data class Trip(
     val tripCreatorId: String? = null,
     val tripPalIds: List<String>? = null,
     var active: Boolean? = null,
-    var tripId: String? = null,
+    var tripId: String? = null
 )

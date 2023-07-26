@@ -8,10 +8,12 @@
     import androidx.lifecycle.viewModelScope
     import com.example.packpals.models.Itinerary_Item
     import com.example.packpals.models.SearchResultItem
+    import com.example.packpals.models.Trip
     import com.example.packpals.repositories.ItineraryRepository
     import com.example.packpals.repositories.OpenWeatherRepository
     import com.example.packpals.repositories.PlacesRepository
     import com.example.packpals.repositories.TripsRepository
+    import com.example.packpals.views.Notification
     import dagger.hilt.android.lifecycle.HiltViewModel
     import kotlinx.coroutines.launch
     import java.time.LocalDate
@@ -170,6 +172,5 @@
         fun getCurrentTripId(): String? {
             return tripsRepo.selectedTrip.title
         }
-
 
     }

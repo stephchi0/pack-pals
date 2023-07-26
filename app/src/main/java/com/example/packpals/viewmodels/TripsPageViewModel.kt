@@ -65,7 +65,7 @@ class TripsPageViewModel @Inject constructor(private val authRepo: AuthRepositor
     fun editActive(trip: Trip){
         val tripId = trip.tripId
         if (tripId != null){
-            val updatedTrip = Trip(trip.title,  trip.tripCreatorId,trip.tripPalIds,!trip.active!!,trip.tripId)
+            val updatedTrip = Trip(trip.title,  trip.tripCreatorId,trip.tripPalIds,!trip.active!! ,trip.tripId)
             viewModelScope.launch{
                 tripsRepo.updateTrip(tripId,updatedTrip)
                 fetchTrips()
@@ -141,7 +141,7 @@ class TripsPageViewModel @Inject constructor(private val authRepo: AuthRepositor
                         val randomPal = tripPals.shuffled()[0]
                         //remove the random pal from the trip pals because now they're the creator
                         tripPals?.toMutableList()?.remove(randomPal)
-                        val updatedTrip = Trip(trip.title, randomPal,tripPals,trip.active!!,trip.tripId)
+                        val updatedTrip = Trip(trip.title, randomPal,tripPals,trip.active!!, trip.tripId)
                         tripsRepo.updateTrip(trip.tripId!!, updatedTrip)
                     }
                     else{
