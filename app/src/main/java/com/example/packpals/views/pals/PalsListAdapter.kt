@@ -29,9 +29,11 @@ class PalsListAdapter : ListAdapter<Pal, PalsListAdapter.ViewHolder>(DIFF_CALLBA
         val pal = getItem(position)
         holder.usernameView.text = pal.name
 
-        Glide.with(holder.profilePicImageView)
-            .load(pal.profilePictureURL)
-            .into(holder.profilePicImageView)
+        pal.profilePictureURL?.let {
+            Glide.with(holder.profilePicImageView)
+                .load(it)
+                .into(holder.profilePicImageView)
+        }
     }
 
     inner class ViewHolder(binding: ViewPalListItemBinding) : RecyclerView.ViewHolder(binding.root) {
