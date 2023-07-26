@@ -8,6 +8,7 @@ import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.packpals.databinding.ViewPalRequestItemBinding
 import com.example.packpals.models.Pal
 import com.example.packpals.models.PalRequest
@@ -37,12 +38,19 @@ class IncomingPalRequestsAdapter(
         holder.declineButton.setOnClickListener {
             request?.let(buttonListener::onDeclineButtonPressed)
         }
+
+        request.profilePictureURL?.let {
+            Glide.with(holder.profilePicImageView)
+                .load(it)
+                .into(holder.profilePicImageView)
+        }
     }
 
     inner class ViewHolder(binding: ViewPalRequestItemBinding) : RecyclerView.ViewHolder(binding.root) {
         val usernameView: TextView = binding.username
         val acceptButton = binding.acceptButton
         val declineButton = binding.declineButton
+        val profilePicImageView = binding.profilePic
 
         override fun toString(): String {
             return super.toString() + " '" + usernameView.text + "'"

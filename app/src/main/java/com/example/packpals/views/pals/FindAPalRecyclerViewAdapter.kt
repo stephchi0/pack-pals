@@ -49,9 +49,11 @@ class FindAPalRecyclerViewAdapter(
             }
         }
 
-        Glide.with(holder.profilePicImageView)
-            .load(pal.profilePictureURL)
-            .into(holder.profilePicImageView)
+        pal.profilePictureURL?.let {
+            Glide.with(holder.profilePicImageView)
+                .load(it)
+                .into(holder.profilePicImageView)
+        }
     }
 
     inner class ViewHolder(binding: ViewFindAPalItemBinding) : RecyclerView.ViewHolder(binding.root) {
