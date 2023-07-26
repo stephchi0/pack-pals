@@ -1,5 +1,5 @@
 |Michelle|Stephen | Joey | Jonathan | Hojun | Alex |    Date    |Task|
-|:------:|:------:|:----:|:--------:|:-----:|:----:|:----------:|:---|
+|:------:|:------:|:----:|:--------:|:-----:|:----:|:----------:|:--|
 |   1    |   1    |  1   |    1     |   1   |  1   | 05/23/2023 |Meeting to discuss project ideas|
 |   4    |   2    |  2   |    2     |   2   |  2   | 05/26/2023 |Worked on project proposal presentation|
 |   2    |   2    |  2   |    2     |   2   |  2   | 05/30/2023 |Meeting to discuss new project ideas|
@@ -70,4 +70,7 @@
 |        |        |      |          |   1   |      | 07/25/2023 | creating photo album based on itinerary addition functionality|
 |        |   6    |      |          |       |      | 07/25/2023 |Adjust expense list, profile, photo album, and add trip page UIs, QA, delete unnecessary files, add expense totalling functionality|
 |        |        |      |          |   2   |      | 07/25/2023 |Updated photo album UI|
+|        |        |  4   |          |       |      | 07/25/2023 | search on find a pal|
+|        |        |  4   |          |       |      | 07/25/2023 | pals page, find a pal, pal requests UI polish|
+|2       |        |      |          |       |      | 07/25/2023 | fix leave trip bug, adjust trips list UI|
 |        |        |      |          |       |  9   | 07/25/2023 |Worked on notifications with Itinerary|

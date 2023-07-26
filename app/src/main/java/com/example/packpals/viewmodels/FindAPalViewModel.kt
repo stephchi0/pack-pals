@@ -25,14 +25,16 @@ class FindAPalViewModel @Inject constructor(
     fun queryPals(query: String) {
         viewModelScope.launch {
             val queryResult = palsRepo.queryPals(query)
-            _palRequestQueryResultLiveData.value = queryResult
+            _palRequestQueryResultLiveData.value = queryResult.filterNot { pal ->
+                pal.id == authRepo.getCurrentUID()
+            }
         }
     }
 
-    fun sendPalRequest(userId: String) {
+    fun sendPalRequest(userId: String, onCompleteListener: (success: Boolean) -> Unit) {
         viewModelScope.launch {
             authRepo.getCurrentUID()?.let {
-                palsRepo.sendPalRequest(it, userId)
+                onCompleteListener(palsRepo.sendPalRequest(it, userId))
             }
         }
     }

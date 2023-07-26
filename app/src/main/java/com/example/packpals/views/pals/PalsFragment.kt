@@ -1,6 +1,8 @@
 package com.example.packpals.views.pals
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -29,7 +31,25 @@ class PalsFragment : Fragment() {
         val viewBinding = FragmentPalsBinding.inflate(inflater, container, false)
 
         viewBinding.palRecyclerView.layoutManager = LinearLayoutManager(context)
-        viewBinding.palRecyclerView.adapter = PalsListAdapter(viewModel.palsLiveData, this)
+        val adapter = PalsListAdapter()
+        viewBinding.palRecyclerView.adapter = adapter
+
+        viewModel.palsLiveData.observe(viewLifecycleOwner) { adapter.submitList(it) }
+
+        viewBinding.searchInput.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                // do nothing
+            }
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                // do nothing
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+                viewModel.filterPals(s.toString())
+            }
+
+        })
 
         val navController = this.findNavController()
 

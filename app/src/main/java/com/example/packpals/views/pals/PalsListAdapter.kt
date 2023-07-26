@@ -2,20 +2,21 @@ package com.example.packpals.views.pals
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.LiveData
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.packpals.databinding.ViewPalListItemBinding
-import com.example.packpals.databinding.ViewPalRequestItemBinding
 import com.example.packpals.models.Pal
-import com.example.packpals.models.PalRequest
 
-class PalsListAdapter(private val palsLiveData: LiveData<List<Pal>>, lifecycleOwner: LifecycleOwner) : RecyclerView.Adapter<PalsListAdapter.ViewHolder>() {
+class PalsListAdapter : ListAdapter<Pal, PalsListAdapter.ViewHolder>(DIFF_CALLBACK) {
+    companion object {
+        val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Pal>() {
+            override fun areItemsTheSame(oldPal: Pal, newPal: Pal) = oldPal.id == newPal.id
 
-    init {
-        palsLiveData.observe(lifecycleOwner) {
-            notifyDataSetChanged()
+            override fun areContentsTheSame(oldPal: Pal, newPal: Pal) = oldPal == newPal
         }
     }
 
@@ -25,16 +26,19 @@ class PalsListAdapter(private val palsLiveData: LiveData<List<Pal>>, lifecycleOw
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = palsLiveData.value?.get(position)
-        holder.usernameView.text = item?.name
-    }
+        val pal = getItem(position)
+        holder.usernameView.text = pal.name
 
-    override fun getItemCount(): Int {
-        return palsLiveData.value?.size ?: 0
+        pal.profilePictureURL?.let {
+            Glide.with(holder.profilePicImageView)
+                .load(it)
+                .into(holder.profilePicImageView)
+        }
     }
 
     inner class ViewHolder(binding: ViewPalListItemBinding) : RecyclerView.ViewHolder(binding.root) {
         val usernameView: TextView = binding.username
+        val profilePicImageView: ImageView = binding.profilePic
 
         override fun toString(): String {
             return super.toString() + " '" + usernameView.text + "'"
