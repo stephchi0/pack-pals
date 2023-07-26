@@ -141,8 +141,10 @@ class TripsPageViewModel @Inject constructor(private val authRepo: AuthRepositor
                         if(tripPals.isNotEmpty()){
                             val randomPal = tripPals.shuffled()[0]
                             //remove the random pal from the trip pals because now they're the creator
-                            tripPals?.toMutableList()?.remove(randomPal)
-                            val updatedTrip = Trip(title = trip.title, tripCreatorId = randomPal,tripPalIds = tripPals,active = trip.active!!,tripId = trip.tripId)
+
+                            val newPals = tripPals.toMutableList()
+                            newPals.remove(randomPal)
+                            val updatedTrip = Trip(title = trip.title, tripCreatorId = randomPal,tripPalIds = newPals,active = trip.active!!,tripId = trip.tripId)
                             tripsRepo.updateTrip(trip.tripId!!, updatedTrip)
                             fetchTrips()
                         } else{
@@ -156,11 +158,12 @@ class TripsPageViewModel @Inject constructor(private val authRepo: AuthRepositor
                     val tripInfo = trip.tripId?.let { tripsRepo.fetchTrip(it) }
                     if(tripInfo!=null) {
                         val tripPals = tripInfo.tripPalIds
-                        if (tripPals ==null ){
+                        if (tripPals.isNullOrEmpty()){
                             tripsRepo.deleteTrip(trip.tripId!!)
                         }
-                        tripPals?.toMutableList()?.remove(userId)
-                        val updatedTrip = Trip(trip.title,trip.tripCreatorId, tripPals,trip.active,trip.tripId)
+                        val newPals = tripPals?.toMutableList()
+                        newPals?.remove(userId)
+                        val updatedTrip = Trip(trip.title,trip.tripCreatorId, newPals,trip.active,trip.tripId)
                         tripsRepo.updateTrip(trip.tripId!!, updatedTrip)
                     }
                     fetchTrips()
