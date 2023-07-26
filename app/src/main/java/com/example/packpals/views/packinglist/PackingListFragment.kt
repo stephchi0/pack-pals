@@ -102,6 +102,7 @@ class PackingListFragment : Fragment() {
             if(groupTextView.text.toString()!=null){
                 viewModel.createPackingListItem(groupTextView.text.toString(),true)
             }
+            groupTextView.setText("")
             viewModel.fetchPackingList()
         }
 
@@ -111,6 +112,7 @@ class PackingListFragment : Fragment() {
             if(individualTextView.text.toString()!=null){
                 viewModel.createPackingListItem(individualTextView.text.toString(),false)
             }
+            individualTextView.setText("")
             viewModel.fetchPackingList()
         }
     }
