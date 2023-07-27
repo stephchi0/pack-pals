@@ -76,3 +76,4 @@
 |        |        |      |          |       |  9   | 07/25/2023 |Worked on notifications with Itinerary|
 |        |        |      |          |       |  7   | 07/25/2023 |Connected Itinerary specific album to Location Details|
 |        |   5    |      |          |       |      | 07/26/2023 |Adjust photo album, packing list, and new/edit trip UI, fix pal requests logic, fix edit trip logic, navigate to trips page when logged in and add log out button|
+|        |        |  2   |          |       |      | 07/26/2023 |refresh logic for pals page, unpal button|

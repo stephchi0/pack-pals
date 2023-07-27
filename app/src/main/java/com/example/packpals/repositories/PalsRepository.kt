@@ -165,4 +165,22 @@ class PalsRepository @Inject constructor (private val palsCollectionRef: Collect
             return false
         }
     }
+
+    suspend fun removePalFromPalsList(userId: String, removedPalId: String) {
+        try {
+            val userPal = fetchPal(userId)
+            val removedPal = fetchPal(removedPalId)
+
+            listOfNotNull(
+                Pair(userPal, removedPalId),
+                Pair(removedPal, userId)
+            ).forEach { (pal, removedId) ->
+                val newPals = pal?.pals?.toMutableList()
+                newPals?.remove(removedId)
+                pal?.copy(pals = newPals)?.let { updatePal(it) }
+            }
+        } catch (e: Exception) {
+            Log.w(TAG, "Error removing pal $removedPalId for user $userId", e)
+        }
+    }
 }
