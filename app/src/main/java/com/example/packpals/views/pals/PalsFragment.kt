@@ -30,8 +30,18 @@ class PalsFragment : Fragment() {
         // Inflate the layout for this fragment
         val viewBinding = FragmentPalsBinding.inflate(inflater, container, false)
 
+        viewModel.fetchPals()
+
         viewBinding.palRecyclerView.layoutManager = LinearLayoutManager(context)
-        val adapter = PalsListAdapter()
+        val adapter = PalsListAdapter(context) { menuItem, pal ->
+            when (menuItem.itemId) {
+                R.id.pals_list_remove_item -> {
+                    viewModel.removePal(pal)
+                    true
+                }
+                else -> false
+            }
+        }
         viewBinding.palRecyclerView.adapter = adapter
 
         viewModel.palsLiveData.observe(viewLifecycleOwner) { adapter.submitList(it) }

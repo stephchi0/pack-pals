@@ -37,6 +37,17 @@
             android:textSize="24dp"
             android:text="Username" />
 
+        <ImageButton
+            android:id="@+id/trip_triple_dot_menu"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:layout_marginEnd="16dp"
+            android:background="@android:color/transparent"
+            android:clickable="true"
+            android:src="@drawable/ic_vert_black_dots_vector"
+            android:scaleType="centerCrop"
+            app:tint="@android:color/tab_indicator_text" />
+
     </LinearLayout>
 
 </androidx.cardview.widget.CardView>

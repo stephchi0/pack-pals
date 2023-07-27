@@ -1,5 +1,6 @@
 package com.example.packpals.viewmodels
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -22,7 +23,7 @@ class PalsFragmentViewModel @Inject constructor(private val palsRepo: PalsReposi
     val palsLiveData: LiveData<List<Pal>>
         get() = _palsLiveData
 
-    init {
+    fun fetchPals() {
         viewModelScope.launch {
             authRepo.getCurrentUID()?.let { id ->
                 val userPal = palsRepo.fetchPal(id)
@@ -38,6 +39,15 @@ class PalsFragmentViewModel @Inject constructor(private val palsRepo: PalsReposi
     fun filterPals(prefix: String) {
         _palsLiveData.value = palsList.filter { pal ->
             pal.name?.startsWith(prefix) == true
+        }
+    }
+
+    fun removePal(pal: Pal) {
+        viewModelScope.launch {
+            authRepo.getCurrentUID()?.let { id ->
+                pal.id?.let { palsRepo.removePalFromPalsList(id, it) }
+            }
+            fetchPals()
         }
     }
 }
